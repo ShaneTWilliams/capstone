@@ -1,4 +1,4 @@
 (sym_lib_table
   (version 7)
-  (lib (name "Capstone")(type "KiCad")(uri "/Users/shane/capstone/hardware/capstone.kicad_sym")(options "")(descr ""))
+  (lib (name "Capstone")(type "KiCad")(uri "/Users/shane/projects/capstone/hardware/capstone.kicad_sym")(options "")(descr ""))
 )
