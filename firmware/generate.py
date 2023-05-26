@@ -25,7 +25,7 @@ def make_reserved_field(offset, size):
 
 def generate_diagram(reg_name, reg_config, header):
     header.write("┌─\n")
-    header.write(f"│    {reg_name} @ {reg_config['address']:#04x}\n")
+    header.write(f"│    {reg_name} @ 0x{reg_config['offset']}\n")
 
     next_bit = (reg_config["size"] * 8) - 1
     fields_sorted = sorted(reg_config["fields"].items(), key=lambda x: -x[1]["offset"])
@@ -147,7 +147,7 @@ def generate_driver(path, header_dir):
     for reg_name, reg_config in config["registers"].items():
         generate_comment_block(f"REGISTER: {reg_name}", header)
         generate_comment_block(f"REGISTER: {reg_name}", source)
-        header.write(f"#define {reg_name}_ADDRESS {reg_config['address']}\n")
+        header.write(f"#define {reg_name}_ADDRESS 0x{reg_config['offset']}\n")
         header.write(f"#define {reg_name}_SIZE {reg_config['size']}\n\n")
 
         for field_name, field_config in reg_config["fields"].items():
@@ -169,10 +169,10 @@ def generate_driver(path, header_dir):
 
         read_signature = f"{io_status_type} {driver_name.lower()}_read_{reg_name.lower()}({dev_type} *dev"
         for field_name, field_config in reg_config["fields"].items():
-            read_signature += f", {type_from_size(field_config['size'] * 8)} *{field_name.lower()}"
+            read_signature += f", {type_from_size(field_config['size'])} *{field_name.lower()}"
         write_signature = f"{io_status_type} {driver_name.lower()}_write_{reg_name.lower()}({dev_type} *dev"
         for field_name, field_config in reg_config["fields"].items():
-            write_signature += f", {type_from_size(field_config['size'] * 8)} {field_name.lower()}"
+            write_signature += f", {type_from_size(field_config['size'])} {field_name.lower()}"
         header.write(read_signature + ");\n")
         header.write(write_signature + ");\n\n")
 
