@@ -244,7 +244,9 @@
   },
   "libraries": {
     "pinned_footprint_libs": [],
-    "pinned_symbol_libs": []
+    "pinned_symbol_libs": [
+      "Capstone"
+    ]
   },
   "meta": {
     "filename": "drone.kicad_pro",
@@ -326,6 +328,62 @@
     [
       "71f6a5b4-1ac6-435b-9486-30b16ab86e62",
       ""
+    ],
+    [
+      "efc3a469-3978-4553-a3e6-d0482807ddb8",
+      "ESC_FL"
+    ],
+    [
+      "a6608ad1-69a0-4d23-9644-6c2efafa5ff5",
+      "GPS"
+    ],
+    [
+      "2c81f013-3430-433c-abe0-42fcceae4b74",
+      "Video Radio"
+    ],
+    [
+      "9ba2378d-16cf-4aed-809c-215b19eeadaa",
+      "Digital Radio"
+    ],
+    [
+      "e9772b71-0bd3-420e-9bb6-e3f9bf412bf7",
+      "ESC_FR"
+    ],
+    [
+      "02ef7fb4-78b8-4901-8d85-c15732b4e435",
+      "LV Power"
+    ],
+    [
+      "fdfb7781-e4b6-4600-81c7-3705f0c2b582",
+      "MCU"
+    ],
+    [
+      "e763c7b0-792b-4a9b-a885-7de1fed95be3",
+      "USB and USB-PD"
+    ],
+    [
+      "1fffdcfb-a6c7-4a3c-aa2e-5ae87e2ce998",
+      "MCU IO"
+    ],
+    [
+      "46cd4623-be7a-4a19-9b38-60ae4f389fe5",
+      "IMU"
+    ],
+    [
+      "7c2bf60a-5675-4ede-a695-c9dae696829a",
+      "Indication"
+    ],
+    [
+      "85d5714d-6712-4e0f-b103-f1ddddbe30c2",
+      "ESC_RL"
+    ],
+    [
+      "09f5ba36-4ac4-468c-b029-df751afde754",
+      "Motors"
+    ],
+    [
+      "85fe4efa-dbee-48e5-aba5-a3d28a5e5bb2",
+      "ESC_RR"
     ]
   ],
   "text_variables": {}
