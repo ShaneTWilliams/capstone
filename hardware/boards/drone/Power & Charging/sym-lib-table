@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "P9221-RAHGI8")(type "KiCad")(uri "G:/My Drive/capstone_stefan/schematics/Power & Charging/P9221-RAHGI8/P9221-RAHGI8.kicad_sym")(options "")(descr ""))
+  (lib (name "power_and_charging")(type "KiCad")(uri "${KIPRJMOD}/power_and_charging.kicad_sym")(options "")(descr ""))
+)

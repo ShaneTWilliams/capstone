@@ -1,0 +1,21 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid b757c520-2eb2-4866-9791-8f84861caf32)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (text "NOTE: Placeholder until Shane can copy his stuff into here"
+    (at 118.11 76.2 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 14f44611-78dc-422e-8b2d-5bb0094d7c6d)
+  )
+
+  (hierarchical_label "VOUT" (shape output) (at 151.13 90.17 0) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify left))
+    (uuid 7e721937-20f7-4c94-bd18-bb670e1807e7)
+  )
+)
