@@ -1,0 +1,2604 @@
+{
+    "transport": "i2c",
+    "registers": {
+        "ISD_CONFIG": {
+            "address": "80",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "ISD_EN": {
+                    "offset": 30,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "BRAKE_EN": {
+                    "offset": 29,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "HIZ_EN": {
+                    "offset": 28,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "RVS_DR_EN": {
+                    "offset": 27,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "RESYNC_EN": {
+                    "offset": 26,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "STAT_BRAKE_EN": {
+                    "offset": 25,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "STAT_DETECT_THRESH": {
+                    "offset": 22,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STAT_DETECT_THRESH"
+                },
+                "BRAKE_MODE": {
+                    "offset": 21,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "BRAKE_TIME": {
+                    "offset": 13,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "BRAKE_TIME"
+                },
+                "HIZ_TIME": {
+                    "offset": 9,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "HIZ_TIME"
+                },
+                "STARTUP_BRAKE_TIME": {
+                    "offset": 6,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STARTUP_BRAKE_TIME"
+                },
+                "RESYNC_MIN_THRESH_OLD": {
+                    "offset": 3,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "RESYNC_MIN_THRESH_OLD"
+                },
+                "MTR_STARTUP": {
+                    "offset": 1,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "MTR_STARTUP"
+                }
+            }
+        },
+        "MOTOR_STARTUP1": {
+            "address": "82",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "ALIGN_RAMP_RATE": {
+                    "offset": 27,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "ALIGN_RAMP_RATE"
+                },
+                "ALIGN_TIME": {
+                    "offset": 23,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "ALIGN_TIME"
+                },
+                "ALIGN_CURR_THRESH": {
+                    "offset": 18,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "CURRENT_THRESH"
+                },
+                "ALIGN_DUTY": {
+                    "offset": 16,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "ALIGN_DUTY"
+                },
+                "IPD_CLK_FREG": {
+                    "offset": 13,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "IPD_CLK_FREG"
+                },
+                "IPD_CURR_THRESH": {
+                    "offset": 8,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "CURRENT_THRESH"
+                },
+                "IPD_ADV_ANGLE": {
+                    "offset": 6,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "IPD_ADV_ANGLE"
+                },
+                "IPD_REPEAT": {
+                    "offset": 4,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "IPD_REPEAT"
+                },
+                "SLOW_FIRST_CYC_FREQ": {
+                    "offset": 0,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "SLOW_FIRST_CYC_FREQ"
+                }
+            }
+        },
+        "MOTOR_STARTUP2": {
+            "address": "84",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "OL_DUTY": {
+                    "offset": 28,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "OL_DUTY"
+                },
+                "OL_LIMIT": {
+                    "offset": 23,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "CURRENT_THRESH"
+                },
+                "OL_ACCEL_A1": {
+                    "offset": 18,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "OPEN_LOOP_ACCEL"
+                },
+                "OL_ACCEL_A2": {
+                    "offset": 13,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "OPEN_LOOP_ACCEL"
+                },
+                "OPN_CL_HANDOFF_THRESH": {
+                    "offset": 8,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "OPN_CL_HANDOFF_THRESH"
+                },
+                "AUTO_HANDOFF": {
+                    "offset": 7,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FIRST_CYCLE_FREQ_SEL": {
+                    "offset": 6,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "MIN_DUTY": {
+                    "offset": 2,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "MIN_DUTY"
+                },
+                "OL_HANDOFF_CYCLES": {
+                    "offset": 0,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "OL_HANDOFF_CYCLES"
+                }
+            }
+        },
+        "CLOSED_LOOP1": {
+            "address": "86",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "COMM_CTRL": {
+                    "offset": 29,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "COMM_CTRL"
+                },
+                "CL_ACC": {
+                    "offset": 24,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "CLOSED_LOOP_ACCEL"
+                },
+                "CL_DEC_CNFG": {
+                    "offset": 23,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "CL_DEC": {
+                    "offset": 18,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "CLOSED_LOOP_ACCEL"
+                },
+                "PWM_FREQ_OUT": {
+                    "offset": 13,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "PWM_FREQ_OUT"
+                },
+                "PWM_MODUL": {
+                    "offset": 11,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "PWM_MODUL"
+                },
+                "PWM_MODE": {
+                    "offset": 10,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "LD_ANGLE_POLARITY": {
+                    "offset": 9,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "LD_ANGLE": {
+                    "offset": 1,
+                    "size": 8,
+                    "access": "rw"
+                }
+            }
+        },
+        "CLOSED_LOOP2": {
+            "address": "88",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FG_SEL": {
+                    "offset": 29,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "FG_SEL"
+                },
+                "FG_DIV_FACTOR": {
+                    "offset": 25,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "FG_DIV_FACTOR"
+                },
+                "DEAD_TIME_COMP": {
+                    "offset": 24,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FG_BEMF_THRESH": {
+                    "offset": 21,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "BEMF_THRESH"
+                },
+                "MTR_STOP": {
+                    "offset": 18,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "MTR_STOP"
+                },
+                "MTR_STOP_BRAKE_TIME": {
+                    "offset": 14,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "BRAKE_TIME"
+                },
+                "ACT_SPIN_BRAKE_THRESH": {
+                    "offset": 11,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "BRAKE_DUTY_THRESH"
+                },
+                "BRAKE_DUTY_THRESH": {
+                    "offset": 8,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "BRAKE_DUTY_THRESH"
+                },
+                "AVS_EN": {
+                    "offset": 7,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "CBC_ILIMIT": {
+                    "offset": 2,
+                    "size": 5,
+                    "access": "rw",
+                    "type": "CURRENT_THRESH"
+                },
+                "OL_ILIMIT_CNFG": {
+                    "offset": 1,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "INTEG_ZC_METHOD": {
+                    "offset": 0,
+                    "size": 1,
+                    "access": "rw"
+                }
+            }
+        },
+        "CLOSED_LOOP3": {
+            "address": "8A",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "INTEG_CYCL_THRESH_LOW": {
+                    "offset": 29,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "INTEG_CYCL_THRESH_LOW"
+                },
+                "INTEG_CYCL_THRESH_HIGH": {
+                    "offset": 27,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "INTEG_CYCL_THRESH_HIGH"
+                },
+                "INTEG_DUTY_THRESH_LOW": {
+                    "offset": 25,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "INTEG_DUTY_THRESH_LOW"
+                },
+                "INTEG_DUTY_THRESH_HIGH": {
+                    "offset": 23,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "INTEG_DUTY_THRESH_HIGH"
+                },
+                "BEMF_THRESH2": {
+                    "offset": 17,
+                    "size": 6,
+                    "access": "rw",
+                    "type": "BEMF_THRESH2"
+                },
+                "BEMF_THRESH1": {
+                    "offset": 11,
+                    "size": 6,
+                    "access": "rw",
+                    "type": "BEMF_THRESH1"
+                },
+                "DYN_DGS_FILT_COUNT": {
+                    "offset": 8,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "DYN_DGS_FILT_COUNT"
+                },
+                "DYN_DGS_UPPER_LIM": {
+                    "offset": 6,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "DYN_DGS_UPPER_LIM"
+                },
+                "DYN_DGS_LOWER_LIM": {
+                    "offset": 4,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "DYN_DGS_LOWER_LIM"
+                },
+                "DEGAUSS_MAX_WIN": {
+                    "offset": 1,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "DEGAUSS_MAX_WIN"
+                },
+                "DYN_DEGAUSS_EN": {
+                    "offset": 0,
+                    "size": 1,
+                    "access": "rw"
+                }
+            }
+        },
+        "CLOSED_LOOP4": {
+            "address": "8C",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DYN_VOLT_SCALING_EN": {
+                    "offset": 30,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "HIGH_RES_SAMP": {
+                    "offset": 29,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "AVS_LIMIT_HYST": {
+                    "offset": 28,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "AVS_NEG_CURR_LIMIT": {
+                    "offset": 25,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "AVS_NEG_CURR_LIMIT"
+                },
+                "FAST_DEC_DEG_TIME": {
+                    "offset": 20,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "FAST_DEC_DEG_TIME"
+                },
+                "WCOMP_BLANK_EN": {
+                    "offset": 19,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FAST_DEC_DUTY_WIN": {
+                    "offset": 16,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "FAST_DEC_DUTY_WIN"
+                },
+                "FAST_DEC_DUTY_THRESH": {
+                    "offset": 13,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "FAST_DEC_DUTY_THRESH"
+                },
+                "DYN_BRAKE_CURR_LOW_LIM": {
+                    "offset": 9,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "DYN_BRAKE_CURR_LOW_LIM"
+                },
+                "DYNAMIC_BRAKE_CURR": {
+                    "offset": 8,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FAST_DECEL_EN": {
+                    "offset": 7,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FAST_DECEL_CURR_LIM": {
+                    "offset": 3,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "FAST_DECEL_CURR_LIM"
+                },
+                "FAST_BRAKE_DELTA": {
+                    "offset": 0,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "FAST_BRAKE_DELTA"
+                }
+            }
+        },
+        "CONST_SPEED": {
+            "address": "8E",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "SPD_POWER_KP": {
+                    "offset": 20,
+                    "size": 10,
+                    "access": "rw"
+                },
+                "SPD_POWER_KI": {
+                    "offset": 8,
+                    "size": 12,
+                    "access": "rw"
+                },
+                "SPD_POWER_V_MAX": {
+                    "offset": 5,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "SPD_POWER_V_MAX"
+                },
+                "SPD_POWER_V_MIN": {
+                    "offset": 2,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "SPD_POWER_V_MIN"
+                },
+                "CLOSED_LOOP_MODE": {
+                    "offset": 0,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "CLOSED_LOOP_MODE"
+                }
+            }
+        },
+        "CONST_PWR": {
+            "address": "90",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "MAX_SPEED": {
+                    "offset": 15,
+                    "size": 16,
+                    "access": "rw"
+                },
+                "MAX_POWER": {
+                    "offset": 4,
+                    "size": 11,
+                    "access": "rw"
+                },
+                "LIM_HYST": {
+                    "offset": 2,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "LIM_HYST"
+                },
+                "MODE": {
+                    "offset": 0,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "MODE"
+                }
+            }
+        },
+        "STEP_DUTY": {
+            "address": "96",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "TWOPH_STEP0": {
+                    "offset": 28,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP1": {
+                    "offset": 25,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP2": {
+                    "offset": 22,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP3": {
+                    "offset": 19,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP4": {
+                    "offset": 16,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP5": {
+                    "offset": 13,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP6": {
+                    "offset": 10,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "TWOPH_STEP7": {
+                    "offset": 7,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                }
+            }
+        },
+        "STEP_DUTY": {
+            "address": "98",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "THREEPH_STEP0": {
+                    "offset": 28,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP1": {
+                    "offset": 25,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP2": {
+                    "offset": 22,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP3": {
+                    "offset": 19,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP4": {
+                    "offset": 16,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP5": {
+                    "offset": 13,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP6": {
+                    "offset": 10,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "THREEPH_STEP7": {
+                    "offset": 7,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "STEP_DUTY"
+                },
+                "LEAD_ANGLE_150DEG_ADV": {
+                    "offset": 5,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "LEAD_ANGLE"
+                }
+            }
+        },
+        "REF_PROFILES1": {
+            "address": "9A",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "REF_PROFILE_CONFIG": {
+                    "offset": 29,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "REF_PROFILE_CONFIG"
+                },
+                "DUTY_ON1": {
+                    "offset": 21,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_OFF1": {
+                    "offset": 13,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_CLAMP1": {
+                    "offset": 5,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_A": {
+                    "offset": 0,
+                    "size": 5,
+                    "access": "rw"
+                }
+            }
+        },
+        "REF_PROFILES2": {
+            "address": "9C",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DUTY_A": {
+                    "offset": 28,
+                    "size": 3,
+                    "access": "rw"
+                },
+                "DUTY_B": {
+                    "offset": 20,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_C": {
+                    "offset": 12,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_D": {
+                    "offset": 4,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_E": {
+                    "offset": 0,
+                    "size": 4,
+                    "access": "rw"
+                }
+            }
+        },
+        "REF_PROFILES3": {
+            "address": "9E",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DUTY_E": {
+                    "offset": 27,
+                    "size": 4,
+                    "access": "rw"
+                },
+                "DUTY_ON2": {
+                    "offset": 19,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_OFF2": {
+                    "offset": 11,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "DUTY_CLAMP2": {
+                    "offset": 3,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "STEP_HYST_BAND": {
+                    "offset": 1,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "STEP_HYST_BAND"
+                }
+            }
+        },
+        "REF_PROFILES4": {
+            "address": "A0",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "REF_OFF1": {
+                    "offset": 23,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "REF_CLAMP1": {
+                    "offset": 15,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "REF_A": {
+                    "offset": 7,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "REF_B": {
+                    "offset": 0,
+                    "size": 7,
+                    "access": "rw"
+                }
+            }
+        },
+        "REF_PROFILES5": {
+            "address": "A2",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "REF_B": {
+                    "offset": 30,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "REF_C": {
+                    "offset": 22,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "REF_D": {
+                    "offset": 14,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "REF_E": {
+                    "offset": 6,
+                    "size": 8,
+                    "access": "rw"
+                }
+            }
+        },
+        "REF_PROFILES6": {
+            "address": "A4",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "REF_OFF2": {
+                    "offset": 23,
+                    "size": 8,
+                    "access": "rw"
+                },
+                "REF_CLAMP2": {
+                    "offset": 15,
+                    "size": 8,
+                    "access": "rw"
+                }
+            }
+        },
+        "FAULT_CONFIG1": {
+            "address": "92",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "NO_MTR_DEG_TIME": {
+                    "offset": 28,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "NO_MTR_DEG_TIME"
+                },
+                "CBC_ILIMIT_MODE": {
+                    "offset": 24,
+                    "size": 4,
+                    "access": "rw"
+                },
+                "LOCK_ILIMIT": {
+                    "offset": 19,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "LOCK_ILIMIT"
+                },
+                "LOCK_ILIMIT_MODE": {
+                    "offset": 15,
+                    "size": 4,
+                    "access": "rw"
+                },
+                "LOCK_ILIMIT_DEG": {
+                    "offset": 11,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "LOCK_ILIMIT_DEG"
+                },
+                "CBC_RETRY_PWM_CYC": {
+                    "offset": 8,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "CBC_RETRY_PWM_CYC"
+                },
+                "MTR_LCK_MODE": {
+                    "offset": 3,
+                    "size": 4,
+                    "access": "rw"
+                },
+                "LCK_RETRY": {
+                    "offset": 0,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "LCK_RETRY"
+                }
+            }
+        },
+        "FAULT_CONFIG2": {
+            "address": "94",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "ABN_SPD_EN": {
+                    "offset": 30,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "LOSS_OF_SYNC_EN": {
+                    "offset": 29,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "NO_MOTOR_EN": {
+                    "offset": 28,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "LOCK_ABN_SPEED": {
+                    "offset": 24,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "LOCK_ABN_SPEED"
+                },
+                "LOSS_SYNC_TIMES": {
+                    "offset": 21,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "LOSS_SYNC_TIMES"
+                },
+                "NO_MTR_THRESH": {
+                    "offset": 18,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "NO_MTR_THRESH"
+                },
+                "MAX_VM_MODE": {
+                    "offset": 17,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "MAX_VM_MOTOR": {
+                    "offset": 14,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "MAX_VM_MOTOR"
+                },
+                "MIN_VM_MODE": {
+                    "offset": 13,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "MIN_VM_MOTOR": {
+                    "offset": 10,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "MIN_VM_MOTOR"
+                },
+                "AUTO_RETRY_TIMES": {
+                    "offset": 7,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "AUTO_RETRY_TIMES"
+                },
+                "LOCK_MIN_SPEED": {
+                    "offset": 4,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "LOCK_MIN_SPEED"
+                },
+                "ABN_LOCK_SPD_RATIO": {
+                    "offset": 2,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "ABN_LOCK_SPD_RATIO"
+                },
+                "ZERO_DUTY_THRESH": {
+                    "offset": 0,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "ZERO_DUTY_THRESH"
+                }
+            }
+        },
+        "PIN_CONFIG1": {
+            "address": "A6",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DACOUT_VAR_ADDR": {
+                    "offset": 19,
+                    "size": 12,
+                    "access": "rw"
+                },
+                "BRAKE_INPUT": {
+                    "offset": 5,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "BRAKE_INPUT"
+                },
+                "DIR_INPUT": {
+                    "offset": 3,
+                    "size": 2,
+                    "access": "rw"
+                },
+                "SPD_CTRL_MODE": {
+                    "offset": 1,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "SPD_CTRL_MODE"
+                }
+            }
+        },
+        "PIN_CONFIG2": {
+            "address": "A8",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DAC_SOX_ANA_CONFIG": {
+                    "offset": 29,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "DAC_SOX_ANA_CONFIG"
+                },
+                "SLEEP_TIME": {
+                    "offset": 27,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "SLEEP_TIME"
+                },
+                "I2C_TARGET_ADDR": {
+                    "offset": 20,
+                    "size": 7,
+                    "access": "rw"
+                },
+                "FG_CONFIG": {
+                    "offset": 13,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "FG_PIN_FAULT_CONFIG": {
+                    "offset": 11,
+                    "size": 2,
+                    "access": "rw"
+                },
+                "FG_PIN_STOP_CONFIG": {
+                    "offset": 9,
+                    "size": 2,
+                    "access": "rw"
+                },
+                "TBLANK": {
+                    "offset": 5,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "TBLANK"
+                },
+                "TPWDTH": {
+                    "offset": 2,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "TPWDTH"
+                },
+                "ZERO_DUTY_HYST": {
+                    "offset": 0,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "ZERO_DUTY_HYST"
+                }
+            }
+        },
+        "DEVICE_CONFIG": {
+            "address": "AA",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "INPUT_MAX_FREQUENCY": {
+                    "offset": 16,
+                    "size": 15,
+                    "access": "rw"
+                },
+                "STL_ENABLE": {
+                    "offset": 15,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "SSM_CONFIG": {
+                    "offset": 14,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DEV_MODE": {
+                    "offset": 11,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "SPD_PWM_RANGE_SELECT": {
+                    "offset": 10,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "CLK_SEL": {
+                    "offset": 8,
+                    "size": 2,
+                    "access": "rw"
+                },
+                "EXT_CLK_EN": {
+                    "offset": 7,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "EXT_CLK_CONFIG": {
+                    "offset": 4,
+                    "size": 3,
+                    "access": "rw",
+                    "type": "DEVICE_CONFIG_EXT_CLK_CONFIG"
+                },
+                "DIG_DEAD_TIME": {
+                    "offset": 0,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "DEVICE_CONFIG_DIG_DEAD_TIME"
+                }
+            }
+        },
+        "GD_CONFIG1": {
+            "address": "AC",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "VREF_SEL": {
+                    "offset": 18,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DIS_BST_FLT": {
+                    "offset": 16,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "OTS_AUTO_RECOVERY": {
+                    "offset": 15,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DIS_SNS_FLT": {
+                    "offset": 9,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "DIS_VDS_FLT": {
+                    "offset": 8,
+                    "size": 1,
+                    "access": "rw"
+                },
+                "SEL_VDS_LVL": {
+                    "offset": 3,
+                    "size": 4,
+                    "access": "rw",
+                    "type": "SEL_VDS_LVL"
+                },
+                "CSA_GAIN": {
+                    "offset": 0,
+                    "size": 2,
+                    "access": "rw",
+                    "type": "CSA_GAIN"
+                }
+            }
+        },
+        "GD_CONFIG2": {
+            "address": "AE",
+            "size": 4,
+            "fields": {
+                "PARITY": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "rw"
+                }
+            }
+        },
+        "GATE_DRIVER_FAULT_STATUS": {
+            "address": "E0",
+            "size": 4,
+            "fields": {
+                "DRIVER_FAULT": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "r"
+                },
+                "PWR_ON": {
+                    "offset": 30,
+                    "size": 1,
+                    "access": "r"
+                },
+                "OCP_VDS_FAULT": {
+                    "offset": 28,
+                    "size": 1,
+                    "access": "r"
+                },
+                "OCP_SNS_FAULT": {
+                    "offset": 27,
+                    "size": 1,
+                    "access": "r"
+                },
+                "BST_UV_FAULT": {
+                    "offset": 26,
+                    "size": 1,
+                    "access": "r"
+                },
+                "GVDO_UV_FAULT": {
+                    "offset": 25,
+                    "size": 1,
+                    "access": "r"
+                },
+                "DRV_OFF": {
+                    "offset": 24,
+                    "size": 1,
+                    "access": "r"
+                }
+            }
+        },
+        "CONTROLLER_FAULT_STATUS": {
+            "address": "E2",
+            "size": 4,
+            "fields": {
+                "CONTROLLER_FAULT": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "r"
+                },
+                "IPD_FREQ_FAULT": {
+                    "offset": 29,
+                    "size": 1,
+                    "access": "r"
+                },
+                "IPD_T1_FAULT": {
+                    "offset": 28,
+                    "size": 1,
+                    "access": "r"
+                },
+                "ABN_SPEED": {
+                    "offset": 23,
+                    "size": 1,
+                    "access": "r"
+                },
+                "LOSS_OF_SYNC": {
+                    "offset": 22,
+                    "size": 1,
+                    "access": "r"
+                },
+                "NO_MTR": {
+                    "offset": 21,
+                    "size": 1,
+                    "access": "r"
+                },
+                "MTR_LCK": {
+                    "offset": 20,
+                    "size": 1,
+                    "access": "r"
+                },
+                "CBC_ILIMIT": {
+                    "offset": 19,
+                    "size": 1,
+                    "access": "r"
+                },
+                "LOCK_ILIMIT": {
+                    "offset": 18,
+                    "size": 1,
+                    "access": "r"
+                },
+                "MTR_UNDER_VOLTAGE": {
+                    "offset": 17,
+                    "size": 1,
+                    "access": "r"
+                },
+                "MTR_OVER_VOLTAGE": {
+                    "offset": 16,
+                    "size": 1,
+                    "access": "r"
+                },
+                "STL_EN": {
+                    "offset": 2,
+                    "size": 1,
+                    "access": "r"
+                },
+                "STL_STATUS": {
+                    "offset": 1,
+                    "size": 1,
+                    "access": "r"
+                },
+                "APR_RESET": {
+                    "offset": 0,
+                    "size": 1,
+                    "access": "r"
+                }
+            }
+        },
+        "SYS_STATUS1": {
+            "address": "E4",
+            "size": 4,
+            "fields": {
+                "VOLT_MAG": {
+                    "offset": 16,
+                    "size": 16,
+                    "access": "r"
+                },
+                "SPEED_CMD": {
+                    "offset": 1,
+                    "size": 15,
+                    "access": "r"
+                },
+                "I2C_ENTRY_STATUS": {
+                    "offset": 0,
+                    "size": 1,
+                    "access": "r"
+                }
+            }
+        },
+        "SYS_STATUS2": {
+            "address": "EA",
+            "size": 4,
+            "fields": {
+                "STATE": {
+                    "offset": 28,
+                    "size": 4,
+                    "access": "r",
+                    "type": "STATE"
+                },
+                "STL_FAULT": {
+                    "offset": 17,
+                    "size": 1,
+                    "access": "r"
+                },
+                "MOTOR_SPEED": {
+                    "offset": 0,
+                    "size": 16,
+                    "access": "r"
+                }
+            }
+        },
+        "SYS_STATUS3": {
+            "address": "EC",
+            "size": 4,
+            "fields": {
+                "DC_BUS_CURR": {
+                    "offset": 16,
+                    "size": 16,
+                    "access": "r"
+                },
+                "DC_BATT_POW": {
+                    "offset": 0,
+                    "size": 16,
+                    "access": "r"
+                }
+            }
+        },
+        "ALGO_CTRL1": {
+            "address": "E6",
+            "size": 4,
+            "fields": {
+                "EEPROM_WRT": {
+                    "offset": 31,
+                    "size": 1,
+                    "access": "w"
+                },
+                "EEPROM_READ": {
+                    "offset": 30,
+                    "size": 1,
+                    "access": "w"
+                },
+                "CLR_FLT": {
+                    "offset": 29,
+                    "size": 1,
+                    "access": "w"
+                },
+                "CLR_FLT_RETRY_COUNT": {
+                    "offset": 28,
+                    "size": 1,
+                    "access": "w"
+                },
+                "EEPROM_WRITE_ACCESS_KEY": {
+                    "offset": 20,
+                    "size": 8,
+                    "access": "w"
+                },
+                "EXT_WD_STATUS_SET": {
+                    "offset": 0,
+                    "size": 1,
+                    "access": "w"
+                }
+            }
+        },
+        "DEVICE_CTRL": {
+            "address": "E8",
+            "size": 4,
+            "fields": {
+                "SPEED_CTRL": {
+                    "offset": 16,
+                    "size": 15,
+                    "access": "w"
+                },
+                "OVERRIDE": {
+                    "offset": 15,
+                    "size": 1,
+                    "access": "w"
+                }
+            }
+        },
+        "INPUT_DUTY": {
+            "address": "40C",
+            "size": 4,
+            "fields": {
+                "INPUT_DUTY": {
+                    "offset": 0,
+                    "size": 32,
+                    "access": "r"
+                }
+            }
+        },
+        "CURR_DUTY": {
+            "address": "512",
+            "size": 4,
+            "fields": {
+                "CURRENT_DUTY": {
+                    "offset": 0,
+                    "size": 32,
+                    "access": "r"
+                }
+            }
+        },
+        "SET_DUTY": {
+            "address": "522",
+            "size": 4,
+            "fields": {
+                "SET_DUTY": {
+                    "offset": 0,
+                    "size": 32,
+                    "access": "r"
+                }
+            }
+        },
+        "MOTOR_SPEED_PU": {
+            "address": "5CE",
+            "size": 4,
+            "fields": {
+                "MOTOR_SPEED_PU": {
+                    "offset": 0,
+                    "size": 32,
+                    "access": "r"
+                }
+            }
+        },
+        "DC_BUS_POWER_PU": {
+            "address": "714",
+            "size": 4,
+            "fields": {
+                "DC_BUS_POWER_PU": {
+                    "offset": 0,
+                    "size": 32,
+                    "access": "r"
+                }
+            }
+        }
+    },
+    "enums": {
+        "STAT_DETECT_THRESH": {
+            "5_MV": "0",
+            "10_MV": "1",
+            "15_MV": "2",
+            "20_MV": "3",
+            "25_MV": "4",
+            "30_MV": "5",
+            "50_MV": "6",
+            "100_MV": "7"
+        },
+        "BRAKE_TIME": {
+            "10_MS": "0",
+            "50_MS": "1",
+            "100_MS": "8",
+            "200_MS": "9",
+            "300_MS": "A",
+            "400_MS": "B",
+            "500_MS": "C",
+            "750_MS": "7",
+            "7500_MS": "D",
+            "1000_MS": "E",
+            "1500_MS": "F"
+        },
+        "HIZ_TIME": {
+            "10_MS": "0",
+            "50_MS": "1",
+            "100_MS": "2",
+            "200_MS": "3",
+            "300_MS": "4",
+            "400_MS": "5",
+            "500_MS": "6",
+            "750_MS": "7",
+            "1000_MS": "8",
+            "2000_MS": "9",
+            "3000_MS": "A",
+            "4000_MS": "B",
+            "5000_MS": "C",
+            "7500_MS": "D",
+            "10000_MS": "E",
+            "15000_MS": "F"
+        },
+        "STARTUP_BRAKE_TIME": {
+            "1_MS": "0",
+            "10_MS": "1",
+            "25_MS": "2",
+            "50_MS": "3",
+            "100_MS": "4",
+            "250_MS": "5",
+            "500_MS": "6",
+            "1000_MS": "7"
+        },
+        "RESYNC_MIN_THRESH_OLD": {
+            "MIN_DUTY_X_DC_BUS_VOLTAGE": "0",
+            "300_MV": "1",
+            "400_MV": "2",
+            "500_MV": "3",
+            "600_MV": "4",
+            "800_MV": "5",
+            "1000_MV": "6",
+            "1250_MV": "7"
+        },
+        "MTR_STARTUP": {
+            "ALIGN": "0",
+            "DOUBLE_ALIGN": "1",
+            "IPD": "2",
+            "SLOW_FIRST_CYCLE": "3"
+        },
+        "ALIGN_RAMP_RATE": {
+            "0_1_V_PER_S": "0",
+            "0_2_V_PER_S": "1",
+            "0_4_V_PER_S": "2",
+            "1_0_V_PER_S": "3",
+            "2_5_V_PER_S": "4",
+            "5_0_V_PER_S": "5",
+            "7_5_V_PER_S": "6",
+            "10_V_PER_S": "7",
+            "25_V_PER_S": "8",
+            "50_V_PER_S": "9",
+            "75_V_PER_S": "A",
+            "100_V_PER_S": "B",
+            "250_V_PER_S": "C",
+            "500_V_PER_S": "D",
+            "750_V_PER_S": "E",
+            "1000_V_PER_S": "F"
+        },
+        "ALIGN_TIME": {
+            "5_MS": "0",
+            "10_MS": "1",
+            "25_MS": "2",
+            "50_MS": "3",
+            "75_MS": "4",
+            "100_MS": "5",
+            "200_MS": "6",
+            "400_MS": "7",
+            "600_MS": "8",
+            "800_MS": "9",
+            "1000_MS": "A",
+            "2000_MS": "B",
+            "4000_MS": "C",
+            "6000_MS": "D",
+            "8000_MS": "E",
+            "10000_MS": "F"
+        },
+        "CURRENT_THRESH": {
+            "0_0_V": "0",
+            "0_1_V": "1",
+            "0_2_V": "2",
+            "0_3_V": "3",
+            "0_4_V": "4",
+            "0_5_V": "5",
+            "0_6_V": "6",
+            "0_7_V": "7",
+            "0_8_V": "8",
+            "0_9_V": "9",
+            "1_0_V": "A",
+            "1_1_V": "B",
+            "1_2_V": "C",
+            "1_3_V": "D",
+            "1_4_V": "E",
+            "1_5_V": "F",
+            "1_6_V": "10",
+            "1_7_V": "11",
+            "1_8_V": "12",
+            "1_9_V": "13",
+            "2_0_V": "14",
+            "2_1_V": "15",
+            "2_2_V": "16",
+            "2_3_V": "17",
+            "2_4_V": "18",
+            "2_5_V": "19",
+            "2_6_V": "1A",
+            "NA": "1F"
+        },
+        "ALIGN_DUTY": {
+            "10_PERCENT": "0",
+            "25_PERCENT": "1",
+            "50_PERCENT": "2",
+            "100_PERCENT": "3"
+        },
+        "IPD_CLK_FREG": {
+            "50_HZ": "0",
+            "100_HZ": "1",
+            "250_HZ": "2",
+            "500_HZ": "3",
+            "1000_HZ": "4",
+            "2000_HZ": "5",
+            "5000_HZ": "6",
+            "10000_HZ": "7"
+        },
+        "IPD_ADV_ANGLE": {
+            "0_DEG": "0",
+            "30_DEG": "1",
+            "60_DEG": "2",
+            "90_DEG": "3"
+        },
+        "IPD_REPEAT": {
+            "ONE": "0",
+            "AVG_TWO": "1",
+            "AVG_THREE": "2",
+            "AVG_FOUR": "3"
+        },
+        "SLOW_FIRST_CYC_FREQ": {
+            "0_05_HZ": "0",
+            "0_1_HZ": "1",
+            "0_25_HZ": "2",
+            "0_5_HZ": "3",
+            "1_HZ": "4",
+            "2_HZ": "5",
+            "3_HZ": "6",
+            "5_HZ": "7",
+            "10_HZ": "8",
+            "15_HZ": "9",
+            "25_HZ": "B",
+            "50_HZ": "C",
+            "100_HZ": "D",
+            "150_HZ": "E",
+            "200_HZ": "F"
+        },
+        "OL_DUTY": {
+            "10_PERCENT": "0",
+            "15_PERCENT": "1",
+            "20_PERCENT": "2",
+            "25_PERCENT": "3",
+            "30_PERCENT": "4",
+            "40_PERCENT": "5",
+            "50_PERCENT": "6",
+            "100_PERCENT": "7"
+        },
+        "OPEN_LOOP_ACCEL": {
+            "0_005_HZ_PER_S2": "0",
+            "0_01_HZ_PER_S2": "1",
+            "0_025_HZ_PER_S2": "2",
+            "0_05_HZ_PER_S2": "3",
+            "0_1_HZ_PER_S2": "4",
+            "0_25_HZ_PER_S2": "5",
+            "0_5_HZ_PER_S2": "6",
+            "1_0_HZ_PER_S2": "7",
+            "2_5_HZ_PER_S2": "8",
+            "5_0_HZ_PER_S2": "9",
+            "7_5_HZ_PER_S2": "A",
+            "10_0_HZ_PER_S2": "B",
+            "12_5_HZ_PER_S2": "C",
+            "15_0_HZ_PER_S2": "D",
+            "20_0_HZ_PER_S2": "E",
+            "30_HZ_PER_S2": "F",
+            "40_HZ_PER_S2": "10",
+            "50_HZ_PER_S2": "11",
+            "60_HZ_PER_S2": "12",
+            "75_HZ_PER_S2": "13",
+            "100_HZ_PER_S2": "14",
+            "125_HZ_PER_S2": "15",
+            "150_HZ_PER_S2": "16",
+            "175_HZ_PER_S2": "17",
+            "200_HZ_PER_S2": "18",
+            "250_HZ_PER_S2": "19",
+            "300_HZ_PER_S2": "1A",
+            "400_HZ_PER_S2": "1B",
+            "500_HZ_PER_S2": "1C",
+            "750_HZ_PER_S2": "1D",
+            "1000_HZ_PER_S2": "1E",
+            "32767_HZ_PER_S2": "1F"
+        },
+        "OPN_CL_HANDOFF_THRESH": {
+            "1_HZ": "0",
+            "4_HZ": "1",
+            "8_HZ": "2",
+            "12_HZ": "3",
+            "16_HZ": "4",
+            "20_HZ": "5",
+            "24_HZ": "6",
+            "28_HZ": "7",
+            "32_HZ": "8",
+            "36_HZ": "9",
+            "40_HZ": "A",
+            "45_HZ": "B",
+            "50_HZ": "C",
+            "55_HZ": "D",
+            "60_HZ": "E",
+            "65_HZ": "F",
+            "70_HZ": "10",
+            "75_HZ": "11",
+            "80_HZ": "12",
+            "85_HZ": "13",
+            "90_HZ": "14",
+            "100_HZ": "15",
+            "150_HZ": "16",
+            "200_HZ": "17",
+            "250_HZ": "18",
+            "300_HZ": "19",
+            "350_HZ": "1A",
+            "400_HZ": "1B",
+            "450_HZ": "1C",
+            "500_HZ": "1D",
+            "550_HZ": "1E",
+            "600_HZ": "1F"
+        },
+        "MIN_DUTY": {
+            "0_PERCENT": "0",
+            "1_5_PERCENT": "1",
+            "2_5_PERCENT": "2",
+            "3_PERCENT": "3",
+            "4_PERCENT": "4",
+            "5_PERCENT": "5",
+            "6_PERCENT": "6",
+            "7_PERCENT": "7",
+            "8_PERCENT": "8",
+            "9_PERCENT": "9",
+            "10_PERCENT": "A",
+            "12_PERCENT": "B",
+            "15_PERCENT": "C",
+            "17_5_PERCENT": "D",
+            "20_PERCENT": "E",
+            "25_PERCENT": "F"
+        },
+        "OL_HANDOFF_CYCLES": {
+            "3": "0",
+            "6": "1",
+            "12": "2",
+            "24": "3"
+        },
+        "COMM_CTRL": {
+            "120_DEG_COMMUTATION": "0",
+            "120_TO_150_DEG_COMMUTATION": "1",
+            "NA": "3"
+        },
+        "CLOSED_LOOP_ACCEL": {
+            "0_005_V_PER_S2": "0",
+            "0_01_V_PER_S2": "1",
+            "0_025_V_PER_S2": "2",
+            "0_05_V_PER_S2": "3",
+            "0_1_V_PER_S2": "4",
+            "0_25_V_PER_S2": "5",
+            "0_5_V_PER_S2": "6",
+            "1_0_V_PER_S2": "7",
+            "2_5_V_PER_S2": "8",
+            "5_0_V_PER_S2": "9",
+            "7_5_V_PER_S2": "A",
+            "10_0_V_PER_S2": "B",
+            "12_5_V_PER_S2": "C",
+            "15_V_PER_S2": "D",
+            "20_V_PER_S2": "E",
+            "30_V_PER_S2": "F",
+            "40_V_PER_S2": "10",
+            "50_V_PER_S2": "11",
+            "60_V_PER_S2": "12",
+            "75_V_PER_S2": "13",
+            "100_V_PER_S2": "14",
+            "125_V_PER_S2": "15",
+            "150_V_PER_S2": "16",
+            "175_V_PER_S2": "17",
+            "200_V_PER_S2": "18",
+            "250_V_PER_S2": "19",
+            "300_V_PER_S2": "1A",
+            "400_V_PER_S2": "1B",
+            "500_V_PER_S2": "1C",
+            "750_V_PER_S2": "1D",
+            "1000_V_PER_S2": "1E",
+            "32767_V_PER_S2": "1F"
+        },
+        "PWM_FREQ_OUT": {
+            "5_HZ": "0",
+            "6_HZ": "1",
+            "7_HZ": "2",
+            "8_HZ": "3",
+            "9_HZ": "4",
+            "10_HZ": "5",
+            "11_HZ": "6",
+            "12_HZ": "7",
+            "13_HZ": "8",
+            "14_HZ": "9",
+            "15_HZ": "A",
+            "16_HZ": "B",
+            "17_HZ": "C",
+            "18_HZ": "D",
+            "19_HZ": "E",
+            "20_HZ": "F",
+            "25_HZ": "10",
+            "30_HZ": "11",
+            "35_HZ": "12",
+            "40_HZ": "13",
+            "45_HZ": "14",
+            "50_HZ": "15",
+            "55_HZ": "16",
+            "60_HZ": "17",
+            "65_HZ": "18",
+            "70_HZ": "19",
+            "75_HZ": "1A",
+            "80_HZ": "1B",
+            "85_HZ": "1C",
+            "90_HZ": "1D",
+            "95_HZ": "1E",
+            "100_HZ": "1F"
+        },
+        "PWM_MODUL": {
+            "HS_MOD": "0",
+            "LS_MOD": "1",
+            "MIX_MOD": "2",
+            "NA": "3"
+        },
+        "FG_SEL": {
+            "FG_OL_CL": "0",
+            "FG_CL": "1",
+            "FG_OL": "2",
+            "NA": "3"
+        },
+        "FG_DIV_FACTOR": {
+            "DIV_3_2_POLE_X_THREE": "0",
+            "DIV_1": "1",
+            "DIV_2": "2",
+            "DIV_3": "3",
+            "DIV_4": "4",
+            "DIV_5": "5",
+            "DIV_6": "6",
+            "DIV_7": "7",
+            "DIV_8": "8",
+            "DIV_9": "9",
+            "DIV_10": "A",
+            "DIV_11": "B",
+            "DIV_12": "C",
+            "DIV_13": "D",
+            "DIV_14": "E",
+            "DIV_15": "F"
+        },
+        "BEMF_THRESH": {
+            "1_MV": "0",
+            "2_MV": "1",
+            "5_MV": "2",
+            "10_MV": "3",
+            "20_MV": "4",
+            "30_MV": "5",
+            "NA": "7"
+        },
+        "MTR_STOP": {
+            "HI_Z": "0",
+            "RECIRCULATION": "1",
+            "LS_BRAKING": "2",
+            "HS_BRAKING": "3",
+            "ACTIVE_SPIN_DOWN": "4",
+            "NA": "7"
+        },
+        "BRAKE_TIME": {
+            "1_MS": "0",
+            "2_MS": "1",
+            "5_MS": "2",
+            "10_MS": "3",
+            "15_MS": "4",
+            "25_MS": "5",
+            "50_MS": "6",
+            "75_MS": "7",
+            "100_MS": "8",
+            "250_MS": "9",
+            "500_MS": "A",
+            "1000_MS": "B",
+            "2500_MS": "C",
+            "5000_MS": "D",
+            "10000_MS": "E",
+            "15000_MS": "F"
+        },
+        "BRAKE_DUTY_THRESH": {
+            "IMMEDIATE": "0",
+            "50_PERCENT": "1",
+            "25_PERCENT": "2",
+            "15_PERCENT": "3",
+            "10_PERCENT": "4",
+            "7_5_PERCENT": "5",
+            "5_PERCENT": "6",
+            "2_5_PERCENT": "7"
+        },
+        "INTEG_CYCL_THRESH_LOW": {
+            "3": "0",
+            "4": "1",
+            "6": "2",
+            "8": "3"
+        },
+        "INTEG_CYCL_THRESH_HIGH": {
+            "4": "0",
+            "6": "1",
+            "8": "2",
+            "10": "3"
+        },
+        "INTEG_DUTY_THRESH_LOW": {
+            "12_PERCENT": "0",
+            "15_PERCENT": "1",
+            "18_PERCENT": "2",
+            "20_PERCENT": "3"
+        },
+        "INTEG_DUTY_THRESH_HIGH": {
+            "12_PERCENT": "0",
+            "15_PERCENT": "1",
+            "18_PERCENT": "2",
+            "20_PERCENT": "3"
+        },
+        "BEMF_THRESH2": {
+            "0": "0",
+            "25": "1",
+            "50": "2",
+            "75": "3",
+            "100": "4",
+            "125": "5",
+            "150": "6",
+            "175": "7",
+            "200": "8",
+            "225": "9",
+            "250": "A",
+            "275": "B",
+            "300": "C",
+            "325": "D",
+            "350": "E",
+            "375": "F",
+            "400": "10",
+            "425": "11",
+            "450": "12",
+            "475": "13",
+            "500": "14",
+            "525": "15",
+            "550": "16",
+            "575": "17",
+            "600": "18",
+            "625": "19",
+            "650": "1A",
+            "675": "1B",
+            "700": "1C",
+            "725": "1D",
+            "750": "1E",
+            "775": "1F",
+            "800": "20",
+            "850": "21",
+            "900": "22",
+            "950": "23",
+            "1000": "24",
+            "1050": "25",
+            "1100": "26",
+            "1150": "27",
+            "1200": "28",
+            "1250": "29",
+            "1300": "2A",
+            "1350": "2B",
+            "1400": "2C",
+            "1450": "2D",
+            "1500": "2E",
+            "1550": "2F",
+            "1600": "30",
+            "1700": "31",
+            "1800": "32",
+            "1900": "33",
+            "2000": "34",
+            "2100": "35",
+            "2200": "36",
+            "2300": "37",
+            "2400": "38",
+            "2600": "39",
+            "2800": "3A",
+            "3000": "3B",
+            "3200": "3C",
+            "3400": "3D",
+            "3600": "3E",
+            "3800": "3F"
+        },
+        "BEMF_THRESH1": {
+            "0": "0",
+            "25": "1",
+            "50": "2",
+            "75": "3",
+            "100": "4",
+            "125": "5",
+            "150": "6",
+            "175": "7",
+            "200": "8",
+            "225": "9",
+            "250": "A",
+            "275": "B",
+            "300": "C",
+            "325": "D",
+            "350": "E",
+            "375": "F",
+            "400": "10",
+            "425": "11",
+            "450": "12",
+            "475": "13",
+            "500": "14",
+            "525": "15",
+            "550": "16",
+            "575": "17",
+            "600": "18",
+            "625": "19",
+            "650": "1A",
+            "675": "1B",
+            "700": "1C",
+            "725": "1D",
+            "750": "1E",
+            "775": "1F",
+            "800": "20",
+            "850": "21",
+            "900": "22",
+            "950": "23",
+            "1000": "24",
+            "1050": "25",
+            "1100": "26",
+            "1150": "27",
+            "1200": "28",
+            "1250": "29",
+            "1300": "2A",
+            "1350": "2B",
+            "1400": "2C",
+            "1450": "2D",
+            "1500": "2E",
+            "1550": "2F",
+            "1600": "30",
+            "1700": "31",
+            "1800": "32",
+            "1900": "33",
+            "2000": "34",
+            "2100": "35",
+            "2200": "36",
+            "2300": "37",
+            "2400": "38",
+            "2600": "39",
+            "2800": "3A",
+            "3000": "3B",
+            "3200": "3C",
+            "3400": "3D",
+            "3600": "3E",
+            "3800": "3F"
+        },
+        "DYN_DGS_FILT_COUNT": {
+            "3": "0",
+            "6": "1",
+            "9": "2",
+            "12": "3",
+            "15": "4",
+            "20": "5",
+            "30": "6",
+            "40": "7"
+        },
+        "DYN_DGS_UPPER_LIM": {
+            "VM_MINUS_0_09_V": "0",
+            "VM_MINUS_0_12_V": "1",
+            "VM_MINUS_0_15_V": "2",
+            "VM_MINUS_0_18_V": "3"
+        },
+        "DYN_DGS_LOWER_LIM": {
+            "0_03_V": "0",
+            "0_06_V": "1",
+            "0_09_V": "2",
+            "0_12_V": "3"
+        },
+        "DEGAUSS_MAX_WIN": {
+            "22_5_DEG": "0",
+            "10_0_DEG": "1",
+            "15_0_DEG": "2",
+            "18_0_DEG": "3",
+            "30_0_DEG": "4",
+            "37_5_DEG": "5",
+            "45_0_DEG": "6",
+            "60_0_DEG": "7"
+        },
+        "AVS_NEG_CURR_LIMIT": {
+            "0": "0",
+            "NEG_60": "1",
+            "NEG_40": "2",
+            "NEG_30": "3",
+            "NEG_20": "4",
+            "NEG_10": "5",
+            "15": "6",
+            "30": "7"
+        },
+        "FAST_DEC_DEG_TIME": {
+            "2_US": "0",
+            "4_US": "1",
+            "8_US": "2",
+            "14_US": "3"
+        },
+        "FAST_DEC_DUTY_WIN": {
+            "0_PERCENT": "0",
+            "2_5_PERCENT": "1",
+            "5_PERCENT": "2",
+            "7_5_PERCENT": "3",
+            "10_PERCENT": "4",
+            "15_PERCENT": "5",
+            "20_PERCENT": "6",
+            "25_PERCENT": "7"
+        },
+        "FAST_DEC_DUTY_THRESH": {
+            "100_PERCENT": "0",
+            "95_PERCENT": "1",
+            "90_PERCENT": "2",
+            "85_PERCENT": "3",
+            "80_PERCENT": "4",
+            "75_PERCENT": "5",
+            "70_PERCENT": "6",
+            "65_PERCENT": "7"
+        },
+        "DYN_BRAKE_CURR_LOW_LIM": {
+            "NA": "0",
+            "0_1_V": "1",
+            "0_2_V": "2",
+            "0_3_V": "3",
+            "0_4_V": "4",
+            "0_5_V": "5",
+            "0_6_V": "6",
+            "0_7_V": "7",
+            "0_8_V": "8",
+            "0_9_V": "9",
+            "1_0_V": "A",
+            "1_1_V": "B",
+            "1_2_V": "C",
+            "1_3_V": "D",
+            "1_4_V": "E",
+            "1_5_V": "F"
+        },
+        "FAST_DECEL_CURR_LIM": {
+            "NA": "0",
+            "0_1_V": "1",
+            "0_2_V": "2",
+            "0_3_V": "3",
+            "0_4_V": "4",
+            "0_5_V": "5",
+            "0_6_V": "6",
+            "0_7_V": "7",
+            "0_8_V": "8",
+            "0_9_V": "9",
+            "1_0_V": "A",
+            "1_1_V": "B",
+            "1_2_V": "C",
+            "1_3_V": "D",
+            "1_4_V": "E",
+            "1_5_V": "F"
+        },
+        "FAST_BRAKE_DELTA": {
+            "0_PERCENT": "0",
+            "1_PERCENT": "1",
+            "1_5_PERCENT": "2",
+            "2_PERCENT": "3",
+            "2_5_PERCENT": "4",
+            "3_PERCENT": "5",
+            "4_PERCENT": "6",
+            "5_PERCENT": "7"
+        },
+        "SPD_POWER_V_MAX": {
+            "100_PERCENT": "0",
+            "95_PERCENT": "1",
+            "90_PERCENT": "2",
+            "85_PERCENT": "3",
+            "80_PERCENT": "4",
+            "75_PERCENT": "5",
+            "70_PERCENT": "6",
+            "65_PERCENT": "7"
+        },
+        "SPD_POWER_V_MIN": {
+            "0_PERCENT": "0",
+            "2_5_PERCENT": "1",
+            "5_PERCENT": "2",
+            "7_5_PERCENT": "3",
+            "10_PERCENT": "4",
+            "15_PERCENT": "5",
+            "20_PERCENT": "6",
+            "25_PERCENT": "7"
+        },
+        "CLOSED_LOOP_MODE": {
+            "DISABLED": "0",
+            "SPEED_LOOP": "1",
+            "POWER_LOOP": "2",
+            "RESERVED": "3"
+        },
+        "LIM_HYST": {
+            "5_PERCENT": "0",
+            "7_5_PERCENT": "1",
+            "10_PERCENT": "2",
+            "12_5_PERCENT": "3"
+        },
+        "MODE": {
+            "VOLTAGE_CTRL_MODE": "0",
+            "CL_LOOP_PWR_CTRL": "1",
+            "PWR_LIM_CTRL": "2"
+        },
+        "STEP_DUTY": {
+            "0_PERCENT": "0",
+            "50_PERCENT": "1",
+            "75_PERCENT": "2",
+            "83_75_PERCENT": "3",
+            "87_5_PERCENT": "4",
+            "93_75_PERCENT": "5",
+            "97_5_PERCENT": "6",
+            "99_PERCENT": "7"
+        },
+        "LEAD_ANGLE": {
+            "0_DEG": "0",
+            "5_DEG": "1",
+            "10_DEG": "2",
+            "15_DEG": "3"
+        },
+        "REF_PROFILE_CONFIG": {
+            "DUTY_CTRL_MODE": "0",
+            "LINEAR_MODE": "1",
+            "STAIRCASE_MODE": "2",
+            "FORWARD_REVERSE_MODE": "3"
+        },
+        "STEP_HYST_BAND": {
+            "0_PERCENT": "0",
+            "2_PERCENT": "1",
+            "4_PERCENT": "2",
+            "6_PERCENT": "3"
+        },
+        "NO_MTR_DEG_TIME": {
+            "1_MS": "0",
+            "10_MS": "1",
+            "25_MS": "2",
+            "50_MS": "3",
+            "100_MS": "4",
+            "250_MS": "5",
+            "500_MS": "6",
+            "1000_MS": "7"
+        },
+        "LOCK_ILIMIT": {
+            "0_0_V": "0",
+            "0_1_V": "1",
+            "0_2_V": "2",
+            "0_3_V": "3",
+            "0_4_V": "4",
+            "0_5_V": "5",
+            "0_6_V": "6",
+            "0_7_V": "7",
+            "0_8_V": "8",
+            "0_9_V": "9",
+            "1_0_V": "A",
+            "1_1_V": "B",
+            "1_2_V": "C",
+            "1_3_V": "D",
+            "1_4_V": "E",
+            "1_5_V": "F",
+            "1_6_V": "10",
+            "1_7_V": "11",
+            "1_8_V": "12",
+            "1_9_V": "13",
+            "2_0_V": "14",
+            "2_1_V": "15",
+            "2_2_V": "16",
+            "2_3_V": "17",
+            "2_4_V": "18",
+            "2_5_V": "19",
+            "2_6_V": "1A",
+            "2_7_V": "1B",
+            "NA": "1F"
+        },
+        "LOCK_ILIMIT_DEG": {
+            "1_MS": "0",
+            "2_MS": "1",
+            "5_MS": "2",
+            "10_MS": "3",
+            "25_MS": "4",
+            "50_MS": "5",
+            "75_MS": "6",
+            "100_MS": "7",
+            "250_MS": "8",
+            "500_MS": "9",
+            "1_S": "A",
+            "2_5_S": "B",
+            "5_S": "C",
+            "10_S": "D",
+            "25_S": "E",
+            "50_S": "F"
+        },
+        "CBC_RETRY_PWM_CYC": {
+            "0_PWM_CYC": "0",
+            "1_PWM_CYC": "1",
+            "2_PWM_CYC": "2",
+            "3_PWM_CYC": "3",
+            "4_PWM_CYC": "4",
+            "5_PWM_CYC": "5",
+            "6_PWM_CYC": "6",
+            "7_PWM_CYC": "7"
+        },
+        "LCK_RETRY": {
+            "100_MS": "0",
+            "500_MS": "1",
+            "1000_MS": "2",
+            "2000_MS": "3",
+            "3000_MS": "4",
+            "5000_MS": "5",
+            "7500_MS": "6",
+            "10000_MS": "7"
+        },
+        "LOCK_ABN_SPEED": {
+            "250_HZ": "0",
+            "500_HZ": "1",
+            "750_HZ": "2",
+            "1000_HZ": "3",
+            "1250_HZ": "4",
+            "1500_HZ": "5",
+            "1750_HZ": "6",
+            "2000_HZ": "7",
+            "2250_HZ": "8",
+            "2500_HZ": "9",
+            "2750_HZ": "A",
+            "3000_HZ": "B",
+            "3250_HZ": "C",
+            "3500_HZ": "D",
+            "3750_HZ": "E",
+            "4000_HZ": "F"
+        },
+        "LOSS_SYNC_TIMES": {
+            "2_TIMES": "0",
+            "3_TIMES": "1",
+            "4_TIMES": "2",
+            "5_TIMES": "3",
+            "6_TIMES": "4",
+            "7_TIMES": "5",
+            "8_TIMES": "6",
+            "9_TIMES": "7"
+        },
+        "NO_MTR_THRESH": {
+            "5_MV": "0",
+            "7_5_MV": "1",
+            "10_MV": "2",
+            "12_5_MV": "3",
+            "20_MV": "4",
+            "25_MV": "5",
+            "30_MV": "6",
+            "40_MV": "7"
+        },
+        "MAX_VM_MOTOR": {
+            "NO_LIMIT": "0",
+            "10_V": "1",
+            "15_V": "2",
+            "22_V": "3",
+            "32_V": "4",
+            "40_V": "5",
+            "50_V": "6",
+            "60_V": "7"
+        },
+        "MIN_VM_MOTOR": {
+            "NO_LIMIT": "0",
+            "5_V": "1",
+            "6_V": "2",
+            "7_V": "3",
+            "8_V": "4",
+            "10_V": "5",
+            "12_V": "6",
+            "15_V": "7"
+        },
+        "AUTO_RETRY_TIMES": {
+            "NO_LIMIT": "0",
+            "2_TIMES": "1",
+            "3_TIMES": "2",
+            "5_TIMES": "3",
+            "7_TIMES": "4",
+            "10_TIMES": "5",
+            "15_TIMES": "6",
+            "20_TIMES": "7"
+        },
+        "LOCK_MIN_SPEED": {
+            "0_5_HZ": "0",
+            "1_HZ": "1",
+            "2_HZ": "2",
+            "3_HZ": "3",
+            "5_HZ": "4",
+            "10_HZ": "5",
+            "15_HZ": "6",
+            "25_HZ": "7"
+        },
+        "ABN_LOCK_SPD_RATIO": {
+            "2_SPEED_RATIO": "0",
+            "4_SPEED_RATIO": "1",
+            "6_SPEED_RATIO": "2",
+            "8_SPEED_RATIO": "3"
+        },
+        "ZERO_DUTY_THRESH": {
+            "0_PERCENT": "0",
+            "1_PERCENT": "1",
+            "2_PERCENT": "2",
+            "2_5_PERCENT": "3"
+        },
+        "BRAKE_INPUT": {
+            "HARDWARE_BASED_BRAKE": "0",
+            "BRAKE_ALWAYS_ON": "1",
+            "BRAKE_ALWAYS_OFF": "2",
+            "NA": "3"
+        },
+        "SPD_CTRL_MODE": {
+            "ANALOG_MODE_SPEED_INPUT": "0",
+            "PWM_MODE_SPEED_INPUT": "1",
+            "I2C_MODE_SPEED_INPUT": "2",
+            "FREQ_MODE_SPEED_INPUT": "3"
+        },
+        "DAC_SOX_ANA_CONFIG": {
+            "DACOUT": "0",
+            "CSA_OUT": "1",
+            "ANA_ON_PIN": "2",
+            "NA": "3"
+        },
+        "SLEEP_TIME": {
+            "50_US": "0",
+            "200_US": "1",
+            "20_MS": "2",
+            "200_MS": "3"
+        },
+        "TBLANK": {
+            "0_US": "0",
+            "1_US": "1",
+            "2_US": "2",
+            "3_US": "3",
+            "4_US": "4",
+            "5_US": "5",
+            "6_US": "6",
+            "7_US": "7",
+            "8_US": "8",
+            "9_US": "9",
+            "10_US": "A",
+            "11_US": "B",
+            "12_US": "C",
+            "13_US": "D",
+            "14_US": "E",
+            "15_US": "F"
+        },
+        "TPWDTH": {
+            "0_US": "0",
+            "1_US": "1",
+            "2_US": "2",
+            "3_US": "3",
+            "4_US": "4",
+            "5_US": "5",
+            "6_US": "6",
+            "7_US": "7"
+        },
+        "ZERO_DUTY_HYST": {
+            "0_PERCENT": "0",
+            "2_PERCENT": "1",
+            "4_PERCENT": "2",
+            "6_PERCENT": "3"
+        },
+        "DEVICE_CONFIG_EXT_CLK_CONFIG": {
+            "8_KHZ": "0",
+            "16_KHZ": "1",
+            "32_KHZ": "2",
+            "64_KHZ": "3",
+            "128_KHZ": "4",
+            "256_KHZ": "5",
+            "512_KHZ": "6",
+            "1024_KHZ": "7"
+        },
+        "DEVICE_CONFIG_DIG_DEAD_TIME": {
+            "0_NS": "0",
+            "50_NS": "1",
+            "100_NS": "2",
+            "150_NS": "3",
+            "200_NS": "4",
+            "250_NS": "5",
+            "300_NS": "6",
+            "350_NS": "7",
+            "400_NS": "8",
+            "450_NS": "9",
+            "500_NS": "A",
+            "600_NS": "B",
+            "700_NS": "C",
+            "800_NS": "D",
+            "900_NS": "E",
+            "1000_NS": "F"
+        },
+        "SEL_VDS_LVL": {
+            "0_06_V": "0",
+            "0_12_V": "1",
+            "0_18_V": "2",
+            "0_24_V": "3",
+            "0_3_V": "4",
+            "0_36_V": "5",
+            "0_42_V": "6",
+            "0_48_V": "7",
+            "0_6_V": "8",
+            "0_8_V": "9",
+            "1_0_V": "A",
+            "1_2_V": "B",
+            "1_4_V": "C",
+            "1_6_V": "D",
+            "1_8_V": "E",
+            "2_0_V": "F"
+        },
+        "CSA_GAIN": {
+            "5_GAIN": "0",
+            "10_GAIN": "1",
+            "20_GAIN": "2",
+            "40_GAIN": "3"
+        },
+        "STATE": {
+            "SYSTEM_IDLE": "0",
+            "MOTOR_START": "1",
+            "MOTOR_RUN": "2",
+            "SYSTEM_INIT": "3",
+            "MOTOR_IPD": "4",
+            "MOTOR_ALIGN": "5",
+            "MOTOR_IDLE": "6",
+            "MOTOR_STOP": "7",
+            "FAULT": "8",
+            "MOTOR_DIRECTION": "9",
+            "HALL_ALIGN": "A",
+            "MOTOR_CALIBRATE": "C",
+            "MOTOR_DESCEL": "D",
+            "MOTOR_BRAKE": "E",
+            "NA": "F"
+        }
+    }
+}

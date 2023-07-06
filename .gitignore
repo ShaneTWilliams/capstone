@@ -3,3 +3,9 @@
 *-cache
 \#auto_saved_files#
 firmware/output
+.vscode
+software/firmware/drivers/output
+build
+*.egg-info
+__pycache__
+software/python/capstone/proto
