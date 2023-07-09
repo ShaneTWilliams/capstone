@@ -60,4 +60,9 @@
   (pad "7" smd roundrect (at 0.985 -0.25) (size 0.76 0.28) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.04) (tstamp bc5c2174-da57-4239-a4bf-469b8dcd06c4))
   (pad "8" smd roundrect (at 0.985 -0.75) (size 0.76 0.28) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.04) (tstamp bbf23126-222f-48b2-b5e4-de1fd74313c4))
   (pad "9" smd rect (at 0 0) (size 0.9 1.6) (layers "F.Cu" "F.Mask") (tstamp 727c793e-220d-4714-9c67-81f32cfa091c))
+  (model "${KIPRJMOD}/../../models/SON50P200X200X80-9N.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
 )

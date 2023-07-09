@@ -967,8 +967,8 @@
     (property "Datasheet" "~" (at 133.985 87.63 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 130c4a3a-4024-492b-bd4f-dcc7cab40ea1))
-    (pin "2" (uuid 588870bc-bc78-4329-9d0b-3112aba166ab))
+    (pin "1" (uuid 99b5eaf1-4d51-425d-86c3-ddd09b133d21))
+    (pin "2" (uuid 334559a6-cb0f-453f-9427-ab9519f9ea40))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -990,7 +990,7 @@
     (property "Value" "6.8u" (at 120.523 131.445 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "capstone:MHCB06030" (at 120.65 130.175 0)
+    (property "Footprint" "capstone:IND_LQH5BPN6R8NT0L" (at 120.65 130.175 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 120.65 130.175 0)
@@ -1028,8 +1028,8 @@
     (property "Datasheet" "~" (at 143.51 83.82 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 9b966e32-3ed4-4f5e-893e-16647e8990f9))
-    (pin "2" (uuid d3f05357-d4e1-46a4-bb5d-70400f4896fe))
+    (pin "1" (uuid 2cc50c16-9de9-4b7a-94b2-53773d41056b))
+    (pin "2" (uuid 205638ec-7428-4fb5-9953-474ad8323f5b))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1057,7 +1057,7 @@
     (property "Datasheet" "" (at 155.575 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 4b896bc8-7f9b-4f07-8855-149c303c23ef))
+    (pin "1" (uuid fd7bb61a-521f-486b-b544-e9bb3e0defa6))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1192,7 +1192,7 @@
     (property "Value" "4.7u" (at 119.888 76.835 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "capstone:MHCB06030" (at 120.015 75.565 0)
+    (property "Footprint" "capstone:IND_LQH5BPN6R8NT0L" (at 120.015 75.565 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 120.015 75.565 0)
@@ -1201,8 +1201,8 @@
     (property "PN" "MHCB06030" (at 120.015 78.105 90)
       (effects (font (size 1.27 1.27)))
     )
-    (pin "1" (uuid 3d44ef61-4964-496d-aba2-d33aa6658a94))
-    (pin "2" (uuid d7b056a4-0deb-4b4f-b77d-556658122240))
+    (pin "1" (uuid b2bb5d99-db33-40c9-a901-aeac1b38c446))
+    (pin "2" (uuid 7c072bc7-a7a3-4025-95fa-ecd4944bee87))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1230,8 +1230,8 @@
     (property "Datasheet" "~" (at 80.645 71.755 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 4268260e-508b-4cdf-91ef-cae87edb4080))
-    (pin "2" (uuid 0f44313c-4720-4931-9eac-a72e71c75ace))
+    (pin "1" (uuid d03f1ced-7a97-4e4b-8673-dab21c29cc0f))
+    (pin "2" (uuid dd1e7516-84a0-47b2-bcc5-ee2b18467e1e))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1309,7 +1309,7 @@
     (property "Value" "INA2180A3IDSGR" (at 211.5059 96.52 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 212.09 106.045 0)
+    (property "Footprint" "capstone:SON50P200X200X80-9N" (at 212.09 106.045 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (at 212.09 106.045 0)
@@ -1435,8 +1435,8 @@
     (property "Datasheet" "~" (at 155.575 83.82 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid e1b710e6-7562-47d4-a65d-abca60d047de))
-    (pin "2" (uuid 5ff2a787-5754-4d44-9b7a-c69bffc254e8))
+    (pin "1" (uuid 6a8e26e1-696d-4b67-954c-e62c7685a3b4))
+    (pin "2" (uuid 07fa6cfe-c508-468e-8d08-aba08edc4364))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1464,8 +1464,8 @@
     (property "Datasheet" "~" (at 125.095 71.12 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 4bda7ac2-0ba2-4a7b-8c73-728a1308814b))
-    (pin "2" (uuid 3c4aa629-8daa-4132-afc6-00a0c1d5a652))
+    (pin "1" (uuid a456dbd1-d2a0-47c3-8c97-21b2537c0db9))
+    (pin "2" (uuid 285ee165-1abf-47e0-96cb-b0e4e4188b61))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1522,7 +1522,7 @@
     (property "Datasheet" "" (at 67.31 67.31 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 78064810-d6ac-4caa-9a59-7b31ee9de3c5))
+    (pin "1" (uuid 479e00f5-7f9c-4f4f-8853-790bb044f0e3))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1579,7 +1579,7 @@
     (property "Datasheet" "" (at 105.41 92.075 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid e2f5ab40-94a5-4972-a3a7-2372ef2fd064))
+    (pin "1" (uuid d2b6bbc7-c624-4044-8ba6-bd0be96bd68e))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1607,8 +1607,8 @@
     (property "Datasheet" "~" (at 125.095 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 76bb0956-4d9a-4456-9fe6-1b66017182d9))
-    (pin "2" (uuid ff7cbe4c-345a-4423-85e4-00a144387ab2))
+    (pin "1" (uuid 08099f99-c899-46a6-921a-64e9c5ba2c69))
+    (pin "2" (uuid 8624dd17-fbc3-485a-acdf-790599c65c3d))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1701,8 +1701,8 @@
     (property "Datasheet" "~" (at 133.985 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 4c4fd05a-1d05-43b0-a2d3-1dbd59017df5))
-    (pin "2" (uuid 89d37cf3-fff9-46ab-96d4-6538461a747d))
+    (pin "1" (uuid 7e9fb540-91de-4fd9-afdd-06dc62f8a26f))
+    (pin "2" (uuid 7d9df302-40af-4395-8ee7-027861795316))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -1759,15 +1759,15 @@
     (property "Datasheet" "" (at 105.41 78.105 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid f1e4852b-5a88-445a-a716-3282496e81b3))
-    (pin "2" (uuid bdd4be08-d32e-4497-93b9-9e5a10387685))
-    (pin "3" (uuid 03e79b8e-7bc4-4271-9642-7f022a430880))
-    (pin "4" (uuid 4e619b84-f5cc-42db-a9b6-d38383fd5bfb))
-    (pin "5" (uuid 72689e62-90c0-400f-ab59-ae52917d722e))
-    (pin "6" (uuid b487efcf-cad4-44f1-b7c9-ea976d3ebe9d))
-    (pin "7" (uuid f618b8ee-0481-4e67-97e4-dc674fe83960))
-    (pin "8" (uuid 752c7355-5631-4592-81aa-23da2c450341))
-    (pin "9" (uuid 2b8b9479-5a1a-4975-95be-f1aee181c341))
+    (pin "1" (uuid c07bf957-8cb5-4dfd-aa80-28ec8408d045))
+    (pin "2" (uuid bdc76382-809b-4220-9ce7-d1506e1aec6e))
+    (pin "3" (uuid 0053d61a-46fc-4848-857b-8626358f7bbc))
+    (pin "4" (uuid d644a9ec-0267-4ebd-a554-82c8cef692a6))
+    (pin "5" (uuid aa1b4407-21a6-494e-89ed-8cd5a61dabb7))
+    (pin "6" (uuid 2e731346-8986-4ac8-85a5-32df32568df8))
+    (pin "7" (uuid 149d048c-7697-4229-90b3-4cccce712beb))
+    (pin "8" (uuid 44e1143c-9287-4869-a81b-58d030615198))
+    (pin "9" (uuid dfd21032-084b-4ada-a5e5-698533db0dfc))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"

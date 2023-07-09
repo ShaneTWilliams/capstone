@@ -1754,7 +1754,7 @@
     (property "Value" "1n" (at 224.79 93.345 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 228.9048 84.455 0)
+    (property "Footprint" "Capacitor_SMD:C_0201_0603Metric" (at 228.9048 84.455 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 229.87 88.265 0)
@@ -2167,8 +2167,8 @@
     (property "Datasheet" "~" (at 112.395 97.155 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 0e1f7b05-3c36-4f66-8a75-02fa492de650))
-    (pin "2" (uuid 1dbfdda4-5e6e-454b-b9a1-970c8f037d00))
+    (pin "1" (uuid 74128d43-72e7-47ac-8c11-a12aa05c5fbc))
+    (pin "2" (uuid db42d963-a4ac-485f-b111-ca4efc4dd535))
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62"
@@ -2438,7 +2438,7 @@
     (property "Value" "U.FL" (at 274.32 81.915 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical" (at 271.78 79.375 0)
+    (property "Footprint" "capstone:U.FL-R-SMT-1(60)" (at 271.78 79.375 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" " ~" (at 271.78 79.375 0)

@@ -63,4 +63,9 @@
       )
     )
   )
+  (model "${KIPRJMOD}/../../models/U.FL-R-SMT-1(60).step"
+    (offset (xyz -55.25 -1.1 22.5))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 90 0 0))
+  )
 )

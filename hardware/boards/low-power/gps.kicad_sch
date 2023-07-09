@@ -547,7 +547,7 @@
     (property "Value" "L80-R" (at 165.1 118.11 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "RF_GPS:Quectel_L80-R" (at 154.94 129.54 0)
+    (property "Footprint" "capstone:Quectel_L80-R" (at 154.94 129.54 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "https://www.quectel.com/UploadImage/Downlad/Quectel_L80-R_Hardware_Design_V1.2.pdf" (at 154.94 106.68 0)

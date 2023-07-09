@@ -70,7 +70,10 @@
   (pad "14" smd roundrect (at 1.185 -0.75) (size 0.86 0.26) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.03) (tstamp 51273618-d1f8-4fa2-ae04-8121f7605770))
   (pad "15" smd roundrect (at 1.185 -1.25) (size 0.86 0.26) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.03) (tstamp 1f200e27-f206-4644-a305-f5575d880f2b))
   (pad "16" smd roundrect (at 0.25 -1.685) (size 0.26 0.86) (layers "F.Cu" "F.Paste" "F.Mask") (roundrect_rratio 0.11) (tstamp dc0f71ec-5f06-41bc-be78-80f481058b07))
-  (pad "17" thru_hole circle (at 0 -0.75) (size 0.3 0.3) (drill 0.2) (layers "*.Cu") (tstamp 2cec8aa5-bbee-49ba-b375-20571498553c))
   (pad "17" smd rect (at 0 0) (size 1 2) (layers "F.Cu" "F.Mask") (tstamp d15abde7-87da-4a65-a46e-4162134b4910))
-  (pad "17" thru_hole circle (at 0 0.75) (size 0.3 0.3) (drill 0.2) (layers "*.Cu") (tstamp bb0d9aff-9dbe-4822-91f0-9be2c7b37150))
+  (model "${KIPRJMOD}/../../models/QFN50P350X250X80-17N.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
 )

@@ -70,7 +70,7 @@
       )
     )
   )
-  (model "${KIPRJMOD}/notch-serial-3d/X322512MSB4SI.step"
+  (model "${KIPRJMOD}/../../models/X322512MSB4SI.step"
     (offset (xyz 0 0 0))
     (scale (xyz 1 1 1))
     (rotate (xyz -90 0 0))

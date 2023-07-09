@@ -5,11 +5,11 @@
       (effects (font (size 1 1) (thickness 0.1)))
     (tstamp d77964d1-6a4d-47d6-8031-24572af1d9cc)
   )
-  (fp_text value "TX5813" (at 0 49.3 unlocked) (layer "F.Fab")
+  (fp_text value "TX5813" (at 4.8 6.55 unlocked) (layer "F.Fab")
       (effects (font (size 1 1) (thickness 0.15)))
     (tstamp e5593639-7e9e-4594-8c7f-cabe552110a4)
   )
-  (fp_text user "${REFERENCE}" (at 0 50.8 unlocked) (layer "F.Fab")
+  (fp_text user "${REFERENCE}" (at 4.8 8.05 unlocked) (layer "F.Fab")
       (effects (font (size 1 1) (thickness 0.15)))
     (tstamp 24f1b467-4d49-4c37-a731-4a39b3267399)
   )
@@ -42,7 +42,7 @@
   (zone (net 0) (net_name "") (layers "F.Cu" "F.SilkS") (tstamp 65467623-00bd-4468-a643-73b1371d7d37) (hatch edge 0.5)
     (connect_pads (clearance 0))
     (min_thickness 0.25) (filled_areas_thickness no)
-    (keepout (tracks not_allowed) (vias not_allowed) (pads not_allowed) (copperpour allowed) (footprints allowed))
+    (keepout (tracks not_allowed) (vias not_allowed) (pads allowed) (copperpour allowed) (footprints allowed))
     (fill (thermal_gap 0.5) (thermal_bridge_width 0.5))
     (polygon
       (pts
@@ -52,5 +52,10 @@
         (xy 17 -13.99)
       )
     )
+  )
+  (model "/Users/shane/projects/capstone/hardware/models/tx5823.step"
+    (offset (xyz 6 4.75 0))
+    (scale (xyz 0.85 1 1))
+    (rotate (xyz -90 0 -90))
   )
 )
