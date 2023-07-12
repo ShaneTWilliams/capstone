@@ -471,6 +471,58 @@
         )
       )
     )
+    (symbol "power:+3.3V" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
+      (property "Reference" "#PWR" (at 0 -3.81 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Value" "+3.3V" (at 0 3.556 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "global power" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Power symbol creates a global label with name \"+3.3V\"" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "+3.3V_0_1"
+        (polyline
+          (pts
+            (xy -0.762 1.27)
+            (xy 0 2.54)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 2.54)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy 0 2.54)
+            (xy 0.762 1.27)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+      )
+      (symbol "+3.3V_1_1"
+        (pin power_in line (at 0 0 90) (length 0) hide
+          (name "+3.3V" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
     (symbol "power:GND" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
       (property "Reference" "#PWR" (at 0 -6.35 0)
         (effects (font (size 1.27 1.27)) hide)
@@ -642,6 +694,9 @@
   (junction (at 69.85 90.17) (diameter 0) (color 0 0 0 0)
     (uuid 35405bc2-0dbb-42f8-88af-3202a5b938cb)
   )
+  (junction (at 173.355 67.31) (diameter 0) (color 0 0 0 0)
+    (uuid 35cd504d-e262-48fb-8890-1b0c1e702e01)
+  )
   (junction (at 101.6 85.09) (diameter 0) (color 0 0 0 0)
     (uuid 386e5f86-fae9-4497-925f-c433d9686da9)
   )
@@ -651,14 +706,8 @@
   (junction (at 58.42 90.17) (diameter 0) (color 0 0 0 0)
     (uuid 3a5079cc-2c4e-44c9-80f2-c15dff440b6e)
   )
-  (junction (at 168.91 67.31) (diameter 0) (color 0 0 0 0)
-    (uuid 52e076b1-ef97-4a0c-be32-7f6bc9be95ac)
-  )
   (junction (at 101.6 110.49) (diameter 0) (color 0 0 0 0)
     (uuid 537aa6c6-ecb7-4df4-a1c7-674739918e6c)
-  )
-  (junction (at 166.37 92.71) (diameter 0) (color 0 0 0 0)
-    (uuid 55ffbb05-ca48-4eaa-8b06-691853617f7c)
   )
   (junction (at 199.39 121.92) (diameter 0) (color 0 0 0 0)
     (uuid 5a5ffbe8-ca5b-4f72-89c9-7383d8165f15)
@@ -669,11 +718,17 @@
   (junction (at 185.42 106.68) (diameter 0) (color 0 0 0 0)
     (uuid 60d65b43-ffb9-42e4-892a-bf928e1096e3)
   )
+  (junction (at 193.675 55.245) (diameter 0) (color 0 0 0 0)
+    (uuid 7c1b6c6b-dc67-490a-b878-18851b4a31d5)
+  )
   (junction (at 199.39 67.31) (diameter 0) (color 0 0 0 0)
     (uuid 89f73a40-648e-4165-a822-4da53016d497)
   )
   (junction (at 185.42 128.27) (diameter 0) (color 0 0 0 0)
     (uuid 907b6e64-f7ae-4ff5-899e-35afecaeb7e1)
+  )
+  (junction (at 165.735 88.9) (diameter 0) (color 0 0 0 0)
+    (uuid 9313f976-34ff-4fa6-93c5-4878c381729f)
   )
   (junction (at 165.1 128.27) (diameter 0) (color 0 0 0 0)
     (uuid 931d8e5a-7a4c-4daf-ad0b-6e775ac368df)
@@ -683,9 +738,6 @@
   )
   (junction (at 101.6 104.14) (diameter 0) (color 0 0 0 0)
     (uuid 99d836b3-8357-4961-8362-db8a2cc4cd6a)
-  )
-  (junction (at 179.07 88.9) (diameter 0) (color 0 0 0 0)
-    (uuid 9b547c23-f8fb-4a2b-9345-07898b0cba99)
   )
   (junction (at 148.59 138.43) (diameter 0) (color 0 0 0 0)
     (uuid 9c8f9840-79a3-48c8-bdca-2b0863474fde)
@@ -699,17 +751,29 @@
   (junction (at 138.43 143.51) (diameter 0) (color 0 0 0 0)
     (uuid adf8fbeb-3c16-4f3a-a125-4d90aa463d06)
   )
+  (junction (at 193.675 83.82) (diameter 0) (color 0 0 0 0)
+    (uuid ae9c01df-bc9c-45ce-8ef8-90516358579f)
+  )
   (junction (at 232.41 96.52) (diameter 0) (color 0 0 0 0)
     (uuid b18801ca-a4a8-434f-b10b-8057c5ad87bc)
   )
-  (junction (at 180.34 67.31) (diameter 0) (color 0 0 0 0)
-    (uuid c9fcf76e-34e2-4f7e-a395-8156d4a6f926)
+  (junction (at 184.15 92.71) (diameter 0) (color 0 0 0 0)
+    (uuid b6d11df6-77ee-4ba4-939e-be77b8e06e75)
   )
   (junction (at 101.6 118.11) (diameter 0) (color 0 0 0 0)
     (uuid d45340d1-ef89-40c2-878e-472624ff1226)
   )
+  (junction (at 163.83 67.31) (diameter 0) (color 0 0 0 0)
+    (uuid d9da1a8e-5466-4f8b-83d2-4dcf606d31e3)
+  )
   (junction (at 69.85 80.01) (diameter 0) (color 0 0 0 0)
     (uuid e47d788f-c7a6-486a-a42d-55789540b87e)
+  )
+  (junction (at 189.23 55.245) (diameter 0) (color 0 0 0 0)
+    (uuid e854f608-cd11-4156-b23c-06221ecbaf75)
+  )
+  (junction (at 189.23 88.9) (diameter 0) (color 0 0 0 0)
+    (uuid ef0c04ab-401d-4833-af68-8f4d1c853c03)
   )
   (junction (at 199.39 106.68) (diameter 0) (color 0 0 0 0)
     (uuid f8867d4c-a3d7-483b-919a-31338f6d8518)
@@ -717,16 +781,15 @@
   (junction (at 168.91 106.68) (diameter 0) (color 0 0 0 0)
     (uuid fc7dfdbd-3776-4a1b-9b07-40488f43d782)
   )
+  (junction (at 165.735 92.71) (diameter 0) (color 0 0 0 0)
+    (uuid fe360f57-e2c2-4fee-b13e-045399a0c13c)
+  )
 
   (no_connect (at 116.84 60.96) (uuid 3b7afc13-cac6-48b0-b539-a3e8344ebbfe))
 
   (wire (pts (xy 52.07 90.17) (xy 52.07 93.98))
     (stroke (width 0) (type default))
     (uuid 00f948b4-67f7-42f5-bf12-d6609d3cbc56)
-  )
-  (wire (pts (xy 179.07 88.9) (xy 181.61 88.9))
-    (stroke (width 0) (type default))
-    (uuid 0179998b-6b52-4462-a43e-59d4245e72b5)
   )
   (wire (pts (xy 210.82 121.92) (xy 199.39 121.92))
     (stroke (width 0) (type default))
@@ -796,7 +859,7 @@
     (stroke (width 0) (type default))
     (uuid 2121d7e3-2157-4e21-8f70-0a0d699c63b4)
   )
-  (wire (pts (xy 163.83 83.82) (xy 166.37 83.82))
+  (wire (pts (xy 163.83 83.82) (xy 193.675 83.82))
     (stroke (width 0) (type default))
     (uuid 2261a0db-c9a3-4b6d-b557-e679a939f432)
   )
@@ -815,10 +878,6 @@
   (wire (pts (xy 194.945 128.27) (xy 196.85 128.27))
     (stroke (width 0) (type default))
     (uuid 2b05030d-84fa-49d3-b7c4-98aeaceb1bc8)
-  )
-  (wire (pts (xy 163.83 67.31) (xy 168.91 67.31))
-    (stroke (width 0) (type default))
-    (uuid 2c3dbae0-5e21-452c-85af-07269c6d37f6)
   )
   (wire (pts (xy 163.83 106.68) (xy 168.91 106.68))
     (stroke (width 0) (type default))
@@ -848,11 +907,15 @@
     (stroke (width 0) (type default))
     (uuid 3d68389a-1444-42cf-bb6e-c6216f3b046a)
   )
+  (wire (pts (xy 184.15 57.15) (xy 184.15 55.245))
+    (stroke (width 0) (type default))
+    (uuid 42d8d4b7-56ab-44b0-8d3b-9b4136ddf689)
+  )
   (wire (pts (xy 196.85 128.27) (xy 196.85 143.51))
     (stroke (width 0) (type default))
     (uuid 4387e365-f614-4196-94e8-0a0efdd93182)
   )
-  (wire (pts (xy 232.41 94.615) (xy 232.41 96.52))
+  (wire (pts (xy 232.41 95.885) (xy 232.41 96.52))
     (stroke (width 0) (type default))
     (uuid 450eb52f-fe93-43d0-aa1d-811e73c5db48)
   )
@@ -860,9 +923,13 @@
     (stroke (width 0) (type default))
     (uuid 47196ba6-d55f-48dd-be3c-734f7135dea2)
   )
-  (wire (pts (xy 213.36 67.31) (xy 213.36 85.09))
+  (wire (pts (xy 213.36 67.31) (xy 213.36 86.36))
     (stroke (width 0) (type default))
     (uuid 47b22306-ae38-41ee-9e9a-bdbbb81bda37)
+  )
+  (wire (pts (xy 184.15 64.77) (xy 184.15 92.71))
+    (stroke (width 0) (type default))
+    (uuid 4c0a22d6-a06c-48eb-9e00-0b4111f697b0)
   )
   (wire (pts (xy 66.04 80.01) (xy 69.85 80.01))
     (stroke (width 0) (type default))
@@ -875,6 +942,10 @@
   (wire (pts (xy 163.83 128.27) (xy 165.1 128.27))
     (stroke (width 0) (type default))
     (uuid 51c83e33-f33c-4cd7-8ac5-2538a8d3d022)
+  )
+  (wire (pts (xy 184.15 92.71) (xy 192.405 92.71))
+    (stroke (width 0) (type default))
+    (uuid 51f69fb2-e2fb-4efb-8dba-ac4ce06b1c39)
   )
   (wire (pts (xy 185.42 128.27) (xy 185.42 129.54))
     (stroke (width 0) (type default))
@@ -892,7 +963,7 @@
     (stroke (width 0) (type default))
     (uuid 5b61670a-b533-4fd6-bdf6-b6cf1a3302b3)
   )
-  (wire (pts (xy 166.37 92.71) (xy 167.64 92.71))
+  (wire (pts (xy 163.83 92.71) (xy 165.735 92.71))
     (stroke (width 0) (type default))
     (uuid 5dc0e362-951b-4b2e-a21a-aef3143ec5f8)
   )
@@ -900,7 +971,7 @@
     (stroke (width 0) (type default))
     (uuid 5e3ca298-e89e-45ff-8a59-976fac1727ff)
   )
-  (wire (pts (xy 168.91 67.31) (xy 168.91 68.58))
+  (wire (pts (xy 163.83 67.31) (xy 163.83 68.58))
     (stroke (width 0) (type default))
     (uuid 62bea1ec-b26a-4048-85b9-499d7e249dfa)
   )
@@ -916,7 +987,7 @@
     (stroke (width 0) (type default))
     (uuid 641dc642-0464-4b2f-96ae-72635c168af9)
   )
-  (wire (pts (xy 232.41 85.09) (xy 213.36 85.09))
+  (wire (pts (xy 232.41 86.36) (xy 213.36 86.36))
     (stroke (width 0) (type default))
     (uuid 67b0fbe6-377b-42f4-86d7-0ea8f0f365ff)
   )
@@ -940,6 +1011,10 @@
     (stroke (width 0) (type default))
     (uuid 708fb658-2326-49c1-9d0d-b376bc786f79)
   )
+  (wire (pts (xy 163.83 67.31) (xy 173.355 67.31))
+    (stroke (width 0) (type default))
+    (uuid 72c71965-e89f-45b4-8b22-ea37b94a1183)
+  )
   (wire (pts (xy 207.01 96.52) (xy 232.41 96.52))
     (stroke (width 0) (type default))
     (uuid 765000bf-95ea-4c97-9ebb-37b23422a37b)
@@ -951,6 +1026,10 @@
   (wire (pts (xy 101.6 90.17) (xy 101.6 93.98))
     (stroke (width 0) (type default))
     (uuid 7c9006f9-6212-4a0e-907c-921aa78d2275)
+  )
+  (wire (pts (xy 165.735 92.71) (xy 184.15 92.71))
+    (stroke (width 0) (type default))
+    (uuid 7c96fd4d-e7d0-4e77-bdf4-bba4b81e84e8)
   )
   (wire (pts (xy 111.76 143.51) (xy 125.73 143.51))
     (stroke (width 0) (type default))
@@ -983,6 +1062,10 @@
   (wire (pts (xy 101.6 124.46) (xy 101.6 118.11))
     (stroke (width 0) (type default))
     (uuid 9874e117-0370-4de8-980f-f9d4a9256ecd)
+  )
+  (wire (pts (xy 193.675 64.77) (xy 193.675 83.82))
+    (stroke (width 0) (type default))
+    (uuid 9ae28e64-93a1-489f-93ca-3165626768fd)
   )
   (wire (pts (xy 240.03 104.14) (xy 243.84 104.14))
     (stroke (width 0) (type default))
@@ -1032,11 +1115,23 @@
     (stroke (width 0) (type default))
     (uuid b1758b43-d034-4c50-b6be-58f9eafb04e8)
   )
+  (wire (pts (xy 193.675 83.82) (xy 236.855 83.82))
+    (stroke (width 0) (type default))
+    (uuid b32177e8-4907-4dc9-be10-c5488c56bf2c)
+  )
   (wire (pts (xy 168.91 106.68) (xy 185.42 106.68))
     (stroke (width 0) (type default))
     (uuid b4aebdde-9ef3-4e87-bdb1-cf2c5ae79324)
   )
-  (wire (pts (xy 180.34 67.31) (xy 180.34 68.58))
+  (wire (pts (xy 189.23 88.9) (xy 192.405 88.9))
+    (stroke (width 0) (type default))
+    (uuid b4ce592b-67d7-4293-8cde-76c477d48929)
+  )
+  (wire (pts (xy 189.23 57.15) (xy 189.23 55.245))
+    (stroke (width 0) (type default))
+    (uuid b53161b2-0c6c-4935-a9bd-b56a1b12c846)
+  )
+  (wire (pts (xy 173.355 67.31) (xy 173.355 68.58))
     (stroke (width 0) (type default))
     (uuid baed76d0-c033-482a-89f6-35f03c4ad803)
   )
@@ -1052,13 +1147,25 @@
     (stroke (width 0) (type default))
     (uuid c11c9287-66d9-4925-a716-4f80c9d58f68)
   )
+  (wire (pts (xy 173.355 67.31) (xy 199.39 67.31))
+    (stroke (width 0) (type default))
+    (uuid c1913503-1bfb-4ccc-95f3-fecaa22a8c38)
+  )
+  (wire (pts (xy 184.15 55.245) (xy 189.23 55.245))
+    (stroke (width 0) (type default))
+    (uuid c20152b5-b16b-410d-a457-4451bea63f5b)
+  )
   (wire (pts (xy 243.84 111.76) (xy 243.84 112.395))
     (stroke (width 0) (type default))
     (uuid c58b26c7-b2b8-4720-828c-dea83b3cdc25)
   )
-  (wire (pts (xy 163.83 92.71) (xy 166.37 92.71))
+  (wire (pts (xy 193.675 55.245) (xy 193.675 57.15))
     (stroke (width 0) (type default))
-    (uuid c8109392-47b5-4ec6-a98d-b69a671d764d)
+    (uuid c79fded0-d065-4e06-b440-a078827c5d12)
+  )
+  (wire (pts (xy 165.735 88.9) (xy 189.23 88.9))
+    (stroke (width 0) (type default))
+    (uuid c88403a9-4821-4329-ab1c-bdd8fa15cf18)
   )
   (wire (pts (xy 58.42 80.01) (xy 58.42 90.17))
     (stroke (width 0) (type default))
@@ -1072,6 +1179,10 @@
     (stroke (width 0) (type default))
     (uuid ce1cde9e-3868-4a65-9818-cdf52af9d029)
   )
+  (wire (pts (xy 189.23 55.245) (xy 193.675 55.245))
+    (stroke (width 0) (type default))
+    (uuid d4220b37-de1c-4382-ba86-c99fe4a90d89)
+  )
   (wire (pts (xy 138.43 143.51) (xy 138.43 144.78))
     (stroke (width 0) (type default))
     (uuid d4ad44fa-5fa8-484b-9948-363eec554a29)
@@ -1080,15 +1191,15 @@
     (stroke (width 0) (type default))
     (uuid d64b57a2-0544-44bc-bd72-d11454828d31)
   )
-  (wire (pts (xy 180.34 67.31) (xy 199.39 67.31))
-    (stroke (width 0) (type default))
-    (uuid d77fb9d4-155e-4ad4-b8c5-f5edc5efe928)
-  )
   (wire (pts (xy 60.96 90.17) (xy 58.42 90.17))
     (stroke (width 0) (type default))
     (uuid d86391e5-81f3-4583-b378-879df1bdfbfd)
   )
-  (wire (pts (xy 232.41 85.09) (xy 232.41 86.995))
+  (wire (pts (xy 189.23 64.77) (xy 189.23 88.9))
+    (stroke (width 0) (type default))
+    (uuid d8643b1b-6fd2-454e-ab83-115523b0d77e)
+  )
+  (wire (pts (xy 232.41 86.36) (xy 232.41 88.265))
     (stroke (width 0) (type default))
     (uuid dae55e41-af2b-4d05-b925-ae9f67680ef0)
   )
@@ -1100,15 +1211,15 @@
     (stroke (width 0) (type default))
     (uuid e25c1838-4e75-4f4c-bcbe-c7f407df97fb)
   )
-  (wire (pts (xy 168.91 67.31) (xy 180.34 67.31))
+  (wire (pts (xy 193.675 53.34) (xy 193.675 55.245))
     (stroke (width 0) (type default))
-    (uuid edef31a2-04c4-4745-8dd8-40474f060aba)
+    (uuid e293b78b-44be-45be-9a36-1ccc5f29c584)
   )
   (wire (pts (xy 116.84 130.81) (xy 111.76 130.81))
     (stroke (width 0) (type default))
     (uuid f455dde0-1404-4187-9e7c-4950e665403a)
   )
-  (wire (pts (xy 163.83 88.9) (xy 179.07 88.9))
+  (wire (pts (xy 163.83 88.9) (xy 165.735 88.9))
     (stroke (width 0) (type default))
     (uuid f5c15ab6-7f1e-4d62-91ac-869537f7a27a)
   )
@@ -1145,7 +1256,7 @@
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 1ba28ad0-c854-4f5c-8650-2a0865adfd6f)
   )
-  (hierarchical_label "EN2" (shape input) (at 167.64 92.71 0) (fields_autoplaced)
+  (hierarchical_label "EN2" (shape input) (at 192.405 92.71 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 3077cd32-c02a-4b44-a61b-86a5108e487d)
   )
@@ -1157,11 +1268,11 @@
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid b32d22b9-8c8d-42f1-8963-045c829849aa)
   )
-  (hierarchical_label "EN1" (shape input) (at 181.61 88.9 0) (fields_autoplaced)
+  (hierarchical_label "EN1" (shape input) (at 192.405 88.9 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid d1d44b50-552e-466d-af3b-a4a4f6a67136)
   )
-  (hierarchical_label "~{CHG}" (shape output) (at 166.37 83.82 0) (fields_autoplaced)
+  (hierarchical_label "~{CHG}" (shape output) (at 236.855 83.82 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid d32528ec-953f-4b28-8e31-9ad1c84cd72a)
   )
@@ -1169,7 +1280,7 @@
   (symbol (lib_id "Device:Q_NMOS_DGS") (at 234.95 104.14 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 01756c1a-5d53-412d-8784-0867a813fbf3)
-    (property "Reference" "Q5" (at 228.6 102.8699 0)
+    (property "Reference" "Q303" (at 228.6 102.8699 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2N7002" (at 228.6 105.4099 0)
@@ -1187,7 +1298,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "Q5") (unit 1)
+          (reference "Q303") (unit 1)
         )
       )
       (project "drone"
@@ -1201,7 +1312,7 @@
   (symbol (lib_id "Device:C_Small") (at 110.49 73.66 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0c747d9e-bf20-498e-9868-57da2eb82eca)
-    (property "Reference" "C16" (at 107.95 72.39 90)
+    (property "Reference" "C306" (at 107.95 72.39 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.47uF" (at 114.3 71.12 90)
@@ -1218,7 +1329,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C16") (unit 1)
+          (reference "C306") (unit 1)
         )
       )
       (project "drone"
@@ -1232,7 +1343,7 @@
   (symbol (lib_id "Device:C_Small") (at 110.49 85.09 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 14296f93-ce18-456e-a668-57ae6a0d5645)
-    (property "Reference" "C18" (at 107.95 86.36 90)
+    (property "Reference" "C308" (at 107.95 86.36 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10nF" (at 114.3 86.36 90)
@@ -1249,7 +1360,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C18") (unit 1)
+          (reference "C308") (unit 1)
         )
       )
       (project "drone"
@@ -1260,19 +1371,19 @@
     )
   )
 
-  (symbol (lib_id "Device:R") (at 232.41 90.805 0) (unit 1)
+  (symbol (lib_id "Device:R") (at 232.41 92.075 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1b9884da-c8a1-4275-9e02-8b96a5e3dbde)
-    (property "Reference" "R17" (at 234.95 89.5349 0)
+    (property "Reference" "R307" (at 234.95 90.8049 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10k" (at 234.95 92.0749 0)
+    (property "Value" "10k" (at 234.95 93.3449 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 230.632 90.805 90)
+    (property "Footprint" "" (at 230.632 92.075 90)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 232.41 90.805 0)
+    (property "Datasheet" "~" (at 232.41 92.075 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid c0366ec0-24fd-435c-83cf-3df967cc2da3))
@@ -1280,7 +1391,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R17") (unit 1)
+          (reference "R307") (unit 1)
         )
       )
       (project "drone"
@@ -1294,10 +1405,10 @@
   (symbol (lib_id "Device:C_Small") (at 110.49 118.11 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1e667af2-4f0e-4682-9152-6dca01d8436d)
-    (property "Reference" "C20" (at 107.95 116.84 90)
+    (property "Reference" "C310" (at 107.95 116.84 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "22nF" (at 114.3 116.84 90)
+    (property "Value" "47nF" (at 114.3 116.84 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "" (at 110.49 118.11 0)
@@ -1311,7 +1422,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C20") (unit 1)
+          (reference "C310") (unit 1)
         )
       )
       (project "drone"
@@ -1325,7 +1436,7 @@
   (symbol (lib_id "Device:C_Small") (at 110.49 110.49 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1f39d633-fc3d-4557-b545-bf44a3a84309)
-    (property "Reference" "C19" (at 106.68 107.95 90)
+    (property "Reference" "C309" (at 106.68 107.95 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "10nF" (at 114.3 107.95 90)
@@ -1342,7 +1453,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C19") (unit 1)
+          (reference "C309") (unit 1)
         )
       )
       (project "drone"
@@ -1354,12 +1465,12 @@
   )
 
   (symbol (lib_id "Device:Q_PMOS_DGS") (at 201.93 96.52 180) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid 2ca6a443-f781-4d9e-ad17-b17dfece5c59)
-    (property "Reference" "Q3" (at 195.58 95.2499 0)
+    (property "Reference" "Q301" (at 208.915 94.615 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "SSM3J35AMFV,L3F" (at 195.58 97.7899 0)
+    (property "Value" "SSM3J35AMFV,L3F" (at 220.98 99.695 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (at 196.85 99.06 0)
@@ -1374,7 +1485,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "Q3") (unit 1)
+          (reference "Q301") (unit 1)
         )
       )
       (project "drone"
@@ -1385,10 +1496,35 @@
     )
   )
 
+  (symbol (lib_id "power:+3.3V") (at 193.675 53.34 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 2e04629d-25c0-40c9-91c3-7f97f804d425)
+    (property "Reference" "#PWR0310" (at 193.675 57.15 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+3.3V" (at 193.675 50.165 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 193.675 53.34 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 193.675 53.34 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid f12462e3-3e35-416b-a74e-6cadd505881a))
+    (instances
+      (project "high-power"
+        (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
+          (reference "#PWR0310") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Device:C_Small") (at 63.5 80.01 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 335316c4-2cb4-4a08-8118-90d5545f9ebf)
-    (property "Reference" "C12" (at 63.5063 73.66 90)
+    (property "Reference" "C302" (at 63.5063 73.66 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "47nF" (at 63.5063 76.2 90)
@@ -1405,7 +1541,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C12") (unit 1)
+          (reference "C302") (unit 1)
         )
       )
       (project "drone"
@@ -1419,7 +1555,7 @@
   (symbol (lib_id "Device:C_Small") (at 110.49 124.46 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 393f8ab6-d4e6-4176-a021-e9674471170c)
-    (property "Reference" "C21" (at 107.95 127 90)
+    (property "Reference" "C311" (at 107.95 127 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "0.47uF" (at 114.3 127 90)
@@ -1436,7 +1572,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C21") (unit 1)
+          (reference "C311") (unit 1)
         )
       )
       (project "drone"
@@ -1450,7 +1586,7 @@
   (symbol (lib_id "Device:C_Small") (at 165.1 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 41623f12-ef05-4c87-a0ad-bf5cd6b8fa71)
-    (property "Reference" "C22" (at 167.64 130.8162 0)
+    (property "Reference" "C312" (at 167.64 130.8162 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "0.1uF" (at 167.64 133.3562 0)
@@ -1467,7 +1603,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C22") (unit 1)
+          (reference "C312") (unit 1)
         )
       )
       (project "drone"
@@ -1481,7 +1617,7 @@
   (symbol (lib_id "power:GND") (at 185.42 134.62 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 41a1ea94-5de6-4f9a-98e0-e6f56d74324a)
-    (property "Reference" "#PWR022" (at 185.42 140.97 0)
+    (property "Reference" "#PWR0309" (at 185.42 140.97 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 185.42 139.7 0)
@@ -1497,7 +1633,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR022") (unit 1)
+          (reference "#PWR0309") (unit 1)
         )
       )
       (project "drone"
@@ -1508,27 +1644,27 @@
     )
   )
 
-  (symbol (lib_id "Device:C_Small") (at 180.34 71.12 0) (unit 1)
+  (symbol (lib_id "Device:C_Small") (at 173.355 71.12 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 43ac021f-46e9-45c7-b66e-0b9ce4e49584)
-    (property "Reference" "C25" (at 182.88 69.8562 0)
+    (property "Reference" "C315" (at 175.895 69.8562 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "10uF" (at 182.88 72.3962 0)
+    (property "Value" "10uF" (at 175.895 72.3962 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 180.34 71.12 0)
+    (property "Footprint" "" (at 173.355 71.12 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 180.34 71.12 0)
+    (property "Datasheet" "~" (at 173.355 71.12 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 7f57c98f-949c-4f55-a1cf-988bbf2332e0))
-    (pin "2" (uuid 91c88a96-1bc4-4933-ae6f-500b03c4b481))
+    (pin "1" (uuid 464f6191-7b34-4f77-be55-0849bd098580))
+    (pin "2" (uuid a7480a40-c80a-400e-9134-bdd2b5c86165))
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C25") (unit 1)
+          (reference "C315") (unit 1)
         )
       )
       (project "drone"
@@ -1542,7 +1678,7 @@
   (symbol (lib_id "Device:C_Small") (at 63.5 90.17 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 486e64b9-e209-4304-a1fc-3a69d5326725)
-    (property "Reference" "C13" (at 63.5063 83.82 90)
+    (property "Reference" "C303" (at 63.5063 83.82 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "68nF" (at 63.5063 86.36 90)
@@ -1559,7 +1695,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C13") (unit 1)
+          (reference "C303") (unit 1)
         )
       )
       (project "drone"
@@ -1570,26 +1706,26 @@
     )
   )
 
-  (symbol (lib_id "Connector:TestPoint") (at 166.37 92.71 180) (unit 1)
+  (symbol (lib_id "Connector:TestPoint") (at 165.735 92.71 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5436c952-c46d-429a-a2a6-bd9af0129a9c)
-    (property "Reference" "TP3" (at 168.91 94.7419 0)
+    (property "Reference" "TP301" (at 168.275 94.7419 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Value" "TestPoint" (at 168.91 97.2819 0)
+    (property "Value" "TestPoint" (at 168.275 97.2819 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "" (at 161.29 92.71 0)
+    (property "Footprint" "" (at 160.655 92.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 161.29 92.71 0)
+    (property "Datasheet" "~" (at 160.655 92.71 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 84ac52be-c137-4f32-b864-44b44c4a2e93))
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "TP3") (unit 1)
+          (reference "TP301") (unit 1)
         )
       )
       (project "drone"
@@ -1603,7 +1739,7 @@
   (symbol (lib_id "Device:R") (at 138.43 148.59 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5d74df62-8d2b-4d1d-9f04-7ad55aaf12ca)
-    (property "Reference" "R13" (at 140.97 147.3199 0)
+    (property "Reference" "R302" (at 140.97 147.3199 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "196R" (at 140.97 149.8599 0)
@@ -1620,7 +1756,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R13") (unit 1)
+          (reference "R302") (unit 1)
         )
       )
       (project "drone"
@@ -1634,7 +1770,7 @@
   (symbol (lib_id "power:GND") (at 199.39 121.92 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 5db77c7c-e16c-4298-82f9-e48067d43b0d)
-    (property "Reference" "#PWR023" (at 199.39 128.27 0)
+    (property "Reference" "#PWR0311" (at 199.39 128.27 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 199.39 127 0)
@@ -1650,7 +1786,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR023") (unit 1)
+          (reference "#PWR0311") (unit 1)
         )
       )
       (project "drone"
@@ -1664,7 +1800,7 @@
   (symbol (lib_id "Device:R") (at 168.91 111.76 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5df33cac-a432-4335-9ea3-1b90a7a3f3dd)
-    (property "Reference" "R14" (at 171.45 110.4899 0)
+    (property "Reference" "R303" (at 171.45 110.4899 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10k" (at 171.45 113.0299 0)
@@ -1681,7 +1817,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R14") (unit 1)
+          (reference "R303") (unit 1)
         )
       )
       (project "drone"
@@ -1695,7 +1831,7 @@
   (symbol (lib_id "power:GND") (at 175.26 134.62 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 66ca07b7-b578-438a-982e-621f566295c3)
-    (property "Reference" "#PWR020" (at 175.26 140.97 0)
+    (property "Reference" "#PWR0307" (at 175.26 140.97 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 175.26 139.7 0)
@@ -1711,7 +1847,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR020") (unit 1)
+          (reference "#PWR0307") (unit 1)
         )
       )
       (project "drone"
@@ -1722,26 +1858,55 @@
     )
   )
 
-  (symbol (lib_id "power:GND") (at 180.34 73.66 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 81be1766-6717-4ccd-975d-32919e1f5a24)
-    (property "Reference" "#PWR021" (at 180.34 80.01 0)
+  (symbol (lib_id "Device:R") (at 189.23 60.96 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 7be4093e-0f97-46dd-9b14-4603e4540e69)
+    (property "Reference" "R309" (at 186.69 65.405 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10k" (at 186.69 59.055 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 187.452 60.96 90)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Value" "GND" (at 180.34 78.74 0)
+    (property "Datasheet" "~" (at 189.23 60.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "DNP" "DNP" (at 189.23 60.96 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 180.34 73.66 0)
+    (pin "1" (uuid dce491f0-4f15-45d6-be2d-03a6ad43680d))
+    (pin "2" (uuid 1c92efb8-bbb1-4013-9f1c-dfeb0e7481dc))
+    (instances
+      (project "high-power"
+        (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
+          (reference "R309") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:GND") (at 173.355 73.66 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid 81be1766-6717-4ccd-975d-32919e1f5a24)
+    (property "Reference" "#PWR0308" (at 173.355 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "" (at 180.34 73.66 0)
+    (property "Value" "GND" (at 173.355 77.47 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 173.355 73.66 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 173.355 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid b4bc6158-12f3-4708-97d4-822120e746d0))
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR021") (unit 1)
+          (reference "#PWR0308") (unit 1)
         )
       )
       (project "drone"
@@ -1755,7 +1920,7 @@
   (symbol (lib_id "Device:C_Small") (at 185.42 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 82ec55a9-825b-4e33-bda2-22cb06ca0066)
-    (property "Reference" "C26" (at 187.96 130.8162 0)
+    (property "Reference" "C316" (at 187.96 130.8162 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 187.96 133.3562 0)
@@ -1772,7 +1937,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C26") (unit 1)
+          (reference "C316") (unit 1)
         )
       )
       (project "drone"
@@ -1786,7 +1951,7 @@
   (symbol (lib_id "Device:R") (at 243.84 107.95 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8389a1c8-102c-47e7-851a-663f3b419692)
-    (property "Reference" "R18" (at 246.38 106.6799 0)
+    (property "Reference" "R308" (at 246.38 106.6799 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10k" (at 246.38 109.2199 0)
@@ -1803,7 +1968,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R18") (unit 1)
+          (reference "R308") (unit 1)
         )
       )
       (project "drone"
@@ -1817,7 +1982,7 @@
   (symbol (lib_id "Device:C_Small") (at 101.6 96.52 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9001d7a6-bcd3-4f3c-9d57-2c8109452ee4)
-    (property "Reference" "C15" (at 104.14 95.2562 0)
+    (property "Reference" "C305" (at 104.14 95.2562 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2.2nF" (at 104.14 97.7962 0)
@@ -1834,7 +1999,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C15") (unit 1)
+          (reference "C305") (unit 1)
         )
       )
       (project "drone"
@@ -1848,7 +2013,7 @@
   (symbol (lib_id "power:GND") (at 138.43 154.94 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 93825384-03c2-4be4-95f9-a62078b0e6cd)
-    (property "Reference" "#PWR015" (at 138.43 161.29 0)
+    (property "Reference" "#PWR0302" (at 138.43 161.29 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 138.43 160.02 0)
@@ -1864,7 +2029,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR015") (unit 1)
+          (reference "#PWR0302") (unit 1)
         )
       )
       (project "drone"
@@ -1875,27 +2040,27 @@
     )
   )
 
-  (symbol (lib_id "Device:C_Small") (at 168.91 71.12 0) (unit 1)
+  (symbol (lib_id "Device:C_Small") (at 163.83 71.12 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9bf462f1-c8ff-4388-8604-ce41a0bf380a)
-    (property "Reference" "C23" (at 171.45 69.8562 0)
+    (property "Reference" "C313" (at 166.37 69.8562 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "0.1uF" (at 171.45 72.3962 0)
+    (property "Value" "0.1uF" (at 166.37 72.3962 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 168.91 71.12 0)
+    (property "Footprint" "" (at 163.83 71.12 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 168.91 71.12 0)
+    (property "Datasheet" "~" (at 163.83 71.12 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid d60bdfd0-be6e-4d8c-a5ce-f4daf4b56d06))
-    (pin "2" (uuid 8002f460-9afe-48d7-a60f-d7b6752c61ba))
+    (pin "1" (uuid dcd5aab7-2d50-486d-a015-eb772302fd8e))
+    (pin "2" (uuid 0d055c31-a46b-4e67-8da7-3019c44e7672))
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C23") (unit 1)
+          (reference "C313") (unit 1)
         )
       )
       (project "drone"
@@ -1909,7 +2074,7 @@
   (symbol (lib_id "Device:Q_NMOS_DGS") (at 201.93 113.03 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9fcb1437-b84a-4514-a3e0-7fc6ddafd91f)
-    (property "Reference" "Q4" (at 195.58 111.7599 0)
+    (property "Reference" "Q302" (at 195.58 111.7599 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "2N7002" (at 195.58 114.2999 0)
@@ -1927,7 +2092,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "Q4") (unit 1)
+          (reference "Q302") (unit 1)
         )
       )
       (project "drone"
@@ -1941,7 +2106,7 @@
   (symbol (lib_id "Device:C_Small") (at 175.26 132.08 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a0e48ac9-0cc3-487d-9f82-8877cb30abe0)
-    (property "Reference" "C24" (at 177.8 130.8162 0)
+    (property "Reference" "C314" (at 177.8 130.8162 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10uF" (at 177.8 133.3562 0)
@@ -1958,7 +2123,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C24") (unit 1)
+          (reference "C314") (unit 1)
         )
       )
       (project "drone"
@@ -1969,10 +2134,39 @@
     )
   )
 
+  (symbol (lib_id "Device:R") (at 184.15 60.96 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid a93d25e1-b1bb-45a1-9c34-64891a4950f6)
+    (property "Reference" "R310" (at 181.61 65.405 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10k" (at 181.61 59.055 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 182.372 60.96 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 184.15 60.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "DNP" "DNP" (at 184.15 60.96 90)
+      (effects (font (size 1.27 1.27)))
+    )
+    (pin "1" (uuid 1875b41a-7b97-41b4-ab75-405b3b2f487d))
+    (pin "2" (uuid 9c4ee720-7b73-4816-8c0b-4359708b125d))
+    (instances
+      (project "high-power"
+        (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
+          (reference "R310") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "power:GND") (at 87.63 66.04 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ab26b4d2-e032-41eb-9f26-25b504c2e8a0)
-    (property "Reference" "#PWR014" (at 87.63 72.39 0)
+    (property "Reference" "#PWR0301" (at 87.63 72.39 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 87.63 71.12 0)
@@ -1988,7 +2182,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR014") (unit 1)
+          (reference "#PWR0301") (unit 1)
         )
       )
       (project "drone"
@@ -2002,7 +2196,7 @@
   (symbol (lib_id "power:GND") (at 232.41 113.665 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid ae1830cb-89a2-4ee3-b7e1-93f1043f0050)
-    (property "Reference" "#PWR024" (at 232.41 120.015 0)
+    (property "Reference" "#PWR0312" (at 232.41 120.015 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 232.41 118.745 0)
@@ -2018,7 +2212,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR024") (unit 1)
+          (reference "#PWR0312") (unit 1)
         )
       )
       (project "drone"
@@ -2029,26 +2223,26 @@
     )
   )
 
-  (symbol (lib_id "Connector:TestPoint") (at 179.07 88.9 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+  (symbol (lib_id "Connector:TestPoint") (at 165.735 88.9 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid b03bd4b2-9963-4a61-a949-e485f8beccca)
-    (property "Reference" "TP4" (at 181.61 84.3279 0)
+    (property "Reference" "TP302" (at 168.275 85.09 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "TestPoint" (at 181.61 86.8679 0)
+    (property "Value" "TestPoint" (at 168.275 86.8679 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "" (at 184.15 88.9 0)
+    (property "Footprint" "" (at 170.815 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "~" (at 184.15 88.9 0)
+    (property "Datasheet" "~" (at 170.815 88.9 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid 4d2791d6-8320-4e29-a3ba-e66cdd21675c))
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "TP4") (unit 1)
+          (reference "TP302") (unit 1)
         )
       )
       (project "drone"
@@ -2062,7 +2256,7 @@
   (symbol (lib_id "Device:C_Small") (at 87.63 96.52 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c367b80a-96b3-4dac-90ed-2ee9807aa96a)
-    (property "Reference" "C14" (at 90.17 95.2435 0)
+    (property "Reference" "C304" (at 90.17 95.2435 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "100pF" (at 90.17 97.7835 0)
@@ -2079,7 +2273,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C14") (unit 1)
+          (reference "C304") (unit 1)
         )
       )
       (project "drone"
@@ -2090,26 +2284,26 @@
     )
   )
 
-  (symbol (lib_id "power:GND") (at 168.91 73.66 0) (unit 1)
+  (symbol (lib_id "power:GND") (at 163.83 73.66 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c38d62f1-6ef6-4979-8728-81e82ce307f4)
-    (property "Reference" "#PWR018" (at 168.91 80.01 0)
+    (property "Reference" "#PWR0305" (at 163.83 80.01 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Value" "GND" (at 171.45 78.74 0)
+    (property "Value" "GND" (at 163.83 77.47 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "" (at 168.91 73.66 0)
+    (property "Footprint" "" (at 163.83 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "" (at 168.91 73.66 0)
+    (property "Datasheet" "" (at 163.83 73.66 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (pin "1" (uuid 7e4b736e-4cd9-4028-aac3-d3f52df691cc))
+    (pin "1" (uuid 92a8c430-31e7-481b-b815-547515fd8e75))
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR018") (unit 1)
+          (reference "#PWR0305") (unit 1)
         )
       )
       (project "drone"
@@ -2120,10 +2314,36 @@
     )
   )
 
+  (symbol (lib_id "Device:R") (at 193.675 60.96 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid c6254115-9680-48ec-8c4f-4cf9508c2e10)
+    (property "Reference" "R305" (at 196.215 60.325 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "10k" (at 196.215 62.865 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 191.897 60.96 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 193.675 60.96 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 59ac317a-5616-4c0c-bf4d-c8b75f3f0264))
+    (pin "2" (uuid 5e9f096e-38b3-4112-9b15-0e62e91e0451))
+    (instances
+      (project "high-power"
+        (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
+          (reference "R305") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Device:R") (at 210.82 116.84 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c79de4d3-2631-48a9-80b0-3372d1a4016f)
-    (property "Reference" "R16" (at 213.36 115.5699 0)
+    (property "Reference" "R306" (at 213.36 115.5699 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "10k" (at 213.36 118.1099 0)
@@ -2140,7 +2360,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R16") (unit 1)
+          (reference "R306") (unit 1)
         )
       )
       (project "drone"
@@ -2154,7 +2374,7 @@
   (symbol (lib_id "Device:C_Small") (at 63.5 71.12 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c98c41c8-9afd-45cb-b871-0112fe76a436)
-    (property "Reference" "C11" (at 63.5063 64.77 90)
+    (property "Reference" "C301" (at 63.5063 64.77 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "39nF" (at 63.5063 67.31 90)
@@ -2171,7 +2391,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C11") (unit 1)
+          (reference "C301") (unit 1)
         )
       )
       (project "drone"
@@ -2185,7 +2405,7 @@
   (symbol (lib_id "power_and_charging:BQ51013B") (at 142.24 86.36 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cb570bea-3e12-400f-a974-b0e434f8bf45)
-    (property "Reference" "U2" (at 140.335 53.34 0)
+    (property "Reference" "U301" (at 140.335 53.34 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "BQ51013B" (at 140.335 55.88 0)
@@ -2221,7 +2441,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "U2") (unit 1)
+          (reference "U301") (unit 1)
         )
       )
       (project "drone"
@@ -2235,7 +2455,7 @@
   (symbol (lib_id "Device:L") (at 52.07 97.79 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cc1f652c-85e4-45b3-8815-4f7bbc4846b2)
-    (property "Reference" "L1" (at 53.34 96.5199 0)
+    (property "Reference" "L301" (at 53.34 96.5199 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "11uH" (at 53.34 99.0599 0)
@@ -2252,7 +2472,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "L1") (unit 1)
+          (reference "L301") (unit 1)
         )
       )
       (project "drone"
@@ -2266,7 +2486,7 @@
   (symbol (lib_id "power:GND") (at 165.1 134.62 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d251c093-7376-4f49-a0ef-84ef91499a7a)
-    (property "Reference" "#PWR017" (at 165.1 140.97 0)
+    (property "Reference" "#PWR0304" (at 165.1 140.97 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 165.1 139.7 0)
@@ -2282,7 +2502,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR017") (unit 1)
+          (reference "#PWR0304") (unit 1)
         )
       )
       (project "drone"
@@ -2296,10 +2516,10 @@
   (symbol (lib_id "Device:C_Small") (at 110.49 80.01 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid dce26085-406b-4a3e-b27e-fbee1395c049)
-    (property "Reference" "C17" (at 107.95 81.28 90)
+    (property "Reference" "C307" (at 107.95 81.28 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "22nF" (at 114.3 81.28 90)
+    (property "Value" "47nF" (at 114.3 81.28 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "" (at 110.49 80.01 0)
@@ -2313,7 +2533,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "C17") (unit 1)
+          (reference "C307") (unit 1)
         )
       )
       (project "drone"
@@ -2327,7 +2547,7 @@
   (symbol (lib_id "Connector:TestPoint") (at 185.42 106.68 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e1995668-afa2-41c7-910d-f4e772b80bec)
-    (property "Reference" "TP5" (at 187.96 102.1079 0)
+    (property "Reference" "TP303" (at 187.96 102.1079 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "TestPoint" (at 187.96 104.6479 0)
@@ -2343,7 +2563,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "TP5") (unit 1)
+          (reference "TP303") (unit 1)
         )
       )
       (project "drone"
@@ -2357,7 +2577,7 @@
   (symbol (lib_id "Device:R") (at 191.135 128.27 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid e9c339e2-8e9f-4055-a5f8-825e79321287)
-    (property "Reference" "R15" (at 191.135 121.92 90)
+    (property "Reference" "R304" (at 191.135 121.92 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "20k" (at 191.135 124.46 90)
@@ -2374,7 +2594,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R15") (unit 1)
+          (reference "R304") (unit 1)
         )
       )
       (project "drone"
@@ -2388,10 +2608,10 @@
   (symbol (lib_id "Device:R") (at 129.54 143.51 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f215b2b9-3924-4ee5-9114-a2a63a3dc0ea)
-    (property "Reference" "R12" (at 129.54 137.16 90)
+    (property "Reference" "R301" (at 129.54 137.16 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "61R" (at 129.54 139.7 90)
+    (property "Value" "66R" (at 129.54 139.7 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "" (at 129.54 145.288 90)
@@ -2405,7 +2625,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "R12") (unit 1)
+          (reference "R301") (unit 1)
         )
       )
       (project "drone"
@@ -2419,7 +2639,7 @@
   (symbol (lib_id "power:GND") (at 168.91 115.57 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid f39de49c-5076-4c57-8ca4-7f7e7a6f74f3)
-    (property "Reference" "#PWR019" (at 168.91 121.92 0)
+    (property "Reference" "#PWR0306" (at 168.91 121.92 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 168.91 120.65 0)
@@ -2435,7 +2655,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR019") (unit 1)
+          (reference "#PWR0306") (unit 1)
         )
       )
       (project "drone"
@@ -2449,7 +2669,7 @@
   (symbol (lib_id "power:GND") (at 148.59 138.43 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid feac6350-9ef5-4466-b747-c8509a07808e)
-    (property "Reference" "#PWR016" (at 148.59 144.78 0)
+    (property "Reference" "#PWR0303" (at 148.59 144.78 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 152.4 140.97 0)
@@ -2465,7 +2685,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b/fd4f4964-fbe0-4a2e-86a3-4b3667cee282"
-          (reference "#PWR016") (unit 1)
+          (reference "#PWR0303") (unit 1)
         )
       )
       (project "drone"

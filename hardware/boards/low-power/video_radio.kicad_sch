@@ -437,7 +437,7 @@
     (property "Value" "22u" (at 174.625 106.045 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 169.2148 107.315 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 169.2148 107.315 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 170.18 103.505 0)
@@ -451,7 +451,7 @@
           (reference "C62") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/2c81f013-3430-433c-abe0-42fcceae4b74"
-          (reference "C5") (unit 1)
+          (reference "C302") (unit 1)
         )
       )
     )
@@ -479,7 +479,7 @@
           (reference "#PWR045") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/2c81f013-3430-433c-abe0-42fcceae4b74"
-          (reference "#PWR08") (unit 1)
+          (reference "#PWR0301") (unit 1)
         )
       )
     )
@@ -508,7 +508,7 @@
           (reference "J5") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/2c81f013-3430-433c-abe0-42fcceae4b74"
-          (reference "J3") (unit 1)
+          (reference "J301") (unit 1)
         )
       )
     )
@@ -536,7 +536,7 @@
           (reference "#PWR062") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/2c81f013-3430-433c-abe0-42fcceae4b74"
-          (reference "#PWR09") (unit 1)
+          (reference "#PWR0302") (unit 1)
         )
       )
     )
@@ -574,7 +574,7 @@
           (reference "U11") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/2c81f013-3430-433c-abe0-42fcceae4b74"
-          (reference "U2") (unit 1)
+          (reference "U301") (unit 1)
         )
       )
     )
@@ -589,7 +589,7 @@
     (property "Value" "22u" (at 133.35 108.585 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric" (at 129.54 101.9048 0)
+    (property "Footprint" "Capacitor_SMD:C_0603_1608Metric" (at 129.54 101.9048 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 133.35 102.87 0)
@@ -603,7 +603,7 @@
           (reference "C61") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/2c81f013-3430-433c-abe0-42fcceae4b74"
-          (reference "C4") (unit 1)
+          (reference "C301") (unit 1)
         )
       )
     )

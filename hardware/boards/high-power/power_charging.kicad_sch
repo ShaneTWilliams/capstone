@@ -121,6 +121,66 @@
         )
       )
     )
+    (symbol "Connector:Conn_01x02_Pin" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 2.54 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Value" "Conn_01x02_Pin" (at 0 -5.08 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_locked" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "ki_keywords" "connector" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Generic connector, single row, 01x02, script generated" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "Conn_01x02_Pin_1_1"
+        (polyline
+          (pts
+            (xy 1.27 -2.54)
+            (xy 0.8636 -2.54)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy 1.27 0)
+            (xy 0.8636 0)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (rectangle (start 0.8636 -2.413) (end 0 -2.667)
+          (stroke (width 0.1524) (type default))
+          (fill (type outline))
+        )
+        (rectangle (start 0.8636 0.127) (end 0 -0.127)
+          (stroke (width 0.1524) (type default))
+          (fill (type outline))
+        )
+        (pin passive line (at 5.08 0 180) (length 3.81)
+          (name "Pin_1" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at 5.08 -2.54 180) (length 3.81)
+          (name "Pin_2" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
     (symbol "Connector:TestPoint" (pin_numbers hide) (pin_names (offset 0.762) hide) (in_bom yes) (on_board yes)
       (property "Reference" "TP" (at 0 6.858 0)
         (effects (font (size 1.27 1.27)))
@@ -692,9 +752,6 @@
   (junction (at 71.12 84.455) (diameter 0) (color 0 0 0 0)
     (uuid fce60893-b3de-4bae-bbba-145d97f096e5)
   )
-
-  (no_connect (at 210.82 120.015) (uuid 53eeaf03-25a5-45cc-914e-d63c749048c5))
-  (no_connect (at 210.82 122.555) (uuid b2e68fda-b538-4d77-ac60-13238d590515))
 
   (wire (pts (xy 60.96 106.68) (xy 60.96 107.95))
     (stroke (width 0) (type default))
@@ -1354,7 +1411,7 @@
           (reference "#PWR05") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0148") (unit 1)
+          (reference "#PWR01105") (unit 1)
         )
       )
       (project "drone"
@@ -1371,7 +1428,7 @@
   (symbol (lib_name "GND_1") (lib_id "power:GND") (at 71.12 109.22 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 0373cb88-d3bd-4ab3-99a0-a4e747adeae2)
-    (property "Reference" "#PWR0145" (at 71.12 115.57 0)
+    (property "Reference" "#PWR01102" (at 71.12 115.57 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 71.12 114.3 0)
@@ -1387,7 +1444,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0145") (unit 1)
+          (reference "#PWR01102") (unit 1)
         )
       )
     )
@@ -1415,7 +1472,7 @@
           (reference "#PWR06") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0149") (unit 1)
+          (reference "#PWR01106") (unit 1)
         )
       )
       (project "drone"
@@ -1432,7 +1489,7 @@
   (symbol (lib_id "Device:C") (at 97.155 102.87 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 34a9f6fa-230d-442e-8a34-0325b2682adc)
-    (property "Reference" "C150" (at 100.33 101.6 0)
+    (property "Reference" "C1102" (at 100.33 101.6 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 100.33 104.14 0)
@@ -1449,7 +1506,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "C150") (unit 1)
+          (reference "C1102") (unit 1)
         )
       )
     )
@@ -1478,7 +1535,7 @@
           (reference "C2") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "C151") (unit 1)
+          (reference "C1103") (unit 1)
         )
       )
       (project "drone"
@@ -1516,7 +1573,7 @@
           (reference "Q25") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "Q37") (unit 1)
+          (reference "Q1101") (unit 1)
         )
       )
       (project "drone"
@@ -1564,7 +1621,7 @@
           (reference "R6") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "R186") (unit 1)
+          (reference "R1103") (unit 1)
         )
       )
       (project "drone"
@@ -1600,7 +1657,7 @@
           (reference "#PWR07") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0150") (unit 1)
+          (reference "#PWR01107") (unit 1)
         )
       )
       (project "drone"
@@ -1659,7 +1716,7 @@
           (reference "U2") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "U14") (unit 1)
+          (reference "U1103") (unit 1)
         )
       )
       (project "drone"
@@ -1695,7 +1752,7 @@
           (reference "TP1") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "TP12") (unit 1)
+          (reference "TP1102") (unit 1)
         )
       )
       (project "drone"
@@ -1706,10 +1763,36 @@
     )
   )
 
+  (symbol (lib_id "Connector:Conn_01x02_Pin") (at 215.9 122.555 180) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 79c0be9c-31d0-43cd-b4a6-a9c6a49b795f)
+    (property "Reference" "J1101" (at 217.17 120.65 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Value" "Conn_01x02_Pin" (at 217.17 123.19 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "" (at 215.9 122.555 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 215.9 122.555 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 9c3ee7ca-20db-4662-8d11-093845656f1f))
+    (pin "2" (uuid a85929c9-fb13-4936-b463-e75ea83cc3eb))
+    (instances
+      (project "high-power"
+        (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
+          (reference "J1101") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "power:+5V") (at 71.12 83.185 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7a1e5bf5-2ccc-4130-8c6e-770417b00513)
-    (property "Reference" "#PWR0144" (at 71.12 86.995 0)
+    (property "Reference" "#PWR01101" (at 71.12 86.995 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 71.12 79.375 0)
@@ -1725,7 +1808,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0144") (unit 1)
+          (reference "#PWR01101") (unit 1)
         )
       )
     )
@@ -1734,7 +1817,7 @@
   (symbol (lib_id "capstone:SLG55021") (at 77.47 98.425 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8faba368-8e52-47e1-940c-bc41833d37d2)
-    (property "Reference" "U12" (at 73.0759 84.455 0)
+    (property "Reference" "U1101" (at 73.0759 84.455 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SLG55021" (at 73.0759 86.995 0)
@@ -1757,7 +1840,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "U12") (unit 1)
+          (reference "U1101") (unit 1)
         )
       )
     )
@@ -1766,7 +1849,7 @@
   (symbol (lib_id "power:+5V") (at 120.015 83.185 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 966a8333-463c-43cf-a8be-e5f564e92902)
-    (property "Reference" "#PWR0146" (at 120.015 86.995 0)
+    (property "Reference" "#PWR01103" (at 120.015 86.995 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5V" (at 120.015 79.375 0)
@@ -1782,7 +1865,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0146") (unit 1)
+          (reference "#PWR01103") (unit 1)
         )
       )
     )
@@ -1791,7 +1874,7 @@
   (symbol (lib_id "capstone:SLG55021") (at 126.365 98.425 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 9c01a0d7-c5e6-4f4f-a5f4-fc8ce345284d)
-    (property "Reference" "U13" (at 121.9709 84.455 0)
+    (property "Reference" "U1102" (at 121.9709 84.455 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "SLG55021" (at 121.9709 86.995 0)
@@ -1814,7 +1897,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "U13") (unit 1)
+          (reference "U1102") (unit 1)
         )
       )
     )
@@ -1823,7 +1906,7 @@
   (symbol (lib_id "Device:C") (at 48.26 102.87 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid a767789d-ad1f-47a4-ba76-65425112fbbb)
-    (property "Reference" "C149" (at 51.435 101.6 0)
+    (property "Reference" "C1101" (at 51.435 101.6 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100n" (at 51.435 104.14 0)
@@ -1840,7 +1923,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "C149") (unit 1)
+          (reference "C1101") (unit 1)
         )
       )
     )
@@ -1869,7 +1952,7 @@
           (reference "R7") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "R187") (unit 1)
+          (reference "R1104") (unit 1)
         )
       )
       (project "drone"
@@ -1886,7 +1969,7 @@
   (symbol (lib_id "Device:R") (at 109.855 102.87 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid c8bbecf1-6e33-4550-8400-045e1f77986a)
-    (property "Reference" "R185" (at 111.76 102.235 0)
+    (property "Reference" "R1102" (at 111.76 102.235 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100k" (at 111.76 104.775 0)
@@ -1903,7 +1986,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "R185") (unit 1)
+          (reference "R1102") (unit 1)
         )
       )
     )
@@ -1933,7 +2016,7 @@
           (reference "Q25") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "Q38") (unit 1)
+          (reference "Q1102") (unit 1)
         )
       )
       (project "drone"
@@ -1980,7 +2063,7 @@
           (reference "TP2") (unit 1)
         )
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "TP11") (unit 1)
+          (reference "TP1101") (unit 1)
         )
       )
       (project "drone"
@@ -1994,7 +2077,7 @@
   (symbol (lib_name "GND_1") (lib_id "power:GND") (at 120.015 109.22 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f3ff8e86-3d64-425a-8b1d-59342e4a04f8)
-    (property "Reference" "#PWR0147" (at 120.015 115.57 0)
+    (property "Reference" "#PWR01104" (at 120.015 115.57 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 120.015 114.3 0)
@@ -2010,7 +2093,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "#PWR0147") (unit 1)
+          (reference "#PWR01104") (unit 1)
         )
       )
     )
@@ -2019,7 +2102,7 @@
   (symbol (lib_id "Device:R") (at 60.96 102.87 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid f9a98153-0d43-42b0-96e5-b7c20d76d19a)
-    (property "Reference" "R184" (at 62.865 102.235 0)
+    (property "Reference" "R1101" (at 62.865 102.235 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100k" (at 62.865 104.775 0)
@@ -2036,7 +2119,7 @@
     (instances
       (project "high-power"
         (path "/4aa4a0cf-3721-431d-88e8-8afb2cf87302/e67f9728-ca0e-433d-883c-80e42a6fd80b"
-          (reference "R184") (unit 1)
+          (reference "R1101") (unit 1)
         )
       )
     )

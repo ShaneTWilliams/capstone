@@ -411,6 +411,11 @@
     (uuid e0b1f739-1e56-4382-b25e-01f882e89d5a)
   )
 
+  (text "ONE 100n CAP\nFOR EACH PIN" (at 126.365 81.915 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c8f1ec3d-5318-4035-b638-7c791f7b18ed)
+  )
+
   (hierarchical_label "~{RESET}" (shape input) (at 121.92 111.76 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 04125082-9dbf-4462-bda9-8d46b896caba)
@@ -446,7 +451,7 @@
           (reference "#PWR031") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "#PWR07") (unit 1)
+          (reference "#PWR0202") (unit 1)
         )
       )
     )
@@ -458,7 +463,7 @@
     (property "Reference" "C44" (at 144.145 88.9 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "2.2u" (at 144.145 91.44 0)
+    (property "Value" "10u" (at 144.145 91.44 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Capacitor_SMD:C_0402_1005Metric" (at 145.7198 93.345 0)
@@ -475,7 +480,7 @@
           (reference "C44") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "C3") (unit 1)
+          (reference "C203") (unit 1)
         )
       )
     )
@@ -503,7 +508,7 @@
           (reference "#PWR030") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "#PWR06") (unit 1)
+          (reference "#PWR0201") (unit 1)
         )
       )
     )
@@ -532,7 +537,7 @@
           (reference "C46") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "C1") (unit 1)
+          (reference "C201") (unit 1)
         )
       )
     )
@@ -571,7 +576,7 @@
           (reference "U6") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "U1") (unit 1)
+          (reference "U201") (unit 1)
         )
       )
     )
@@ -580,7 +585,7 @@
   (symbol (lib_id "Device:R") (at 135.89 116.205 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d039a246-1e40-43cc-98d9-8db51df3caf0)
-    (property "Reference" "R25" (at 137.795 115.57 0)
+    (property "Reference" "R201" (at 137.795 115.57 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100k" (at 137.795 118.11 0)
@@ -597,7 +602,7 @@
     (instances
       (project "low-power"
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "R25") (unit 1)
+          (reference "R201") (unit 1)
         )
       )
     )
@@ -626,7 +631,7 @@
           (reference "C45") (unit 1)
         )
         (path "/71f6a5b4-1ac6-435b-9486-30b16ab86e62/a6608ad1-69a0-4d23-9644-6c2efafa5ff5"
-          (reference "C2") (unit 1)
+          (reference "C202") (unit 1)
         )
       )
     )
