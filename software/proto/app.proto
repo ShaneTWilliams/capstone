@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "nanopb.proto";
+
+/**************************************
+ ********** Enum Definitions **********
+ **************************************/
+
+/*************************************
+ ******** Struct Definitions *********
+ *************************************/
+
+/*************************************
+ ******** Message Definitions ********
+ *************************************/
+
+message Ping {
+  message Request {}
+  message Response {}
+}
+
+/***********************************************
+ ******** Top-Level Message Definitions ********
+ ***********************************************/
+
+message Request {
+  oneof payload { Ping ping = 1; }
+}
+
+message Response {
+  oneof payload { Ping ping = 1; }
+}

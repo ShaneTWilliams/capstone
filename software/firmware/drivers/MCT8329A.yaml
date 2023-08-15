@@ -1,0 +1,2078 @@
+transport: i2c
+registers:
+  ISD_CONFIG:
+    address: 0x80
+    size: 4
+    fields:
+      MTR_STARTUP:
+        access: rw
+        offset: 1
+        size: 2
+        type: MTR_STARTUP
+      RESYNC_MIN_THRESH_OLD:
+        access: rw
+        offset: 3
+        size: 3
+        type: RESYNC_MIN_THRESH_OLD
+      STARTUP_BRAKE_TIME:
+        access: rw
+        offset: 6
+        size: 3
+        type: STARTUP_BRAKE_TIME
+      HIZ_TIME:
+        access: rw
+        offset: 9
+        size: 4
+        type: HIZ_TIME
+      BRAKE_TIME:
+        access: rw
+        offset: 13
+        size: 4
+        type: BRAKE_TIME
+      BRAKE_MODE:
+        access: rw
+        offset: 21
+        size: 1
+      STAT_DETECT_THRESH:
+        access: rw
+        offset: 22
+        size: 3
+        type: STAT_DETECT_THRESH
+      STAT_BRAKE_EN:
+        access: rw
+        offset: 25
+        size: 1
+      RESYNC_EN:
+        access: rw
+        offset: 26
+        size: 1
+      RVS_DR_EN:
+        access: rw
+        offset: 27
+        size: 1
+      HIZ_EN:
+        access: rw
+        offset: 28
+        size: 1
+      BRAKE_EN:
+        access: rw
+        offset: 29
+        size: 1
+      ISD_EN:
+        access: rw
+        offset: 30
+        size: 1
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  MOTOR_STARTUP1:
+    address: 0x82
+    size: 4
+    fields:
+      SLOW_FIRST_CYC_FREQ:
+        access: rw
+        offset: 0
+        size: 4
+        type: SLOW_FIRST_CYC_FREQ
+      IPD_REPEAT:
+        access: rw
+        offset: 4
+        size: 2
+        type: IPD_REPEAT
+      IPD_ADV_ANGLE:
+        access: rw
+        offset: 6
+        size: 2
+        type: IPD_ADV_ANGLE
+      IPD_CURR_THRESH:
+        access: rw
+        offset: 8
+        size: 5
+        type: CURRENT_THRESH
+      IPD_CLK_FREG:
+        access: rw
+        offset: 13
+        size: 3
+        type: IPD_CLK_FREG
+      ALIGN_DUTY:
+        access: rw
+        offset: 16
+        size: 2
+        type: ALIGN_DUTY
+      ALIGN_CURR_THRESH:
+        access: rw
+        offset: 18
+        size: 5
+        type: CURRENT_THRESH
+      ALIGN_TIME:
+        access: rw
+        offset: 23
+        size: 4
+        type: ALIGN_TIME
+      ALIGN_RAMP_RATE:
+        access: rw
+        offset: 27
+        size: 4
+        type: ALIGN_RAMP_RATE
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  MOTOR_STARTUP2:
+    address: 0x84
+    size: 4
+    fields:
+      OL_HANDOFF_CYCLES:
+        access: rw
+        offset: 0
+        size: 2
+        type: OL_HANDOFF
+      MIN_DUTY:
+        access: rw
+        offset: 2
+        size: 4
+        type: MIN_DUTY
+      FIRST_CYCLE_FREQ_SEL:
+        access: rw
+        offset: 6
+        size: 1
+      AUTO_HANDOFF:
+        access: rw
+        offset: 7
+        size: 1
+      OPN_CL_HANDOFF_THRESH:
+        access: rw
+        offset: 8
+        size: 5
+        type: OPN_CL_HANDOFF_THRESH
+      OL_ACCEL_A2:
+        access: rw
+        offset: 13
+        size: 5
+        type: OPEN_LOOP_ACCEL
+      OL_ACCEL_A1:
+        access: rw
+        offset: 18
+        size: 5
+        type: OPEN_LOOP_ACCEL
+      OL_LIMIT:
+        access: rw
+        offset: 23
+        size: 5
+        type: CURRENT_THRESH
+      OL_DUTY:
+        access: rw
+        offset: 28
+        size: 3
+        type: OL_DUTY
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  CLOSED_LOOP1:
+    address: 0x86
+    size: 4
+    fields:
+      LD_ANGLE:
+        access: rw
+        offset: 1
+        size: 8
+      LD_ANGLE_POLARITY:
+        access: rw
+        offset: 9
+        size: 1
+      PWM_MODE:
+        access: rw
+        offset: 10
+        size: 1
+      PWM_MODUL:
+        access: rw
+        offset: 11
+        size: 2
+        type: PWM_MODUL
+      PWM_FREQ_OUT:
+        access: rw
+        offset: 13
+        size: 5
+        type: PWM_FREQ_OUT
+      CL_DEC:
+        access: rw
+        offset: 18
+        size: 5
+        type: CLOSED_LOOP_ACCEL
+      CL_DEC_CNFG:
+        access: rw
+        offset: 23
+        size: 1
+      CL_ACC:
+        access: rw
+        offset: 24
+        size: 5
+        type: CLOSED_LOOP_ACCEL
+      COMM_CTRL:
+        access: rw
+        offset: 29
+        size: 2
+        type: COMM_CTRL
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  CLOSED_LOOP2:
+    address: 0x88
+    size: 4
+    fields:
+      INTEG_ZC_METHOD:
+        access: rw
+        offset: 0
+        size: 1
+      OL_ILIMIT_CNFG:
+        access: rw
+        offset: 1
+        size: 1
+      CBC_ILIMIT:
+        access: rw
+        offset: 2
+        size: 5
+        type: CURRENT_THRESH
+      AVS_EN:
+        access: rw
+        offset: 7
+        size: 1
+      BRAKE_DUTY_THRESH:
+        access: rw
+        offset: 8
+        size: 3
+        type: BRAKE_DUTY_THRESH
+      ACT_SPIN_BRAKE_THRESH:
+        access: rw
+        offset: 11
+        size: 3
+        type: BRAKE_DUTY_THRESH
+      MTR_STOP_BRAKE_TIME:
+        access: rw
+        offset: 14
+        size: 4
+        type: BRAKE_TIME
+      MTR_STOP:
+        access: rw
+        offset: 18
+        size: 3
+        type: MTR_STOP
+      FG_BEMF_THRESH:
+        access: rw
+        offset: 21
+        size: 3
+        type: BEMF_THRESH
+      DEAD_TIME_COMP:
+        access: rw
+        offset: 24
+        size: 1
+      FG_DIV_FACTOR:
+        access: rw
+        offset: 25
+        size: 4
+        type: FG_DIV_FACTOR
+      FG_SEL:
+        access: rw
+        offset: 29
+        size: 2
+        type: FG_SEL
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  CLOSED_LOOP3:
+    address: 0x8A
+    size: 4
+    fields:
+      DYN_DEGAUSS_EN:
+        access: rw
+        offset: 0
+        size: 1
+      DEGAUSS_MAX_WIN:
+        access: rw
+        offset: 1
+        size: 3
+        type: DEGAUSS_MAX_WIN
+      DYN_DGS_LOWER_LIM:
+        access: rw
+        offset: 4
+        size: 2
+        type: DYN_DGS_LOWER_LIM
+      DYN_DGS_UPPER_LIM:
+        access: rw
+        offset: 6
+        size: 2
+        type: DYN_DGS_UPPER_LIM
+      DYN_DGS_FILT_COUNT:
+        access: rw
+        offset: 8
+        size: 3
+        type: DYN_DGS_FILT_COUNT
+      BEMF_THRESH1:
+        access: rw
+        offset: 11
+        size: 6
+        type: BEMF_THRESH
+      BEMF_THRESH2:
+        access: rw
+        offset: 17
+        size: 6
+        type: BEMF_THRESH
+      INTEG_DUTY_THRESH_HIGH:
+        access: rw
+        offset: 23
+        size: 2
+        type: INTEG_DUTY_THRESH_HIGH
+      INTEG_DUTY_THRESH_LOW:
+        access: rw
+        offset: 25
+        size: 2
+        type: INTEG_DUTY_THRESH_LOW
+      INTEG_CYCL_THRESH_HIGH:
+        access: rw
+        offset: 27
+        size: 2
+        type: INTEG_CYCL_THRESH_HIGH
+      INTEG_CYCL_THRESH_LOW:
+        access: rw
+        offset: 29
+        size: 2
+        type: INTEG_CYCL_THRESH_LOW
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  CLOSED_LOOP4:
+    address: 0x8C
+    size: 4
+    fields:
+      FAST_BRAKE_DELTA:
+        access: rw
+        offset: 0
+        size: 3
+        type: FAST_BRAKE_DELTA
+      FAST_DECEL_CURR_LIM:
+        access: rw
+        offset: 3
+        size: 4
+        type: FAST_DECEL_CURR_LIM
+      FAST_DECEL_EN:
+        access: rw
+        offset: 7
+        size: 1
+      DYNAMIC_BRAKE_CURR:
+        access: rw
+        offset: 8
+        size: 1
+      DYN_BRAKE_CURR_LOW_LIM:
+        access: rw
+        offset: 9
+        size: 3
+        type: DYN_BRAKE_CURR_LOW_LIM
+      FAST_DEC_DUTY_THRESH:
+        access: rw
+        offset: 13
+        size: 3
+        type: FAST_DEC_DUTY_THRESH
+      FAST_DEC_DUTY_WIN:
+        access: rw
+        offset: 16
+        size: 3
+        type: FAST_DEC_DUTY_WIN
+      WCOMP_BLANK_EN:
+        access: rw
+        offset: 19
+        size: 1
+      FAST_DEC_DEG_TIME:
+        access: rw
+        offset: 20
+        size: 2
+        type: FAST_DEC_DEG_TIME
+      AVS_NEG_CURR_LIMIT:
+        access: rw
+        offset: 25
+        size: 3
+        type: AVS_NEG_CURR_LIMIT
+      AVS_LIMIT_HYST:
+        access: rw
+        offset: 28
+        size: 1
+      HIGH_RES_SAMP:
+        access: rw
+        offset: 29
+        size: 1
+      DYN_VOLT_SCALING_EN:
+        access: rw
+        offset: 30
+        size: 1
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  CONST_SPEED:
+    address: 0x8E
+    size: 4
+    fields:
+      CLOSED_LOOP_MODE:
+        access: rw
+        offset: 0
+        size: 2
+        type: CLOSED_LOOP_MODE
+      SPD_POWER_V_MIN:
+        access: rw
+        offset: 2
+        size: 3
+        type: SPD_POWER_V_MIN
+      SPD_POWER_V_MAX:
+        access: rw
+        offset: 5
+        size: 3
+        type: SPD_POWER_V_MAX
+      SPD_POWER_KI:
+        access: rw
+        offset: 8
+        size: 12
+      SPD_POWER_KP:
+        access: rw
+        offset: 20
+        size: 10
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  CONST_PWR:
+    address: 0x90
+    size: 4
+    fields:
+      MODE:
+        access: rw
+        offset: 0
+        size: 2
+        type: MODE
+      LIM_HYST:
+        access: rw
+        offset: 2
+        size: 2
+        type: LIM_HYST
+      MAX_POWER:
+        access: rw
+        offset: 4
+        size: 11
+      MAX_SPEED:
+        access: rw
+        offset: 15
+        size: 16
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  FAULT_CONFIG1:
+    address: 0x92
+    size: 4
+    fields:
+      LCK_RETRY:
+        access: rw
+        offset: 0
+        size: 3
+        type: LCK_RETRY
+      MTR_LCK_MODE:
+        access: rw
+        offset: 3
+        size: 4
+      CBC_RETRY_PWM_CYC:
+        access: rw
+        offset: 8
+        size: 3
+        type: CBC_RETRY_PWM_CYC
+      LOCK_ILIMIT_DEG:
+        access: rw
+        offset: 11
+        size: 4
+        type: LOCK_ILIMIT_DEG
+      LOCK_ILIMIT_MODE:
+        access: rw
+        offset: 15
+        size: 4
+      LOCK_ILIMIT:
+        access: rw
+        offset: 19
+        size: 4
+        type: LOCK_ILIMIT
+      CBC_ILIMIT_MODE:
+        access: rw
+        offset: 24
+        size: 4
+      NO_MTR_DEG_TIME:
+        access: rw
+        offset: 28
+        size: 3
+        type: NO_MTR_DEG_TIME
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  FAULT_CONFIG2:
+    address: 0x94
+    size: 4
+    fields:
+      ZERO_DUTY_THRESH:
+        access: rw
+        offset: 0
+        size: 2
+        type: ZERO_DUTY_THRESH
+      ABN_LOCK_SPD_RATIO:
+        access: rw
+        offset: 2
+        size: 2
+        type: ABN_LOCK_SPD_RATIO
+      LOCK_MIN_SPEED:
+        access: rw
+        offset: 4
+        size: 3
+        type: LOCK_MIN_SPEED
+      AUTO_RETRY_TIMES:
+        access: rw
+        offset: 7
+        size: 3
+        type: AUTO_RETRY_TIMES
+      MIN_VM_MOTOR:
+        access: rw
+        offset: 10
+        size: 3
+        type: MIN_VM_MOTOR
+      MIN_VM_MODE:
+        access: rw
+        offset: 13
+        size: 1
+      MAX_VM_MOTOR:
+        access: rw
+        offset: 14
+        size: 3
+        type: MAX_VM_MOTOR
+      MAX_VM_MODE:
+        access: rw
+        offset: 17
+        size: 1
+      NO_MTR_THRESH:
+        access: rw
+        offset: 18
+        size: 3
+        type: NO_MTR_THRESH
+      LOSS_SYNC_TIMES:
+        access: rw
+        offset: 21
+        size: 3
+        type: LOSS_SYNC_TIMES
+      LOCK_ABN_SPEED:
+        access: rw
+        offset: 24
+        size: 4
+        type: LOCK_ABN_SPEED
+      NO_MOTOR_EN:
+        access: rw
+        offset: 28
+        size: 1
+      LOSS_OF_SYNC_EN:
+        access: rw
+        offset: 29
+        size: 1
+      ABN_SPD_EN:
+        access: rw
+        offset: 30
+        size: 1
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  STEP_DUTY:
+    address: 0x98
+    size: 4
+    fields:
+      LEAD_ANGLE_150DEG_ADV:
+        access: rw
+        offset: 5
+        size: 2
+        type: LEAD_ANGLE
+      THREEPH_STEP7:
+        access: rw
+        offset: 7
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP6:
+        access: rw
+        offset: 10
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP5:
+        access: rw
+        offset: 13
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP4:
+        access: rw
+        offset: 16
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP3:
+        access: rw
+        offset: 19
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP2:
+        access: rw
+        offset: 22
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP1:
+        access: rw
+        offset: 25
+        size: 3
+        type: STEP_DUTY
+      THREEPH_STEP0:
+        access: rw
+        offset: 28
+        size: 3
+        type: STEP_DUTY
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  REF_PROFILES1:
+    address: 0x9A
+    size: 4
+    fields:
+      DUTY_A:
+        access: rw
+        offset: 0
+        size: 5
+      DUTY_CLAMP1:
+        access: rw
+        offset: 5
+        size: 8
+      DUTY_OFF1:
+        access: rw
+        offset: 13
+        size: 8
+      DUTY_ON1:
+        access: rw
+        offset: 21
+        size: 8
+      REF_PROFILE_CONFIG:
+        access: rw
+        offset: 29
+        size: 2
+        type: REF_PROFILE_CONFIG
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  REF_PROFILES2:
+    address: 0x9C
+    size: 4
+    fields:
+      DUTY_E:
+        access: rw
+        offset: 0
+        size: 4
+      DUTY_D:
+        access: rw
+        offset: 4
+        size: 8
+      DUTY_C:
+        access: rw
+        offset: 12
+        size: 8
+      DUTY_B:
+        access: rw
+        offset: 20
+        size: 8
+      DUTY_A:
+        access: rw
+        offset: 28
+        size: 3
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  REF_PROFILES3:
+    address: 0x9E
+    size: 4
+    fields:
+      STEP_HYST_BAND:
+        access: rw
+        offset: 1
+        size: 2
+        type: STEP_HYST_BAND
+      DUTY_CLAMP2:
+        access: rw
+        offset: 3
+        size: 8
+      DUTY_OFF2:
+        access: rw
+        offset: 11
+        size: 8
+      DUTY_ON2:
+        access: rw
+        offset: 19
+        size: 8
+      DUTY_E:
+        access: rw
+        offset: 27
+        size: 4
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  REF_PROFILES4:
+    address: 0xA0
+    size: 4
+    fields:
+      REF_B:
+        access: rw
+        offset: 0
+        size: 7
+      REF_A:
+        access: rw
+        offset: 7
+        size: 8
+      REF_CLAMP1:
+        access: rw
+        offset: 15
+        size: 8
+      REF_OFF1:
+        access: rw
+        offset: 23
+        size: 8
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  REF_PROFILES5:
+    address: 0xA2
+    size: 4
+    fields:
+      REF_E:
+        access: rw
+        offset: 6
+        size: 8
+      REF_D:
+        access: rw
+        offset: 14
+        size: 8
+      REF_C:
+        access: rw
+        offset: 22
+        size: 8
+      REF_B:
+        access: rw
+        offset: 30
+        size: 1
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  REF_PROFILES6:
+    address: 0xA4
+    size: 4
+    fields:
+      REF_CLAMP2:
+        access: rw
+        offset: 15
+        size: 8
+      REF_OFF2:
+        access: rw
+        offset: 23
+        size: 8
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  PIN_CONFIG1:
+    address: 0xA6
+    size: 4
+    fields:
+      SPD_CTRL_MODE:
+        access: rw
+        offset: 1
+        size: 2
+        type: SPD_CTRL_MODE
+      DIR_INPUT:
+        access: rw
+        offset: 3
+        size: 2
+      BRAKE_INPUT:
+        access: rw
+        offset: 5
+        size: 2
+        type: BRAKE_INPUT
+      DACOUT_VAR_ADDR:
+        access: rw
+        offset: 19
+        size: 12
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  PIN_CONFIG2:
+    address: 0xA8
+    size: 4
+    fields:
+      ZERO_DUTY_HYST:
+        access: rw
+        offset: 0
+        size: 2
+        type: ZERO_DUTY_HYST
+      TPWDTH:
+        access: rw
+        offset: 2
+        size: 3
+        type: TPWDTH
+      TBLANK:
+        access: rw
+        offset: 5
+        size: 4
+        type: TBLANK
+      FG_PIN_STOP_CONFIG:
+        access: rw
+        offset: 9
+        size: 2
+      FG_PIN_FAULT_CONFIG:
+        access: rw
+        offset: 11
+        size: 2
+      FG_CONFIG:
+        access: rw
+        offset: 13
+        size: 1
+      I2C_TARGET_ADDR:
+        access: rw
+        offset: 20
+        size: 7
+      SLEEP_TIME:
+        access: rw
+        offset: 27
+        size: 2
+        type: SLEEP_TIME
+      DAC_SOX_ANA_CONFIG:
+        access: rw
+        offset: 29
+        size: 2
+        type: DAC_SOX_ANA_CONFIG
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  DEVICE_CONFIG:
+    address: 0xAA
+    size: 4
+    fields:
+      DIG_DEAD_TIME:
+        access: rw
+        offset: 0
+        size: 4
+        type: DEVICE_CONFIG_DIG_DEAD_TIME
+      EXT_CLK_CONFIG:
+        access: rw
+        offset: 4
+        size: 3
+        type: DEVICE_CONFIG_EXT_CLK_CONFIG
+      EXT_CLK_EN:
+        access: rw
+        offset: 7
+        size: 1
+      CLK_SEL:
+        access: rw
+        offset: 8
+        size: 2
+      SPD_PWM_RANGE_SELECT:
+        access: rw
+        offset: 10
+        size: 1
+      DEV_MODE:
+        access: rw
+        offset: 11
+        size: 1
+      SSM_CONFIG:
+        access: rw
+        offset: 14
+        size: 1
+      STL_ENABLE:
+        access: rw
+        offset: 15
+        size: 1
+      INPUT_MAX_FREQUENCY:
+        access: rw
+        offset: 16
+        size: 15
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  GD_CONFIG1:
+    address: 0xAC
+    size: 4
+    fields:
+      CSA_GAIN:
+        access: rw
+        offset: 0
+        size: 2
+        type: CSA_GAIN
+      SEL_VDS_LVL:
+        access: rw
+        offset: 3
+        size: 4
+        type: SEL_VDS_LVL
+      DIS_VDS_FLT:
+        access: rw
+        offset: 8
+        size: 1
+      DIS_SNS_FLT:
+        access: rw
+        offset: 9
+        size: 1
+      OTS_AUTO_RECOVERY:
+        access: rw
+        offset: 15
+        size: 1
+      DIS_BST_FLT:
+        access: rw
+        offset: 16
+        size: 1
+      VREF_SEL:
+        access: rw
+        offset: 18
+        size: 1
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  GD_CONFIG2:
+    address: 0xAE
+    size: 4
+    fields:
+      PARITY:
+        access: rw
+        offset: 31
+        size: 1
+  GATE_DRIVER_FAULT_STATUS:
+    address: 0xE0
+    size: 4
+    fields:
+      DRV_OFF:
+        access: r
+        offset: 24
+        size: 1
+      GVDO_UV_FAULT:
+        access: r
+        offset: 25
+        size: 1
+      BST_UV_FAULT:
+        access: r
+        offset: 26
+        size: 1
+      OCP_SNS_FAULT:
+        access: r
+        offset: 27
+        size: 1
+      OCP_VDS_FAULT:
+        access: r
+        offset: 28
+        size: 1
+      PWR_ON:
+        access: r
+        offset: 30
+        size: 1
+      DRIVER_FAULT:
+        access: r
+        offset: 31
+        size: 1
+  CONTROLLER_FAULT_STATUS:
+    address: 0xE2
+    size: 4
+    fields:
+      APR_RESET:
+        access: r
+        offset: 0
+        size: 1
+      STL_STATUS:
+        access: r
+        offset: 1
+        size: 1
+      STL_EN:
+        access: r
+        offset: 2
+        size: 1
+      MTR_OVER_VOLTAGE:
+        access: r
+        offset: 16
+        size: 1
+      MTR_UNDER_VOLTAGE:
+        access: r
+        offset: 17
+        size: 1
+      LOCK_ILIMIT:
+        access: r
+        offset: 18
+        size: 1
+      CBC_ILIMIT:
+        access: r
+        offset: 19
+        size: 1
+      MTR_LCK:
+        access: r
+        offset: 20
+        size: 1
+      NO_MTR:
+        access: r
+        offset: 21
+        size: 1
+      LOSS_OF_SYNC:
+        access: r
+        offset: 22
+        size: 1
+      ABN_SPEED:
+        access: r
+        offset: 23
+        size: 1
+      IPD_T1_FAULT:
+        access: r
+        offset: 28
+        size: 1
+      IPD_FREQ_FAULT:
+        access: r
+        offset: 29
+        size: 1
+      CONTROLLER_FAULT:
+        access: r
+        offset: 31
+        size: 1
+  SYS_STATUS1:
+    address: 0xE4
+    size: 4
+    fields:
+      I2C_ENTRY_STATUS:
+        access: r
+        offset: 0
+        size: 1
+      SPEED_CMD:
+        access: r
+        offset: 1
+        size: 15
+      VOLT_MAG:
+        access: r
+        offset: 16
+        size: 16
+  ALGO_CTRL1:
+    address: 0xE6
+    size: 4
+    fields:
+      EXT_WD_STATUS_SET:
+        access: w
+        offset: 0
+        size: 1
+      EEPROM_WRITE_ACCESS_KEY:
+        access: w
+        offset: 20
+        size: 8
+      CLR_FLT_RETRY_COUNT:
+        access: w
+        offset: 28
+        size: 1
+      CLR_FLT:
+        access: w
+        offset: 29
+        size: 1
+      EEPROM_READ:
+        access: w
+        offset: 30
+        size: 1
+      EEPROM_WRT:
+        access: w
+        offset: 31
+        size: 1
+  DEVICE_CTRL:
+    address: 0xE8
+    size: 4
+    fields:
+      OVERRIDE:
+        access: w
+        offset: 15
+        size: 1
+      SPEED_CTRL:
+        access: w
+        offset: 16
+        size: 15
+  SYS_STATUS2:
+    address: 0xEA
+    size: 4
+    fields:
+      MOTOR_SPEED:
+        access: r
+        offset: 0
+        size: 16
+      STL_FAULT:
+        access: r
+        offset: 17
+        size: 1
+      STATE:
+        access: r
+        offset: 28
+        size: 4
+        type: STATE
+  SYS_STATUS3:
+    address: 0xEC
+    size: 4
+    fields:
+      DC_BATT_POW:
+        access: r
+        offset: 0
+        size: 16
+      DC_BUS_CURR:
+        access: r
+        offset: 16
+        size: 16
+  INPUT_DUTY:
+    address: 0x40C
+    size: 4
+    fields:
+      INPUT_DUTY:
+        access: r
+        offset: 0
+        size: 32
+  CURR_DUTY:
+    address: 0x512
+    size: 4
+    fields:
+      CURRENT_DUTY:
+        access: r
+        offset: 0
+        size: 32
+  SET_DUTY:
+    address: 0x522
+    size: 4
+    fields:
+      SET_DUTY:
+        access: r
+        offset: 0
+        size: 32
+  MOTOR_SPEED_PU:
+    address: 0x5CE
+    size: 4
+    fields:
+      MOTOR_SPEED_PU:
+        access: r
+        offset: 0
+        size: 32
+  DC_BUS_POWER_PU:
+    address: 0x714
+    size: 4
+    fields:
+      DC_BUS_POWER_PU:
+        access: r
+        offset: 0
+        size: 32
+enums:
+  ABN_LOCK_SPD_RATIO:
+    2_SPEED_RATIO: 0x00
+    4_SPEED_RATIO: 0x01
+    6_SPEED_RATIO: 0x02
+    8_SPEED_RATIO: 0x03
+  ALIGN_DUTY:
+    10_PERCENT: 0x00
+    25_PERCENT: 0x01
+    50_PERCENT: 0x02
+    100_PERCENT: 0x03
+  ALIGN_RAMP_RATE:
+    0_1_V_PER_S: 0x00
+    0_2_V_PER_S: 0x01
+    0_4_V_PER_S: 0x02
+    1_0_V_PER_S: 0x03
+    2_5_V_PER_S: 0x04
+    5_0_V_PER_S: 0x05
+    7_5_V_PER_S: 0x06
+    10_V_PER_S: 0x07
+    25_V_PER_S: 0x08
+    50_V_PER_S: 0x09
+    75_V_PER_S: 0x0A
+    100_V_PER_S: 0x0B
+    250_V_PER_S: 0x0C
+    500_V_PER_S: 0x0D
+    750_V_PER_S: 0x0E
+    1000_V_PER_S: 0x0F
+  ALIGN_TIME:
+    5_MS: 0x00
+    10_MS: 0x01
+    25_MS: 0x02
+    50_MS: 0x03
+    75_MS: 0x04
+    100_MS: 0x05
+    200_MS: 0x06
+    400_MS: 0x07
+    600_MS: 0x08
+    800_MS: 0x09
+    1000_MS: 0x0A
+    2000_MS: 0x0B
+    4000_MS: 0x0C
+    6000_MS: 0x0D
+    8000_MS: 0x0E
+    10000_MS: 0x0F
+  AUTO_RETRY_TIMES:
+    NO_LIMIT: 0x00
+    2_TIMES: 0x01
+    3_TIMES: 0x02
+    5_TIMES: 0x03
+    7_TIMES: 0x04
+    10_TIMES: 0x05
+    15_TIMES: 0x06
+    20_TIMES: 0x07
+  AVS_NEG_CURR_LIMIT:
+    POS_0: 0x00
+    NEG_60: 0x01
+    NEG_40: 0x02
+    NEG_30: 0x03
+    NEG_20: 0x04
+    NEG_10: 0x05
+    POS_15: 0x06
+    POS_30: 0x07
+  BEMF_THRESH:
+    BEMF_0: 0x00
+    BEMF_25: 0x01
+    BEMF_50: 0x02
+    BEMF_75: 0x03
+    BEMF_100: 0x04
+    BEMF_125: 0x05
+    BEMF_150: 0x06
+    BEMF_175: 0x07
+    BEMF_200: 0x08
+    BEMF_225: 0x09
+    BEMF_250: 0x0A
+    BEMF_275: 0x0B
+    BEMF_300: 0x0C
+    BEMF_325: 0x0D
+    BEMF_350: 0x0E
+    BEMF_375: 0x0F
+    BEMF_400: 0x10
+    BEMF_425: 0x11
+    BEMF_450: 0x12
+    BEMF_475: 0x13
+    BEMF_500: 0x14
+    BEMF_525: 0x15
+    BEMF_550: 0x16
+    BEMF_575: 0x17
+    BEMF_600: 0x18
+    BEMF_625: 0x19
+    BEMF_650: 0x1A
+    BEMF_675: 0x1B
+    BEMF_700: 0x1C
+    BEMF_725: 0x1D
+    BEMF_750: 0x1E
+    BEMF_775: 0x1F
+    BEMF_800: 0x20
+    BEMF_850: 0x21
+    BEMF_900: 0x22
+    BEMF_950: 0x23
+    BEMF_1000: 0x24
+    BEMF_1050: 0x25
+    BEMF_1100: 0x26
+    BEMF_1150: 0x27
+    BEMF_1200: 0x28
+    BEMF_1250: 0x29
+    BEMF_1300: 0x2A
+    BEMF_1350: 0x2B
+    BEMF_1400: 0x2C
+    BEMF_1450: 0x2D
+    BEMF_1500: 0x2E
+    BEMF_1550: 0x2F
+    BEMF_1600: 0x30
+    BEMF_1700: 0x31
+    BEMF_1800: 0x32
+    BEMF_1900: 0x33
+    BEMF_2000: 0x34
+    BEMF_2100: 0x35
+    BEMF_2200: 0x36
+    BEMF_2300: 0x37
+    BEMF_2400: 0x38
+    BEMF_2600: 0x39
+    BEMF_2800: 0x3A
+    BEMF_3000: 0x3B
+    BEMF_3200: 0x3C
+    BEMF_3400: 0x3D
+    BEMF_3600: 0x3E
+    BEMF_3800: 0x3F
+  BRAKE_DUTY_THRESH:
+    IMMEDIATE: 0x00
+    50_PERCENT: 0x01
+    25_PERCENT: 0x02
+    15_PERCENT: 0x03
+    10_PERCENT: 0x04
+    7_5_PERCENT: 0x05
+    5_PERCENT: 0x06
+    2_5_PERCENT: 0x07
+  BRAKE_INPUT:
+    HARDWARE_BASED_BRAKE: 0x00
+    BRAKE_ALWAYS_ON: 0x01
+    BRAKE_ALWAYS_OFF: 0x02
+    NA: 0x03
+  BRAKE_TIME:
+    1_MS: 0x00
+    2_MS: 0x01
+    5_MS: 0x02
+    10_MS: 0x03
+    15_MS: 0x04
+    25_MS: 0x05
+    50_MS: 0x06
+    75_MS: 0x07
+    100_MS: 0x08
+    250_MS: 0x09
+    500_MS: 0x0A
+    1000_MS: 0x0B
+    2500_MS: 0x0C
+    5000_MS: 0x0D
+    10000_MS: 0x0E
+    15000_MS: 0x0F
+  CBC_RETRY_PWM_CYC:
+    0_PWM_CYC: 0x00
+    1_PWM_CYC: 0x01
+    2_PWM_CYC: 0x02
+    3_PWM_CYC: 0x03
+    4_PWM_CYC: 0x04
+    5_PWM_CYC: 0x05
+    6_PWM_CYC: 0x06
+    7_PWM_CYC: 0x07
+  CLOSED_LOOP_ACCEL:
+    0_005_V_PER_S2: 0x00
+    0_01_V_PER_S2: 0x01
+    0_025_V_PER_S2: 0x02
+    0_05_V_PER_S2: 0x03
+    0_1_V_PER_S2: 0x04
+    0_25_V_PER_S2: 0x05
+    0_5_V_PER_S2: 0x06
+    1_0_V_PER_S2: 0x07
+    2_5_V_PER_S2: 0x08
+    5_0_V_PER_S2: 0x09
+    7_5_V_PER_S2: 0x0A
+    10_0_V_PER_S2: 0x0B
+    12_5_V_PER_S2: 0x0C
+    15_V_PER_S2: 0x0D
+    20_V_PER_S2: 0x0E
+    30_V_PER_S2: 0x0F
+    40_V_PER_S2: 0x10
+    50_V_PER_S2: 0x11
+    60_V_PER_S2: 0x12
+    75_V_PER_S2: 0x13
+    100_V_PER_S2: 0x14
+    125_V_PER_S2: 0x15
+    150_V_PER_S2: 0x16
+    175_V_PER_S2: 0x17
+    200_V_PER_S2: 0x18
+    250_V_PER_S2: 0x19
+    300_V_PER_S2: 0x1A
+    400_V_PER_S2: 0x1B
+    500_V_PER_S2: 0x1C
+    750_V_PER_S2: 0x1D
+    1000_V_PER_S2: 0x1E
+    32767_V_PER_S2: 0x1F
+  CLOSED_LOOP_MODE:
+    DISABLED: 0x00
+    SPEED_LOOP: 0x01
+    POWER_LOOP: 0x02
+    RESERVED: 0x03
+  COMM_CTRL:
+    120_DEG_COMMUTATION: 0x00
+    120_TO_150_DEG_COMMUTATION: 0x01
+    NA: 0x03
+  CSA_GAIN:
+    5_GAIN: 0x00
+    10_GAIN: 0x01
+    20_GAIN: 0x02
+    40_GAIN: 0x03
+  CURRENT_THRESH:
+    0_0_V: 0x00
+    0_1_V: 0x01
+    0_2_V: 0x02
+    0_3_V: 0x03
+    0_4_V: 0x04
+    0_5_V: 0x05
+    0_6_V: 0x06
+    0_7_V: 0x07
+    0_8_V: 0x08
+    0_9_V: 0x09
+    1_0_V: 0x0A
+    1_1_V: 0x0B
+    1_2_V: 0x0C
+    1_3_V: 0x0D
+    1_4_V: 0x0E
+    1_5_V: 0x0F
+    1_6_V: 0x10
+    1_7_V: 0x11
+    1_8_V: 0x12
+    1_9_V: 0x13
+    2_0_V: 0x14
+    2_1_V: 0x15
+    2_2_V: 0x16
+    2_3_V: 0x17
+    2_4_V: 0x18
+    2_5_V: 0x19
+    2_6_V: 0x1A
+    NA: 0x1F
+  DAC_SOX_ANA_CONFIG:
+    DACOUT: 0x00
+    CSA_OUT: 0x01
+    ANA_ON_PIN: 0x02
+    NA: 0x03
+  DEGAUSS_MAX_WIN:
+    22_5_DEG: 0x00
+    10_0_DEG: 0x01
+    15_0_DEG: 0x02
+    18_0_DEG: 0x03
+    30_0_DEG: 0x04
+    37_5_DEG: 0x05
+    45_0_DEG: 0x06
+    60_0_DEG: 0x07
+  DEVICE_CONFIG_DIG_DEAD_TIME:
+    0_NS: 0x00
+    50_NS: 0x01
+    100_NS: 0x02
+    150_NS: 0x03
+    200_NS: 0x04
+    250_NS: 0x05
+    300_NS: 0x06
+    350_NS: 0x07
+    400_NS: 0x08
+    450_NS: 0x09
+    500_NS: 0x0A
+    600_NS: 0x0B
+    700_NS: 0x0C
+    800_NS: 0x0D
+    900_NS: 0x0E
+    1000_NS: 0x0F
+  DEVICE_CONFIG_EXT_CLK_CONFIG:
+    8_KHZ: 0x00
+    16_KHZ: 0x01
+    32_KHZ: 0x02
+    64_KHZ: 0x03
+    128_KHZ: 0x04
+    256_KHZ: 0x05
+    512_KHZ: 0x06
+    1024_KHZ: 0x07
+  DYN_BRAKE_CURR_LOW_LIM:
+    NA: 0x00
+    0_1_V: 0x01
+    0_2_V: 0x02
+    0_3_V: 0x03
+    0_4_V: 0x04
+    0_5_V: 0x05
+    0_6_V: 0x06
+    0_7_V: 0x07
+    0_8_V: 0x08
+    0_9_V: 0x09
+    1_0_V: 0x0A
+    1_1_V: 0x0B
+    1_2_V: 0x0C
+    1_3_V: 0x0D
+    1_4_V: 0x0E
+    1_5_V: 0x0F
+  DYN_DGS_FILT_COUNT:
+    3_SAMPLES: 0x00
+    6_SAMPLES: 0x01
+    9_SAMPLES: 0x02
+    12_SAMPLES: 0x03
+    15_SAMPLES: 0x04
+    20_SAMPLES: 0x05
+    30_SAMPLES: 0x06
+    40_SAMPLES: 0x07
+  DYN_DGS_LOWER_LIM:
+    0_03_V: 0x00
+    0_06_V: 0x01
+    0_09_V: 0x02
+    0_12_V: 0x03
+  DYN_DGS_UPPER_LIM:
+    VM_MINUS_0_09_V: 0x00
+    VM_MINUS_0_12_V: 0x01
+    VM_MINUS_0_15_V: 0x02
+    VM_MINUS_0_18_V: 0x03
+  FAST_BRAKE_DELTA:
+    0_PERCENT: 0x00
+    1_PERCENT: 0x01
+    1_5_PERCENT: 0x02
+    2_PERCENT: 0x03
+    2_5_PERCENT: 0x04
+    3_PERCENT: 0x05
+    4_PERCENT: 0x06
+    5_PERCENT: 0x07
+  FAST_DECEL_CURR_LIM:
+    NA: 0x00
+    0_1_V: 0x01
+    0_2_V: 0x02
+    0_3_V: 0x03
+    0_4_V: 0x04
+    0_5_V: 0x05
+    0_6_V: 0x06
+    0_7_V: 0x07
+    0_8_V: 0x08
+    0_9_V: 0x09
+    1_0_V: 0x0A
+    1_1_V: 0x0B
+    1_2_V: 0x0C
+    1_3_V: 0x0D
+    1_4_V: 0x0E
+    1_5_V: 0x0F
+  FAST_DEC_DEG_TIME:
+    2_US: 0x00
+    4_US: 0x01
+    8_US: 0x02
+    14_US: 0x03
+  FAST_DEC_DUTY_THRESH:
+    100_PERCENT: 0x00
+    95_PERCENT: 0x01
+    90_PERCENT: 0x02
+    85_PERCENT: 0x03
+    80_PERCENT: 0x04
+    75_PERCENT: 0x05
+    70_PERCENT: 0x06
+    65_PERCENT: 0x07
+  FAST_DEC_DUTY_WIN:
+    0_PERCENT: 0x00
+    2_5_PERCENT: 0x01
+    5_PERCENT: 0x02
+    7_5_PERCENT: 0x03
+    10_PERCENT: 0x04
+    15_PERCENT: 0x05
+    20_PERCENT: 0x06
+    25_PERCENT: 0x07
+  FG_BEMF_THRESH:
+    MV_1: 0x00
+    MV_2: 0x01
+    MV_5: 0x02
+    MV_10: 0x03
+    MV_20: 0x04
+    MV_30: 0x05
+    NA: 0x07
+  FG_DIV_FACTOR:
+    DIV_3_2_POLE_X_THREE: 0x00
+    DIV_1: 0x01
+    DIV_2: 0x02
+    DIV_3: 0x03
+    DIV_4: 0x04
+    DIV_5: 0x05
+    DIV_6: 0x06
+    DIV_7: 0x07
+    DIV_8: 0x08
+    DIV_9: 0x09
+    DIV_10: 0x0A
+    DIV_11: 0x0B
+    DIV_12: 0x0C
+    DIV_13: 0x0D
+    DIV_14: 0x0E
+    DIV_15: 0x0F
+  FG_SEL:
+    FG_OL_CL: 0x00
+    FG_CL: 0x01
+    FG_OL: 0x02
+    NA: 0x03
+  HIZ_TIME:
+    10_MS: 0x00
+    50_MS: 0x01
+    100_MS: 0x02
+    200_MS: 0x03
+    300_MS: 0x04
+    400_MS: 0x05
+    500_MS: 0x06
+    750_MS: 0x07
+    1000_MS: 0x08
+    2000_MS: 0x09
+    3000_MS: 0x0A
+    4000_MS: 0x0B
+    5000_MS: 0x0C
+    7500_MS: 0x0D
+    10000_MS: 0x0E
+    15000_MS: 0x0F
+  INTEG_CYCL_THRESH_HIGH:
+    4_SAMPLES: 0x00
+    6_SAMPLES: 0x01
+    8_SAMPLES: 0x02
+    10_SAMPLES: 0x03
+  INTEG_CYCL_THRESH_LOW:
+    3_SAMPLES: 0x00
+    4_SAMPLES: 0x01
+    6_SAMPLES: 0x02
+    8_SAMPLES: 0x03
+  INTEG_DUTY_THRESH_HIGH:
+    12_PERCENT: 0x00
+    15_PERCENT: 0x01
+    18_PERCENT: 0x02
+    20_PERCENT: 0x03
+  INTEG_DUTY_THRESH_LOW:
+    12_PERCENT: 0x00
+    15_PERCENT: 0x01
+    18_PERCENT: 0x02
+    20_PERCENT: 0x03
+  IPD_ADV_ANGLE:
+    0_DEG: 0x00
+    30_DEG: 0x01
+    60_DEG: 0x02
+    90_DEG: 0x03
+  IPD_CLK_FREG:
+    50_HZ: 0x00
+    100_HZ: 0x01
+    250_HZ: 0x02
+    500_HZ: 0x03
+    1000_HZ: 0x04
+    2000_HZ: 0x05
+    5000_HZ: 0x06
+    10000_HZ: 0x07
+  IPD_REPEAT:
+    ONE: 0x00
+    AVG_TWO: 0x01
+    AVG_THREE: 0x02
+    AVG_FOUR: 0x03
+  LCK_RETRY:
+    100_MS: 0x00
+    500_MS: 0x01
+    1000_MS: 0x02
+    2000_MS: 0x03
+    3000_MS: 0x04
+    5000_MS: 0x05
+    7500_MS: 0x06
+    10000_MS: 0x07
+  LEAD_ANGLE:
+    0_DEG: 0x00
+    5_DEG: 0x01
+    10_DEG: 0x02
+    15_DEG: 0x03
+  LIM_HYST:
+    5_PERCENT: 0x00
+    7_5_PERCENT: 0x01
+    10_PERCENT: 0x02
+    12_5_PERCENT: 0x03
+  LOCK_ABN_SPEED:
+    250_HZ: 0x00
+    500_HZ: 0x01
+    750_HZ: 0x02
+    1000_HZ: 0x03
+    1250_HZ: 0x04
+    1500_HZ: 0x05
+    1750_HZ: 0x06
+    2000_HZ: 0x07
+    2250_HZ: 0x08
+    2500_HZ: 0x09
+    2750_HZ: 0x0A
+    3000_HZ: 0x0B
+    3250_HZ: 0x0C
+    3500_HZ: 0x0D
+    3750_HZ: 0x0E
+    4000_HZ: 0x0F
+  LOCK_ILIMIT:
+    0_0_V: 0x00
+    0_1_V: 0x01
+    0_2_V: 0x02
+    0_3_V: 0x03
+    0_4_V: 0x04
+    0_5_V: 0x05
+    0_6_V: 0x06
+    0_7_V: 0x07
+    0_8_V: 0x08
+    0_9_V: 0x09
+    1_0_V: 0x0A
+    1_1_V: 0x0B
+    1_2_V: 0x0C
+    1_3_V: 0x0D
+    1_4_V: 0x0E
+    1_5_V: 0x0F
+    1_6_V: 0x10
+    1_7_V: 0x11
+    1_8_V: 0x12
+    1_9_V: 0x13
+    2_0_V: 0x14
+    2_1_V: 0x15
+    2_2_V: 0x16
+    2_3_V: 0x17
+    2_4_V: 0x18
+    2_5_V: 0x19
+    2_6_V: 0x1A
+    2_7_V: 0x1B
+    NA: 0x1F
+  LOCK_ILIMIT_DEG:
+    1_MS: 0x00
+    2_MS: 0x01
+    5_MS: 0x02
+    10_MS: 0x03
+    25_MS: 0x04
+    50_MS: 0x05
+    75_MS: 0x06
+    100_MS: 0x07
+    250_MS: 0x08
+    500_MS: 0x09
+    1_S: 0x0A
+    2_5_S: 0x0B
+    5_S: 0x0C
+    10_S: 0x0D
+    25_S: 0x0E
+    50_S: 0x0F
+  LOCK_MIN_SPEED:
+    0_5_HZ: 0x00
+    1_HZ: 0x01
+    2_HZ: 0x02
+    3_HZ: 0x03
+    5_HZ: 0x04
+    10_HZ: 0x05
+    15_HZ: 0x06
+    25_HZ: 0x07
+  LOSS_SYNC_TIMES:
+    2_TIMES: 0x00
+    3_TIMES: 0x01
+    4_TIMES: 0x02
+    5_TIMES: 0x03
+    6_TIMES: 0x04
+    7_TIMES: 0x05
+    8_TIMES: 0x06
+    9_TIMES: 0x07
+  MAX_VM_MOTOR:
+    NO_LIMIT: 0x00
+    10_V: 0x01
+    15_V: 0x02
+    22_V: 0x03
+    32_V: 0x04
+    40_V: 0x05
+    50_V: 0x06
+    60_V: 0x07
+  MIN_DUTY:
+    0_PERCENT: 0x00
+    1_5_PERCENT: 0x01
+    2_5_PERCENT: 0x02
+    3_PERCENT: 0x03
+    4_PERCENT: 0x04
+    5_PERCENT: 0x05
+    6_PERCENT: 0x06
+    7_PERCENT: 0x07
+    8_PERCENT: 0x08
+    9_PERCENT: 0x09
+    10_PERCENT: 0x0A
+    12_PERCENT: 0x0B
+    15_PERCENT: 0x0C
+    17_5_PERCENT: 0x0D
+    20_PERCENT: 0x0E
+    25_PERCENT: 0x0F
+  MIN_VM_MOTOR:
+    NO_LIMIT: 0x00
+    5_V: 0x01
+    6_V: 0x02
+    7_V: 0x03
+    8_V: 0x04
+    10_V: 0x05
+    12_V: 0x06
+    15_V: 0x07
+  MODE:
+    VOLTAGE_CTRL_MODE: 0x00
+    CL_LOOP_PWR_CTRL: 0x01
+    PWR_LIM_CTRL: 0x02
+  MTR_STARTUP:
+    ALIGN: 0x00
+    DOUBLE_ALIGN: 0x01
+    IPD: 0x02
+    SLOW_FIRST_CYCLE: 0x03
+  MTR_STOP:
+    HI_Z: 0x00
+    RECIRCULATION: 0x01
+    LS_BRAKING: 0x02
+    HS_BRAKING: 0x03
+    ACTIVE_SPIN_DOWN: 0x04
+    NA: 0x07
+  NO_MTR_DEG_TIME:
+    1_MS: 0x00
+    10_MS: 0x01
+    25_MS: 0x02
+    50_MS: 0x03
+    100_MS: 0x04
+    250_MS: 0x05
+    500_MS: 0x06
+    1000_MS: 0x07
+  NO_MTR_THRESH:
+    5_MV: 0x00
+    7_5_MV: 0x01
+    10_MV: 0x02
+    12_5_MV: 0x03
+    20_MV: 0x04
+    25_MV: 0x05
+    30_MV: 0x06
+    40_MV: 0x07
+  OL_DUTY:
+    10_PERCENT: 0x00
+    15_PERCENT: 0x01
+    20_PERCENT: 0x02
+    25_PERCENT: 0x03
+    30_PERCENT: 0x04
+    40_PERCENT: 0x05
+    50_PERCENT: 0x06
+    100_PERCENT: 0x07
+  OL_HANDOFF:
+    3_CYCLES: 0x00
+    6_CYCLES: 0x01
+    12_CYCLES: 0x02
+    24_CYCLES: 0x03
+  OPEN_LOOP_ACCEL:
+    0_005_HZ_PER_S2: 0x00
+    0_01_HZ_PER_S2: 0x01
+    0_025_HZ_PER_S2: 0x02
+    0_05_HZ_PER_S2: 0x03
+    0_1_HZ_PER_S2: 0x04
+    0_25_HZ_PER_S2: 0x05
+    0_5_HZ_PER_S2: 0x06
+    1_0_HZ_PER_S2: 0x07
+    2_5_HZ_PER_S2: 0x08
+    5_0_HZ_PER_S2: 0x09
+    7_5_HZ_PER_S2: 0x0A
+    10_0_HZ_PER_S2: 0x0B
+    12_5_HZ_PER_S2: 0x0C
+    15_0_HZ_PER_S2: 0x0D
+    20_0_HZ_PER_S2: 0x0E
+    30_HZ_PER_S2: 0x0F
+    40_HZ_PER_S2: 0x10
+    50_HZ_PER_S2: 0x11
+    60_HZ_PER_S2: 0x12
+    75_HZ_PER_S2: 0x13
+    100_HZ_PER_S2: 0x14
+    125_HZ_PER_S2: 0x15
+    150_HZ_PER_S2: 0x16
+    175_HZ_PER_S2: 0x17
+    200_HZ_PER_S2: 0x18
+    250_HZ_PER_S2: 0x19
+    300_HZ_PER_S2: 0x1A
+    400_HZ_PER_S2: 0x1B
+    500_HZ_PER_S2: 0x1C
+    750_HZ_PER_S2: 0x1D
+    1000_HZ_PER_S2: 0x1E
+    32767_HZ_PER_S2: 0x1F
+  OPN_CL_HANDOFF_THRESH:
+    1_HZ: 0x00
+    4_HZ: 0x01
+    8_HZ: 0x02
+    12_HZ: 0x03
+    16_HZ: 0x04
+    20_HZ: 0x05
+    24_HZ: 0x06
+    28_HZ: 0x07
+    32_HZ: 0x08
+    36_HZ: 0x09
+    40_HZ: 0x0A
+    45_HZ: 0x0B
+    50_HZ: 0x0C
+    55_HZ: 0x0D
+    60_HZ: 0x0E
+    65_HZ: 0x0F
+    70_HZ: 0x10
+    75_HZ: 0x11
+    80_HZ: 0x12
+    85_HZ: 0x13
+    90_HZ: 0x14
+    100_HZ: 0x15
+    150_HZ: 0x16
+    200_HZ: 0x17
+    250_HZ: 0x18
+    300_HZ: 0x19
+    350_HZ: 0x1A
+    400_HZ: 0x1B
+    450_HZ: 0x1C
+    500_HZ: 0x1D
+    550_HZ: 0x1E
+    600_HZ: 0x1F
+  PWM_FREQ_OUT:
+    5_HZ: 0x00
+    6_HZ: 0x01
+    7_HZ: 0x02
+    8_HZ: 0x03
+    9_HZ: 0x04
+    10_HZ: 0x05
+    11_HZ: 0x06
+    12_HZ: 0x07
+    13_HZ: 0x08
+    14_HZ: 0x09
+    15_HZ: 0x0A
+    16_HZ: 0x0B
+    17_HZ: 0x0C
+    18_HZ: 0x0D
+    19_HZ: 0x0E
+    20_HZ: 0x0F
+    25_HZ: 0x10
+    30_HZ: 0x11
+    35_HZ: 0x12
+    40_HZ: 0x13
+    45_HZ: 0x14
+    50_HZ: 0x15
+    55_HZ: 0x16
+    60_HZ: 0x17
+    65_HZ: 0x18
+    70_HZ: 0x19
+    75_HZ: 0x1A
+    80_HZ: 0x1B
+    85_HZ: 0x1C
+    90_HZ: 0x1D
+    95_HZ: 0x1E
+    100_HZ: 0x1F
+  PWM_MODUL:
+    HS_MOD: 0x00
+    LS_MOD: 0x01
+    MIX_MOD: 0x02
+    NA: 0x03
+  REF_PROFILE_CONFIG:
+    DUTY_CTRL_MODE: 0x00
+    LINEAR_MODE: 0x01
+    STAIRCASE_MODE: 0x02
+    FORWARD_REVERSE_MODE: 0x03
+  RESYNC_MIN_THRESH_OLD:
+    MIN_DUTY_X_DC_BUS_VOLTAGE: 0x00
+    300_MV: 0x01
+    400_MV: 0x02
+    500_MV: 0x03
+    600_MV: 0x04
+    800_MV: 0x05
+    1000_MV: 0x06
+    1250_MV: 0x07
+  SEL_VDS_LVL:
+    0_06_V: 0x00
+    0_12_V: 0x01
+    0_18_V: 0x02
+    0_24_V: 0x03
+    0_3_V: 0x04
+    0_36_V: 0x05
+    0_42_V: 0x06
+    0_48_V: 0x07
+    0_6_V: 0x08
+    0_8_V: 0x09
+    1_0_V: 0x0A
+    1_2_V: 0x0B
+    1_4_V: 0x0C
+    1_6_V: 0x0D
+    1_8_V: 0x0E
+    2_0_V: 0x0F
+  SLEEP_TIME:
+    50_US: 0x00
+    200_US: 0x01
+    20_MS: 0x02
+    200_MS: 0x03
+  SLOW_FIRST_CYC_FREQ:
+    0_05_HZ: 0x00
+    0_1_HZ: 0x01
+    0_25_HZ: 0x02
+    0_5_HZ: 0x03
+    1_HZ: 0x04
+    2_HZ: 0x05
+    3_HZ: 0x06
+    5_HZ: 0x07
+    10_HZ: 0x08
+    15_HZ: 0x09
+    25_HZ: 0x0B
+    50_HZ: 0x0C
+    100_HZ: 0x0D
+    150_HZ: 0x0E
+    200_HZ: 0x0F
+  SPD_CTRL_MODE:
+    ANALOG_MODE_SPEED_INPUT: 0x00
+    PWM_MODE_SPEED_INPUT: 0x01
+    I2C_MODE_SPEED_INPUT: 0x02
+    FREQ_MODE_SPEED_INPUT: 0x03
+  SPD_POWER_V_MAX:
+    100_PERCENT: 0x00
+    95_PERCENT: 0x01
+    90_PERCENT: 0x02
+    85_PERCENT: 0x03
+    80_PERCENT: 0x04
+    75_PERCENT: 0x05
+    70_PERCENT: 0x06
+    65_PERCENT: 0x07
+  SPD_POWER_V_MIN:
+    0_PERCENT: 0x00
+    2_5_PERCENT: 0x01
+    5_PERCENT: 0x02
+    7_5_PERCENT: 0x03
+    10_PERCENT: 0x04
+    15_PERCENT: 0x05
+    20_PERCENT: 0x06
+    25_PERCENT: 0x07
+  STARTUP_BRAKE_TIME:
+    1_MS: 0x00
+    10_MS: 0x01
+    25_MS: 0x02
+    50_MS: 0x03
+    100_MS: 0x04
+    250_MS: 0x05
+    500_MS: 0x06
+    1000_MS: 0x07
+  STATE:
+    SYSTEM_IDLE: 0x00
+    MOTOR_START: 0x01
+    MOTOR_RUN: 0x02
+    SYSTEM_INIT: 0x03
+    MOTOR_IPD: 0x04
+    MOTOR_ALIGN: 0x05
+    MOTOR_IDLE: 0x06
+    MOTOR_STOP: 0x07
+    FAULT: 0x08
+    MOTOR_DIRECTION: 0x09
+    HALL_ALIGN: 0x0A
+    MOTOR_CALIBRATE: 0x0C
+    MOTOR_DESCEL: 0x0D
+    MOTOR_BRAKE: 0x0E
+    NA: 0x0F
+  STAT_DETECT_THRESH:
+    5_MV: 0x00
+    10_MV: 0x01
+    15_MV: 0x02
+    20_MV: 0x03
+    25_MV: 0x04
+    30_MV: 0x05
+    50_MV: 0x06
+    100_MV: 0x07
+  STEP_DUTY:
+    0_PERCENT: 0x00
+    50_PERCENT: 0x01
+    75_PERCENT: 0x02
+    83_75_PERCENT: 0x03
+    87_5_PERCENT: 0x04
+    93_75_PERCENT: 0x05
+    97_5_PERCENT: 0x06
+    99_PERCENT: 0x07
+  STEP_HYST_BAND:
+    0_PERCENT: 0x00
+    2_PERCENT: 0x01
+    4_PERCENT: 0x02
+    6_PERCENT: 0x03
+  TBLANK:
+    0_US: 0x00
+    1_US: 0x01
+    2_US: 0x02
+    3_US: 0x03
+    4_US: 0x04
+    5_US: 0x05
+    6_US: 0x06
+    7_US: 0x07
+    8_US: 0x08
+    9_US: 0x09
+    10_US: 0x0A
+    11_US: 0x0B
+    12_US: 0x0C
+    13_US: 0x0D
+    14_US: 0x0E
+    15_US: 0x0F
+  TPWDTH:
+    0_US: 0x00
+    1_US: 0x01
+    2_US: 0x02
+    3_US: 0x03
+    4_US: 0x04
+    5_US: 0x05
+    6_US: 0x06
+    7_US: 0x07
+  ZERO_DUTY_HYST:
+    0_PERCENT: 0x00
+    2_PERCENT: 0x01
+    4_PERCENT: 0x02
+    6_PERCENT: 0x03
+  ZERO_DUTY_THRESH:
+    0_PERCENT: 0x00
+    1_PERCENT: 0x01
+    2_PERCENT: 0x02
+    2_5_PERCENT: 0x03

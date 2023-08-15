@@ -1,0 +1,13 @@
+[submodule "software/firmware/lib/nanopb"]
+	path = software/firmware/lib/nanopb
+	url = https://github.com/nanopb/nanopb.git
+[submodule "software/firmware/lib/openocd"]
+	path = software/firmware/lib/openocd
+	url = https://github.com/raspberrypi/openocd.git
+	branch = rp2040
+[submodule "software/firmware/lib/FreeRTOS-Kernel"]
+	path = software/firmware/lib/FreeRTOS-Kernel
+	url = https://github.com/FreeRTOS/FreeRTOS-Kernel.git
+[submodule "software/firmware/lib/pico-sdk"]
+	path = software/firmware/lib/pico-sdk
+	url = https://github.com/raspberrypi/pico-sdk.git

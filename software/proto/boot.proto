@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+import "nanopb.proto";
+
+message Write {
+  message Request {
+    uint32 offset = 1;
+    bytes data = 2 [ (nanopb).max_size = 128, (nanopb).fixed_length = true ];
+  }
+  message Response {}
+}
+
+message Erase {
+  message Request {
+    uint32 offset = 1;
+    uint32 length = 2;
+  }
+  message Response {}
+}
+
+message Go {
+  message Request {}
+  message Response {}
+}
+
+message Request {
+  oneof payload {
+    Write.Request write = 1;
+    Erase.Request erase = 2;
+    Go.Request go = 3;
+  }
+}
+
+message Response {
+  oneof payload {
+    Write.Response write = 1;
+    Erase.Response erase = 2;
+    Go.Response go = 3;
+  }
+}
