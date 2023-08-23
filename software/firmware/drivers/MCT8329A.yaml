@@ -9,11 +9,11 @@ registers:
         offset: 1
         size: 2
         type: MTR_STARTUP
-      RESYNC_MIN_THRESH_OLD:
+      RESYNC_MIN_THRESHOLD:
         access: rw
         offset: 3
         size: 3
-        type: RESYNC_MIN_THRESH_OLD
+        type: RESYNC_MIN_THRESHOLD
       STARTUP_BRAKE_TIME:
         access: rw
         offset: 6
@@ -1146,7 +1146,7 @@ registers:
     address: 0x512
     size: 4
     fields:
-      CURRENT_DUTY:
+      CURR_DUTY:
         access: r
         offset: 0
         size: 32
@@ -1922,7 +1922,7 @@ enums:
     LINEAR_MODE: 0x01
     STAIRCASE_MODE: 0x02
     FORWARD_REVERSE_MODE: 0x03
-  RESYNC_MIN_THRESH_OLD:
+  RESYNC_MIN_THRESHOLD:
     MIN_DUTY_X_DC_BUS_VOLTAGE: 0x00
     300_MV: 0x01
     400_MV: 0x02

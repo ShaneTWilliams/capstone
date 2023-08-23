@@ -99,8 +99,8 @@ class DriverGenerator:
                         next_bit + 1 - (field_config["offset"] + field_config["size"]),
                     )
                 )
-            else:
-                fields_with_reserved.append((field_name, field_config))
+
+            fields_with_reserved.append((field_name, field_config))
 
             next_bit = field_config["offset"] - 1
         if next_bit >= 0:
@@ -109,7 +109,7 @@ class DriverGenerator:
 
     def __generate_diagram(self, reg_name, reg_config):
         header = "┌─\n"
-        header += f"│    {reg_name} @ 0x{reg_config['address']}\n"
+        header += f"│    {reg_name} @ 0x{reg_config['address']:02X}\n"
 
         top_border = "│   "
         bottom_border = "│   "
@@ -201,17 +201,17 @@ class DriverGenerator:
     ):
         reg_type = self.__type_from_size(reg_config["size"] * 8)
         code = self.__generate_read_field_signature(reg_name, field_name, field_config)
-        code += ") {{\n"
-        code += f"{reg_type} {reg_name.lower()};\n"
+        code += ") {\n"
+        code += f"{reg_type} reg_{reg_name.lower()};\n"
         code += f"{self.__io_status_type} ret = dev->operations.read(dev->address, "
         code += (
-            f"{reg_name}_ADDRESS, &{reg_name.lower()}, sizeof({reg_name.lower()}));\n"
+            f"{reg_name}_ADDRESS, &reg_{reg_name.lower()}, sizeof(reg_{reg_name.lower()}));\n"
         )
         code += "if (ret != I2C_STATUS_OK) {\n"
         code += "return ret;\n"
         code += "}\n\n"
         code += f"    *{field_name.lower()} = "
-        code += f"{self.__driver_name.upper()}_GET_{reg_name}_{field_name}({reg_name.lower()});\n"
+        code += f"{self.__driver_name.upper()}_GET_{reg_name}_{field_name}(reg_{reg_name.lower()});\n"
         code += "return I2C_STATUS_OK;\n"
         code += "}\n\n"
         return code
@@ -221,7 +221,7 @@ class DriverGenerator:
     ):
         reg_type = self.__type_from_size(reg_config["size"] * 8)
         code = self.__generate_write_field_signature(reg_name, field_name, field_config)
-        code += ") {{\n"
+        code += ") {\n"
         code += f"{reg_type} {reg_name.lower()};\n"
         code += f"{self.__io_status_type} ret = dev->operations.read(dev->address, "
         code += (
@@ -232,17 +232,18 @@ class DriverGenerator:
         code += "}\n\n"
         code += f"{self.__driver_name.upper()}_SET_{reg_name}_{field_name}"
         code += f"({reg_name.lower()}, {field_name.lower()});\n"
-        code += f"return dev->operations.write(dev->address, {reg_name.lower()});\n"
+        code += f"return dev->operations.write(dev->address, {reg_name}_ADDRESS, "
+        code += f"{reg_name.lower()}, sizeof({reg_name.lower()}));\n"
         code += "}\n\n"
         return code
 
     def generate_header(self):  # pylint: disable=too-many-locals
         header = self.__generate_comment_block(f"{self.__driver_name.upper()} Header")
         header += "#pragma once\n\n"
-        header += '#include "driver_defs__.self, h"\n\n'
+        header += '#include "driver_defs.h"\n\n'
 
         header += (
-            "typedef __struct self, {"
+            "typedef struct {"
             + "uint8_t address;"
             + f"{self.__ops_type} operations;"
             + f"}} {self.__driver_name.lower()}_t;\n\n"
@@ -263,7 +264,7 @@ class DriverGenerator:
                 header += (
                     f"{self.__driver_name.upper()}_{enum_name.upper()}_{name.upper()} "
                 )
-                header += f"0x{value:02},\n"
+                header += f" = 0x{value:02},\n"
 
             header += f"}} {self.__driver_name.lower()}_{enum_name.lower()}_t;\n\n"
 
