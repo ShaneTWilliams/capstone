@@ -1,0 +1,310 @@
+transport: i2c
+registers:
+  INPUT_PORT_0:
+    address: 0x00
+    size: 1
+    fields:
+      PIN_0:
+        access: r
+        offset: 0
+        size: 1
+      PIN_1:
+        access: r
+        offset: 1
+        size: 1
+      PIN_2:
+        access: r
+        offset: 2
+        size: 1
+      PIN_3:
+        access: r
+        offset: 3
+        size: 1
+      PIN_4:
+        access: r
+        offset: 4
+        size: 1
+      PIN_5:
+        access: r
+        offset: 5
+        size: 1
+      PIN_6:
+        access: r
+        offset: 6
+        size: 1
+      PIN_7:
+        access: r
+        offset: 7
+        size: 1
+  INPUT_PORT_1:
+    address: 0x01
+    size: 1
+    fields:
+      PIN_0:
+        access: r
+        offset: 0
+        size: 1
+      PIN_1:
+        access: r
+        offset: 1
+        size: 1
+      PIN_2:
+        access: r
+        offset: 2
+        size: 1
+      PIN_3:
+        access: r
+        offset: 3
+        size: 1
+      PIN_4:
+        access: r
+        offset: 4
+        size: 1
+      PIN_5:
+        access: r
+        offset: 5
+        size: 1
+      PIN_6:
+        access: r
+        offset: 6
+        size: 1
+      PIN_7:
+        access: r
+        offset: 7
+        size: 1
+  OUTPUT_PORT_0:
+    address: 0x02
+    size: 1
+    fields:
+      PIN_0:
+        access: rw
+        offset: 0
+        size: 1
+      PIN_1:
+        access: rw
+        offset: 1
+        size: 1
+      PIN_2:
+        access: rw
+        offset: 2
+        size: 1
+      PIN_3:
+        access: rw
+        offset: 3
+        size: 1
+      PIN_4:
+        access: rw
+        offset: 4
+        size: 1
+      PIN_5:
+        access: rw
+        offset: 5
+        size: 1
+      PIN_6:
+        access: rw
+        offset: 6
+        size: 1
+      PIN_7:
+        access: rw
+        offset: 7
+        size: 1
+  OUTPUT_PORT_1:
+    address: 0x03
+    size: 1
+    fields:
+      PIN_0:
+        access: rw
+        offset: 0
+        size: 1
+      PIN_1:
+        access: rw
+        offset: 1
+        size: 1
+      PIN_2:
+        access: rw
+        offset: 2
+        size: 1
+      PIN_3:
+        access: rw
+        offset: 3
+        size: 1
+      PIN_4:
+        access: rw
+        offset: 4
+        size: 1
+      PIN_5:
+        access: rw
+        offset: 5
+        size: 1
+      PIN_6:
+        access: rw
+        offset: 6
+        size: 1
+      PIN_7:
+        access: rw
+        offset: 7
+        size: 1
+  POLARITY_INVERSION_PORT_0:
+    address: 0x04
+    size: 1
+    fields:
+      PIN_0:
+        access: rw
+        offset: 0
+        size: 1
+      PIN_1:
+        access: rw
+        offset: 1
+        size: 1
+      PIN_2:
+        access: rw
+        offset: 2
+        size: 1
+      PIN_3:
+        access: rw
+        offset: 3
+        size: 1
+      PIN_4:
+        access: rw
+        offset: 4
+        size: 1
+      PIN_5:
+        access: rw
+        offset: 5
+        size: 1
+      PIN_6:
+        access: rw
+        offset: 6
+        size: 1
+      PIN_7:
+        access: rw
+        offset: 7
+        size: 1
+  POLARITY_INVERSION_PORT_1:
+    address: 0x05
+    size: 1
+    fields:
+      PIN_0:
+        access: rw
+        offset: 0
+        size: 1
+      PIN_1:
+        access: rw
+        offset: 1
+        size: 1
+      PIN_2:
+        access: rw
+        offset: 2
+        size: 1
+      PIN_3:
+        access: rw
+        offset: 3
+        size: 1
+      PIN_4:
+        access: rw
+        offset: 4
+        size: 1
+      PIN_5:
+        access: rw
+        offset: 5
+        size: 1
+      PIN_6:
+        access: rw
+        offset: 6
+        size: 1
+      PIN_7:
+        access: rw
+        offset: 7
+        size: 1
+  DIRECTION_PORT_0:
+    address: 0x06
+    size: 1
+    fields:
+      PIN_0:
+        access: rw
+        offset: 0
+        size: 1
+        type: DIRECTION
+      PIN_1:
+        access: rw
+        offset: 1
+        size: 1
+        type: DIRECTION
+      PIN_2:
+        access: rw
+        offset: 2
+        size: 1
+        type: DIRECTION
+      PIN_3:
+        access: rw
+        offset: 3
+        size: 1
+        type: DIRECTION
+      PIN_4:
+        access: rw
+        offset: 4
+        size: 1
+        type: DIRECTION
+      PIN_5:
+        access: rw
+        offset: 5
+        size: 1
+        type: DIRECTION
+      PIN_6:
+        access: rw
+        offset: 6
+        size: 1
+        type: DIRECTION
+      PIN_7:
+        access: rw
+        offset: 7
+        size: 1
+        type: DIRECTION
+  DIRECTION_PORT_1:
+    address: 0x07
+    size: 1
+    fields:
+      PIN_0:
+        access: rw
+        offset: 0
+        size: 1
+        type: DIRECTION
+      PIN_1:
+        access: rw
+        offset: 1
+        size: 1
+        type: DIRECTION
+      PIN_2:
+        access: rw
+        offset: 2
+        size: 1
+        type: DIRECTION
+      PIN_3:
+        access: rw
+        offset: 3
+        size: 1
+        type: DIRECTION
+      PIN_4:
+        access: rw
+        offset: 4
+        size: 1
+        type: DIRECTION
+      PIN_5:
+        access: rw
+        offset: 5
+        size: 1
+        type: DIRECTION
+      PIN_6:
+        access: rw
+        offset: 6
+        size: 1
+        type: DIRECTION
+      PIN_7:
+        access: rw
+        offset: 7
+        size: 1
+        type: DIRECTION
+enums:
+  DIRECTION:
+    INPUT: 0x00
+    OUTPUT: 0x01
