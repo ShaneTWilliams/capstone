@@ -1,29 +1,6 @@
 {
   "board": {
     "3dviewports": [],
-    "design_settings": {
-      "defaults": {
-        "board_outline_line_width": 0.1,
-        "copper_line_width": 0.2,
-        "copper_text_size_h": 1.5,
-        "copper_text_size_v": 1.5,
-        "copper_text_thickness": 0.3,
-        "other_line_width": 0.15,
-        "silk_line_width": 0.15,
-        "silk_text_size_h": 1.0,
-        "silk_text_size_v": 1.0,
-        "silk_text_thickness": 0.15
-      },
-      "diff_pair_dimensions": [],
-      "drc_exclusions": [],
-      "rules": {
-        "min_copper_edge_clearance": 0.0,
-        "solder_mask_clearance": 0.0,
-        "solder_mask_min_width": 0.0
-      },
-      "track_widths": [],
-      "via_dimensions": []
-    },
     "layer_presets": [],
     "viewports": []
   },
@@ -235,7 +212,7 @@
       "pin_to_pin": "warning",
       "power_pin_not_driven": "error",
       "similar_labels": "warning",
-      "simulation_model_issue": "error",
+      "simulation_model_issue": "ignore",
       "unannotated": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
@@ -247,7 +224,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "drone.kicad_pro",
+    "filename": "motors.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -312,8 +289,18 @@
       "version": 1
     },
     "net_format_name": "",
+    "ngspice": {
+      "fix_include_paths": true,
+      "fix_passive_vals": false,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 0,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "",
+    "spice_adjust_passive_values": false,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
@@ -324,8 +311,24 @@
   },
   "sheets": [
     [
-      "71f6a5b4-1ac6-435b-9486-30b16ab86e62",
+      "5c8998e9-e86b-47fc-94fa-0cc96482592c",
       ""
+    ],
+    [
+      "95b3348f-8a63-43ac-b442-112780d68ef3",
+      "ESC_FL"
+    ],
+    [
+      "e9772b71-0bd3-420e-9bb6-e3f9bf412bf7",
+      "ESC_FR"
+    ],
+    [
+      "cb34db7e-bd84-4f96-b011-b547aae0b813",
+      "ESC_RL"
+    ],
+    [
+      "259ef50e-ef06-49ba-9704-7e7a5cc71fbd",
+      "ESC_RR"
     ]
   ],
   "text_variables": {}
