@@ -1,0 +1,144 @@
+(footprint "IC_W25Q16JVUXIQ_TR" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (attr smd)
+  (fp_text reference "REF**" (at 1.275 -1.925) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.15)))
+    (tstamp 73efeab5-d3d5-4eb6-800e-4b08ec40423d)
+  )
+  (fp_text value "IC_W25Q16JVUXIQ_TR" (at 9.53 1.925) (layer "F.Fab")
+      (effects (font (size 1 1) (thickness 0.15)))
+    (tstamp 5db2494b-1135-423d-a0c3-623dea6005e8)
+  )
+  (fp_poly
+    (pts
+      (xy -1.65 -0.85)
+      (xy -1.1 -0.85)
+      (xy -1.1 -0.65)
+      (xy -1.65 -0.65)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 98774a6e-6e01-49e6-b649-0b84c9989c6d))
+  (fp_poly
+    (pts
+      (xy -1.65 -0.35)
+      (xy -1.1 -0.35)
+      (xy -1.1 -0.15)
+      (xy -1.65 -0.15)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp f8ef07b7-8e64-4a0a-8f2f-cb40127f67d8))
+  (fp_poly
+    (pts
+      (xy -1.65 0.15)
+      (xy -1.1 0.15)
+      (xy -1.1 0.35)
+      (xy -1.65 0.35)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 5799080b-bb1e-4dd2-863c-7291bc6578ec))
+  (fp_poly
+    (pts
+      (xy -1.65 0.65)
+      (xy -1.1 0.65)
+      (xy -1.1 0.85)
+      (xy -1.65 0.85)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 06dfa2dd-8d7d-40ee-9efe-88337a0ea608))
+  (fp_poly
+    (pts
+      (xy -0.1 -0.6)
+      (xy 0.1 -0.6)
+      (xy 0.1 -0.1)
+      (xy -0.1 -0.1)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 46b3e436-4cb3-4003-93ec-394caf380ac4))
+  (fp_poly
+    (pts
+      (xy -0.1 0.1)
+      (xy 0.1 0.1)
+      (xy 0.1 0.6)
+      (xy -0.1 0.6)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp be2946da-4247-4dff-9654-69d1c84afc18))
+  (fp_poly
+    (pts
+      (xy 1.1 -0.85)
+      (xy 1.65 -0.85)
+      (xy 1.65 -0.65)
+      (xy 1.1 -0.65)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 912b1d20-e7c4-48e3-afa0-99b84569ede9))
+  (fp_poly
+    (pts
+      (xy 1.1 -0.35)
+      (xy 1.65 -0.35)
+      (xy 1.65 -0.15)
+      (xy 1.1 -0.15)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 3eb5b67f-3329-4608-a0e9-6d441b3bed7d))
+  (fp_poly
+    (pts
+      (xy 1.1 0.15)
+      (xy 1.65 0.15)
+      (xy 1.65 0.35)
+      (xy 1.1 0.35)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp a91239fa-07de-456f-a41f-44e047ea1bdb))
+  (fp_poly
+    (pts
+      (xy 1.1 0.65)
+      (xy 1.65 0.65)
+      (xy 1.65 0.85)
+      (xy 1.1 0.85)
+    )
+
+    (stroke (width 0.01) (type solid)) (fill solid) (layer "F.Paste") (tstamp 0e4e8c00-52a1-49c0-95f8-9b619a0603dc))
+  (fp_line (start -0.63 -1) (end -0.47 -1)
+    (stroke (width 0.127) (type solid)) (layer "F.SilkS") (tstamp 2d0ef3cf-37d9-4d0d-9100-2661d22ba7d9))
+  (fp_line (start -0.63 1) (end -0.47 1)
+    (stroke (width 0.127) (type solid)) (layer "F.SilkS") (tstamp 54946a4a-6274-4361-bfed-49799bc369b7))
+  (fp_line (start 0.63 -1) (end 0.47 -1)
+    (stroke (width 0.127) (type solid)) (layer "F.SilkS") (tstamp 9e29cd83-81d0-49ef-9afe-404b05ef618c))
+  (fp_line (start 0.63 1) (end 0.47 1)
+    (stroke (width 0.127) (type solid)) (layer "F.SilkS") (tstamp f25ea33e-6e6f-436d-92a0-d6827cc8b2f4))
+  (fp_circle (center -1.24 -1.22) (end -1.24 -1.22)
+    (stroke (width 0.2) (type solid)) (fill none) (layer "F.SilkS") (tstamp 1568e8df-8723-4bf4-985e-530aec0c511c))
+  (fp_line (start -1.9 -1.25) (end -1.9 1.25)
+    (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (tstamp 82861279-d0b3-4b0f-b15f-51586152dc00))
+  (fp_line (start -1.9 1.25) (end 1.9 1.25)
+    (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (tstamp bba811a3-ccce-49b0-958e-88fa54ff1f11))
+  (fp_line (start 1.9 -1.25) (end -1.9 -1.25)
+    (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (tstamp a56e5e42-89e4-47d9-9bbb-3af7d6cb7122))
+  (fp_line (start 1.9 1.25) (end 1.9 -1.25)
+    (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (tstamp af0c50f1-59f0-434d-b14f-32d3651467e6))
+  (fp_line (start -1.5 -1) (end 1.5 -1)
+    (stroke (width 0.127) (type solid)) (layer "F.Fab") (tstamp 9962a0da-e8ad-423b-8cf5-142799cc61ff))
+  (fp_line (start -1.5 1) (end -1.5 -1)
+    (stroke (width 0.127) (type solid)) (layer "F.Fab") (tstamp df94dcad-2512-4bd2-8b1d-59da354c3496))
+  (fp_line (start 1.5 -1) (end 1.5 1)
+    (stroke (width 0.127) (type solid)) (layer "F.Fab") (tstamp 5de9a02b-81c8-46de-8e76-bd53ab237c94))
+  (fp_line (start 1.5 1) (end -1.5 1)
+    (stroke (width 0.127) (type solid)) (layer "F.Fab") (tstamp 7d965213-0759-49b2-9da3-126ee0c91c1c))
+  (fp_circle (center -1.24 -1.31) (end -1.14 -1.31)
+    (stroke (width 0.2) (type solid)) (fill none) (layer "F.Fab") (tstamp eb36e33c-ce75-4e13-9269-853d7fb980fc))
+  (pad "1" smd rect (at -1.25 -0.75) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp 485264d5-8d64-4732-9df9-842dbd366dc7))
+  (pad "2" smd rect (at -1.25 -0.25) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp 6cc9d3aa-79fe-40e6-870b-78925ce752cb))
+  (pad "3" smd rect (at -1.25 0.25) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp 127c6369-cf32-4375-9ed1-ce663838665d))
+  (pad "4" smd rect (at -1.25 0.75) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp 11636dfd-4902-432d-979b-262b6b3b633c))
+  (pad "5" smd rect (at 1.25 0.75) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp de663e06-e173-4f31-8d6a-304e32c4c2c9))
+  (pad "6" smd rect (at 1.25 0.25) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp a0e941ab-8484-48ce-a7da-e3a4928202b8))
+  (pad "7" smd rect (at 1.25 -0.25) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp 844dc952-5289-4c41-a810-65c2f1e7155c))
+  (pad "8" smd rect (at 1.25 -0.75) (size 0.6 0.3) (layers "F.Cu" "F.Mask") (tstamp 6ff39129-ab1c-4c7e-a469-218e8010d380))
+  (pad "9" smd rect (at 0 0) (size 0.3 1.7) (layers "F.Cu" "F.Mask") (tstamp 0f889833-e3bb-4a1c-a99a-3dd1762c9edf))
+  (model "${KIPRJMOD}/notch-serial-3d/W25Q16JVUXIQ.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz -90 0 0))
+  )
+)
