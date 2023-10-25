@@ -1,0 +1,1301 @@
+name: sx1262
+commands:
+  SET_SLEEP:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x84
+        RTC_TIMEOUT_EN:
+          size: 1
+          offset: 8
+        MODE:
+          size: 1
+          offset: 10
+          type: START_MODE
+    rx:
+      size: 0
+      fields:
+  SET_STANDBY:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x80
+        MODE:
+          size: 1
+          offset: 8
+          type: STANDBY_MODE
+    rx:
+      size: 0
+      fields:
+  SET_FS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0xC1
+    rx:
+      size: 0
+      fields:
+  SET_TX:
+    tx:
+      size: 4
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x83
+        TIMEOUT:
+          size: 24
+          offset: 8
+          type: TIME_US
+    rx:
+      size: 0
+      fields:
+  SET_RX:
+    tx:
+      size: 4
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x82
+        TIMEOUT:
+          size: 24
+          offset: 8
+          type: TIME_US
+    rx:
+      size: 0
+      fields:
+  STOP_TIMER_ON_PREAMBLE:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x9F
+        STOP_ON_PREAMBLE_PARAM_EN:
+          size: 1
+          offset: 8
+    rx:
+      size: 0
+      fields:
+  SET_RX_DUTY_CYCLE:
+    tx:
+      size: 4
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x94
+        RX_PERIOD:
+          size: 24
+          offset: 8
+          type: TIME_US
+        SLEEP_PERIOD:
+          size: 24
+          offset: 32
+          type: TIME_US
+    rx:
+      size: 0
+      fields:
+  SET_CAD:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0xC5
+    rx:
+      size: 0
+      fields:
+  SET_TX_CONTINUOUS_WAVE:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0xD1
+    rx:
+      size: 0
+      fields:
+  SET_TX_INFINITE_PREAMBLE:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0xD2
+    rx:
+      size: 0
+      fields:
+  SET_REGULATOR_MODE:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x96
+        VALUE:
+          size: 1
+          offset: 8
+          type: REGULATOR_MODE
+    rx:
+      size: 0
+      fields:
+  CALIBRATION_EN:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x89
+        RC64K:
+          size: 1
+          offset: 8
+        RC13M:
+          size: 1
+          offset: 9
+        PLL:
+          size: 1
+          offset: 10
+        ADC_PULSE:
+          size: 1
+          offset: 11
+        ADC_BULK_N:
+          size: 1
+          offset: 12
+        ADC_BULK_P:
+          size: 1
+          offset: 13
+        IMAGE:
+          size: 1
+          offset: 14
+    rx:
+      size: 0
+      fields:
+  CALIBRATE_IMAGE:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x98
+        FREQ_1:
+          size: 8
+          offset: 8
+          type: FREQ_1
+        FREQ_2:
+          size: 8
+          offset: 16
+          type: FREQ_2
+    rx:
+      size: 0
+      fields:
+  SET_PA_CONFIG:
+    tx:
+      size: 5
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x95
+        PA_CONFIG:
+          size: 32
+          offset: 8
+          type: PA_CONFIG
+    rx:
+      size: 0
+      fields:
+  SET_TX_RX_FALLBACK_MODE:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x93
+        FALLBACK_MODE:
+          size: 1
+          offset: 8
+          type: TX_RX_FALLBACK_MODE
+    rx:
+      size: 0
+      fields:
+  WRITE_REG:
+    tx:
+      size: 4
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x0D
+        ADDRESS:
+          size: 16
+          offset: 8
+        VALUE:
+          size: 1
+          offset: 24
+    rx:
+      size: 2
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+  READ_REG:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x1D
+        ADDRESS:
+          size: 16
+          offset: 8
+    rx:
+      size: 5
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        VALUE:
+          size: 8
+          offset: 32
+  WRITE_BUFFER:
+    tx:
+      size: 258
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x0E
+        OFFSET:
+          size: 8
+          offset: 8
+        DATA:
+          size: 2048
+          offset: 16
+    rx:
+      size: 2
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+  READ_BUFFER:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x1E
+        OFFSET:
+          size: 8
+          offset: 8
+    rx:
+      size: 259
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        DATA:
+          size: 2048
+          offset: 24
+  SET_DIO_IRQ_PARAMS:
+    tx:
+      size: 9
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x08
+        IRQ_TX_DONE:
+          size: 1
+          offset: 8
+        IRQ_RX_DONE:
+          size: 1
+          offset: 9
+        IRQ_PREAMBLE_DETECTED:
+          size: 1
+          offset: 10
+        IRQ_SYNC_WORD_VALID:
+          size: 1
+          offset: 11
+        IRQ_HEADER_VALID:
+          size: 1
+          offset: 12
+        IRQ_HEADER_ERROR:
+          size: 1
+          offset: 13
+        IRQ_CRC_ERROR:
+          size: 1
+          offset: 14
+        IRQ_CAD_DONE:
+          size: 1
+          offset: 15
+        IRQ_CAD_DETECTED:
+          size: 1
+          offset: 16
+        IRQ_TIMEOUT:
+          size: 1
+          offset: 17
+        IRQ_LR_FHSS_HOP:
+          size: 1
+          offset: 22
+        DIO1_TX_DONE:
+          size: 1
+          offset: 24
+        DIO1_RX_DONE:
+          size: 1
+          offset: 25
+        DIO1_PREAMBLE_DETECTED:
+          size: 1
+          offset: 26
+        DIO1_SYNC_WORD_VALID:
+          size: 1
+          offset: 27
+        DIO1_HEADER_VALID:
+          size: 1
+          offset: 28
+        DIO1_HEADER_ERROR:
+          size: 1
+          offset: 29
+        DIO1_CRC_ERROR:
+          size: 1
+          offset: 30
+        DIO1_CAD_DONE:
+          size: 1
+          offset: 31
+        DIO1_CAD_DETECTED:
+          size: 1
+          offset: 32
+        DIO1_TIMEOUT:
+          size: 1
+          offset: 33
+        DIO1_LR_FHSS_HOP:
+          size: 1
+          offset: 38
+        DIO2_TX_DONE:
+          size: 1
+          offset: 40
+        DIO2_RX_DONE:
+          size: 1
+          offset: 41
+        DIO2_PREAMBLE_DETECTED:
+          size: 1
+          offset: 42
+        DIO2_SYNC_WORD_VALID:
+          size: 1
+          offset: 43
+        DIO2_HEADER_VALID:
+          size: 1
+          offset: 44
+        DIO2_HEADER_ERROR:
+          size: 1
+          offset: 45
+        DIO2_CRC_ERROR:
+          size: 1
+          offset: 46
+        DIO2_CAD_DONE:
+          size: 1
+          offset: 47
+        DIO2_CAD_DETECTED:
+          size: 1
+          offset: 48
+        DIO2_TIMEOUT:
+          size: 1
+          offset: 49
+        DIO2_LR_FHSS_HOP:
+          size: 1
+          offset: 54
+        DIO3_TX_DONE:
+          size: 1
+          offset: 56
+        DIO3_RX_DONE:
+          size: 1
+          offset: 57
+        DIO3_PREAMBLE_DETECTED:
+          size: 1
+          offset: 58
+        DIO3_SYNC_WORD_VALID:
+          size: 1
+          offset: 59
+        DIO3_HEADER_VALID:
+          size: 1
+          offset: 60
+        DIO3_HEADER_ERROR:
+          size: 1
+          offset: 61
+        DIO3_CRC_ERROR:
+          size: 1
+          offset: 62
+        DIO3_CAD_DONE:
+          size: 1
+          offset: 63
+        DIO3_CAD_DETECTED:
+          size: 1
+          offset: 64
+        DIO3_TIMEOUT:
+          size: 1
+          offset: 65
+        DIO3_LR_FHSS_HOP:
+          size: 1
+          offset: 70
+    rx:
+      size: 0
+      fields:
+  GET_IRQ_STATUS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x12
+    rx:
+      size: 4
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        TX_DONE:
+          size: 1
+          offset: 16
+        RX_DONE:
+          size: 1
+          offset: 17
+        PREAMBLE_DETECTED:
+          size: 1
+          offset: 18
+        SYNC_WORD_VALID:
+          size: 1
+          offset: 19
+        HEADER_VALID:
+          size: 1
+          offset: 20
+        HEADER_ERROR:
+          size: 1
+          offset: 21
+        CRC_ERROR:
+          size: 1
+          offset: 22
+        CAD_DONE:
+          size: 1
+          offset: 23
+        CAD_DETECTED:
+          size: 1
+          offset: 24
+        TIMEOUT:
+          size: 1
+          offset: 25
+        LR_FHSS_HOP:
+          size: 1
+          offset: 30
+  CLEAR_IRQ_STATUS:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x02
+        TX_DONE:
+          size: 1
+          offset: 8
+        RX_DONE:
+          size: 1
+          offset: 9
+        PREAMBLE_DETECTED:
+          size: 1
+          offset: 10
+        SYNC_WORD_VALID:
+          size: 1
+          offset: 11
+        HEADER_VALID:
+          size: 1
+          offset: 12
+        HEADER_ERROR:
+          size: 1
+          offset: 13
+        CRC_ERROR:
+          size: 1
+          offset: 14
+        CAD_DONE:
+          size: 1
+          offset: 15
+        CAD_DETECTED:
+          size: 1
+          offset: 16
+        TIMEOUT:
+          size: 1
+          offset: 17
+        LR_FHSS_HOP:
+          size: 1
+          offset: 22
+    rx:
+      size: 0
+      fields:
+  SET_DIO2_AS_RF_SWITCH_CTRL:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x9D
+        ENABLE:
+          size: 1
+          offset: 8
+    rx:
+      size: 0
+      fields:
+  SET_DIO3_AS_TCXO_CTRL:
+    tx:
+      size: 5
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x97
+        VOLTAGE:
+          size: 1
+          offset: 8
+          type: TCXO_VOLTAGE
+        DELAY:
+          size: 24
+          offset: 16
+          type: TIME_US
+    rx:
+      size: 0
+      fields:
+  SET_RF_FREQUENCY:
+    tx:
+      size: 5
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x86
+        VALUE:
+          size: 32
+          offset: 8
+          type: RF_FREQ_TIMES_FXTAL
+    rx:
+      size: 0
+      fields:
+  SET_PACKET_TYPE:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8A
+        PACKET_TYPE:
+          size: 8
+          offset: 8
+          type: PACKET_TYPE
+    rx:
+      size: 0
+      fields:
+  GET_PACKET_TYPE:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x11
+    rx:
+      size: 3
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        PACKET_TYPE:
+          size: 8
+          offset: 16
+          type: PACKET_TYPE
+  SET_TX_PARAMS:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8E
+        POWER:
+          size: 8
+          offset: 8
+        RAMP_TIME:
+          size: 8
+          offset: 16
+          type: RAMP_TIME_US
+    rx:
+      size: 0
+      fields:
+  SET_LORA_MODULATION_PARAMS:
+    tx:
+      size: 5
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8B
+        SF:
+          size: 8
+          offset: 8
+          type: SF
+        BW:
+          size: 8
+          offset: 16
+          type: LORA_BW
+        CR:
+          size: 8
+          offset: 24
+          type: CR
+        LDRO_EN:
+          size: 1
+          offset: 32
+    rx:
+      size: 0
+      fields:
+  SET_GFSK_MODULATION_PARAMS:
+    tx:
+      size: 9
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8C
+        BR:
+          size: 24
+          offset: 8
+          type: BR_FXTAL_DIV_BAUD
+        PULSE_SHAPE:
+          size: 8
+          offset: 32
+          type: PULSE_SHAPE
+        BW:
+          size: 8
+          offset: 40
+          type: GFSK_BW
+        FDEV:
+          size: 24
+          offset: 48
+          type: RF_FREQ_TIMES_FXTAL
+    rx:
+      size: 0
+      fields:
+  SET_LORA_PACKET_PARAMS:
+    tx:
+      size: 7
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8C
+        PREAMBLE_LENGTH:
+          size: 16
+          offset: 8
+        HEADER_TYPE:
+          size: 1
+          offset: 24
+          type: LORA_HEADER_TYPE
+        PAYLOAD_LENGTH:
+          size: 8
+          offset: 32
+        CRC_EN:
+          size: 1
+          offset: 40
+        INVERT_IQ:
+          size: 1
+          offset: 48
+    rx:
+      size: 0
+      fields:
+  SET_GFSK_PACKET_PARAMS:
+    tx:
+      size: 10
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8C
+        PREAMBLE_LENGTH:
+          size: 16
+          offset: 8
+        PREAMBLE_DETECT_LEN:
+          size: 8
+          offset: 24
+          type: PREAMBLE_DETECT_LEN
+        SYNC_WORD_LEN:
+          size: 8
+          offset: 32
+        ADDR_COMP:
+          size: 8
+          offset: 40
+          type: ADDR_FILTERING
+        PACKET_SIZE_EN:
+          size: 1
+          offset: 48
+        PAYLOAD_LEN:
+          size: 8
+          offset: 56
+        CRC_TYPE:
+          size: 8
+          offset: 64
+        WHITENING_EN:
+          size: 1
+          offset: 72
+    rx:
+      size: 0
+      fields:
+  SET_CAD_PARAMS:
+    tx:
+      size: 8
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x88
+        CAD_SYMBOL_NUM:
+          size: 8
+          offset: 8
+          type: CAD_SYMBOL_NUM
+        CAD_DET_PEAK:
+          size: 1
+          offset: 16
+        CAD_DET_MIN:
+          size: 1
+          offset: 24
+        CAD_EXIT_MODE:
+          size: 1
+          offset: 32
+          type: CAD_EXIT_MODE
+        CAD_TIMEOUT:
+          size: 24
+          offset: 40
+          type: TIME_US
+    rx:
+      size: 0
+      fields:
+  SET_BUFFER_BASE_ADDR:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x8F
+        TX_BASE_ADDR:
+          size: 8
+          offset: 8
+        RX_BASE_ADDR:
+          size: 8
+          offset: 16
+    rx:
+      size: 0
+      fields:
+  SET_LORA_SYMB_NUM_TIMEOUT:
+    tx:
+      size: 2
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0xA0
+        VALLUE:
+          size: 8
+          offset: 8
+    rx:
+      size: 0
+      fields:
+  GET_STATUS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0xC0
+    rx:
+      size: 2
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+  GET_RX_BUFFER_STATUS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x13
+    rx:
+      size: 4
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        RX_PAYLOAD_LENGTH:
+          size: 8
+          offset: 16
+        RX_START_BUFFER_POINTER:
+          size: 8
+          offset: 24
+  GET_LORA_PACKET_STATUS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x14
+    rx:
+      size: 4
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        RSSI_PACKET:
+          size: 8
+          offset: 16
+          type: RSSI
+        SNR_PACKET:
+          size: 8
+          offset: 24
+          type: SNR_PACKET
+        SIGNAL_RSSI_PACKET:
+          size: 8
+          offset: 32
+          type: RSSI
+  GET_GFSK_PACKET_STATUS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x14
+    rx:
+      size: 4
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        PKT_SENT:
+          size: 1
+          offset: 16
+        PKT_RECV:
+          size: 1
+          offset: 17
+        ABORT_ERR:
+          size: 1
+          offset: 18
+        LENGTH_ERR:
+          size: 1
+          offset: 19
+        CRC_ERR:
+          size: 1
+          offset: 20
+        ADRS_ERR:
+          size: 1
+          offset: 21
+        SYNC_ERR:
+          size: 1
+          offset: 22
+        PREAMBLE_ERR:
+          size: 1
+          offset: 23
+        RSSI_SYNC:
+          size: 8
+          offset: 24
+          type: RSSI
+        RSSI_AVG:
+          size: 8
+          offset: 32
+          type: RSSI
+  GET_RSSI_INST:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x15
+    rx:
+      size: 4
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        RSSI_INST:
+          size: 8
+          offset: 16
+          type: RSSI
+  GET_LORA_STATS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x10
+    rx:
+      size: 8
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        NUM_PKT_RECV:
+          size: 16
+          offset: 16
+        NUM_PKT_CRC_ERR:
+          size: 16
+          offset: 32
+        NUM_PKT_LEN_ERR:
+          size: 16
+          offset: 48
+  GET_GFSK_STATS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x10
+    rx:
+      size: 8
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        NUM_PKT_RECV:
+          size: 16
+          offset: 16
+        NUM_PKT_CRC_ERR:
+          size: 16
+          offset: 32
+        NUM_PKT_HEADER_ERR:
+          size: 16
+          offset: 48
+  RESET_STATS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x00
+    rx:
+      size: 0
+      fields:
+  GET_DEVICE_ERRORS:
+    tx:
+      size: 1
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x17
+    rx:
+      size: 4
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+        RC64K_CALIB_ERR:
+          size: 1
+          offset: 16
+        RC13M_CALIB_ERR:
+          size: 1
+          offset: 17
+        PLL_CALIB_ERR:
+          size: 1
+          offset: 18
+        ADC_CALIB_ERR:
+          size: 1
+          offset: 19
+        IMG_CALIB_ERR:
+          size: 1
+          offset: 20
+        XOSC_START_ERR:
+          size: 1
+          offset: 21
+        PLL_LOCK_ERR:
+          size: 1
+          offset: 22
+        PA_RAMP_ERR:
+          size: 1
+          offset: 24
+  CLEAR_DEVICE_ERRORS:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 24
+          offset: 0
+          value: 0x07
+    rx:
+      size: 0
+      fields:
+        STATUS_CMD:
+          size: 3
+          offset: 9
+          type: STATUS_CMD
+        STATUS_CHIP_MODE:
+          size: 3
+          offset: 12
+          type: STATUS_CHIP_MODE
+enums:
+  START_MODE:
+    COLD: 0
+    WARM: 1
+  STANDBY_MODE:
+    RC: 0
+    XOSC: 1
+  FREQ_1:
+    430_440_MHZ: 0x6C
+    470_510_MHZ: 0x75
+    779_787_MHZ: 0xC1
+    863_870_MHZ: 0xD7
+    902_928_MHZ: 0xE1
+  FREQ_2:
+    430_440_MHZ: 0x6F
+    470_510_MHZ: 0x81
+    779_787_MHZ: 0xC5
+    863_870_MHZ: 0xDB
+    902_928_MHZ: 0xE9
+  REGULATOR_MODE:
+    LDO_ONLY: 0
+    DCDC_AND_LDO: 1
+  PA_CONFIG:
+    SX1261_15_DBM: 0x06000101
+    SX1261_14_DBM: 0x04000101
+    SX1261_10_DBM: 0x01000101
+    SX1262_22_DBM: 0x04070001
+    SX1262_20_DBM: 0x03050001
+    SX1262_17_DBM: 0x02030001
+    SX1262_14_DBM: 0x02020001
+  TX_RX_FALLBACK_MODE:
+    FS: 0x40
+    STDBY_XOSC: 0x30
+    STDBY_RC: 0x20
+  STATUS_CHIP_MODE:
+    STDBY_RC: 0x02
+    STDBY_XOSC: 0x03
+    FS: 0x04
+    RX: 0x05
+    TX: 0x06
+  STATUS_CMD:
+    DATA_AVAIL: 0x02
+    TIMEOUT: 0x03
+    PROC_ERROR: 0x04
+    EXEC_ERROR: 0x05
+    TX_DONE: 0x06
+  TCXO_VOLTAGE:
+    1_6: 0x00
+    1_7: 0x01
+    1_8: 0x02
+    2_2: 0x03
+    2_4: 0x04
+    2_7: 0x05
+    3_0: 0x06
+    3_3: 0x07
+  PACKET_TYPE:
+    GFSK: 0x00
+    LORA: 0x01
+    LR_FHSS: 0x03
+  RAMP_TIME_US:
+    10: 0x00
+    20: 0x01
+    40: 0x02
+    80: 0x03
+    200: 0x04
+    800: 0x05
+    1700: 0x06
+    3400: 0x07
+  SF:
+    SF5: 0x05
+    SF6: 0x06
+    SF7: 0x07
+    SF8: 0x08
+    SF9: 0x09
+    SF10: 0x0A
+    SF11: 0x0B
+    SF12: 0x0C
+  LORA_BW:
+    7_KHZ: 0x00
+    10_KHZ: 0x08
+    15_KHZ: 0x01
+    20_KHZ: 0x09
+    31_KHZ: 0x02
+    41_KHZ: 0x0A
+    62_KHZ: 0x03
+    125_KHZ: 0x04
+    250_KHZ: 0x05
+    500_KHZ: 0x06
+  CR:
+    4_5: 0x01
+    4_6: 0x02
+    4_7: 0x03
+    4_8: 0x04
+  PULSE_SHAPE:
+    NO_FILTER: 0x00
+    GAUSS_BT_0_3: 0x08
+    GAUSS_BT_0_5: 0x09
+    GAUSS_BT_0_7: 0x0A
+    GAUSS_BT_1: 0x0B
+  GFSK_BW:
+    4800: 0x1F
+    5800: 0x17
+    7300: 0x0F
+    9700: 0x1E
+    11700: 0x16
+    14600: 0x0E
+    19500: 0x1D
+    23400: 0x15
+    29300: 0x0D
+    39000: 0x1C
+    46900: 0x14
+    58600: 0x0C
+    78200: 0x1B
+    93800: 0x13
+    117300: 0x0B
+    156200: 0x1A
+    187200: 0x12
+    234300: 0x0A
+    312000: 0x19
+    373600: 0x11
+    467000: 0x09
+  LORA_HEADER_TYPE:
+    EXPLICIT: 0x00
+    IMPLICIT: 0x01
+  PREAMBLE_DETECT_LEN:
+    OFF: 0x00
+    8: 0x04
+    16: 0x05
+    24: 0x06
+    32: 0x07
+  ADDR_FILTERING:
+    DISABLE: 0x00
+    ACTIVATED_ON_NODE_ADDR: 0x01
+    ACTIVATED_ON_NODE_AND_BCAST_ADDR: 0x02
+  CRC_TYPE:
+    CRC_OFF: 0x01
+    CRC_1_BYTE: 0x00
+    CRC_2_BYTE: 0x02
+    CRC_1_BYTE_INV: 0x04
+    CRC_2_BYTE_INV: 0x06
+  CAD_SYMBOL_NUM:
+    1: 0x00
+    2: 0x01
+    4: 0x02
+    8: 0x03
+    16: 0x04
+  CAD_EXIT_MODE:
+    CAD_ONLY: 0x00
+    RX: 0x01
+formats:
+  TIME_US:
+    lsb: 15.625
+    signed: false
+  RF_FREQ_TIMES_FXTAL:
+    lsb: 0.0000000298023224
+    signed: false
+  BR_FXTAL_DIV_BAUD:
+    lsb: 32
+    signed: false
+  RSSI:
+    lsb: -0.5
+    signed: false
+  SNR_PACKET:
+    lsb: 0.25
+    signed: true

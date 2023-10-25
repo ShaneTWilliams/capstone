@@ -1,0 +1,6 @@
+from enum import IntEnum
+
+class ValueTag(IntEnum):
+{% for name, _ in values.items() %}
+    {{ name }} = {{ loop.index0 }}
+{% endfor %}

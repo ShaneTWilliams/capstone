@@ -1,0 +1,235 @@
+name: lsm6dsm
+registers:
+  FUNC_CFG_ACCESS:
+    address: 0x01
+    size: 1
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 8
+        type: FUNC_CFG_ACCESS
+  SENSOR_SYNC_TIME_FRAME:
+    address: 0x04
+    size: 1
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 4
+        type: SENSOR_SYNC_TIME_FRAME_MS
+  SENSOR_SYNC_RES_RATIO:
+    address: 0x05
+    size: 1
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 2
+        type: SENSOR_SYNC_RES_RATIO
+  FIFO_CTRL_1_2:
+    address: 0x06
+    size: 2
+    fields:
+      FTH:
+        access: rw
+        offset: 0
+        size: 11
+      FIFO_TEMP_EN:
+        access: rw
+        offset: 11
+        size: 1
+      TIMER_PEDO_FIFO_DRDY:
+        access: rw
+        offset: 14
+        size: 1
+      TIMER_PEDO_FIFO_EN:
+        access: rw
+        offset: 15
+        size: 1
+  FIFO_CTRL3:
+    address: 0x08
+    size: 1
+    fields:
+      DEC_FIFO_XL:
+        access: rw
+        offset: 0
+        size: 3
+        type: DECIMATION
+      DEC_FIFO_GYRO:
+        access: rw
+        offset: 3
+        size: 3
+        type: DECIMATION
+  FIFO_CTRL4:
+    address: 0x09
+    size: 1
+    fields:
+      DEC_DS3_FIFO:
+        access: rw
+        offset: 0
+        size: 3
+        type: DECIMATION
+      DEC_DS4_FIFO:
+        access: rw
+        offset: 3
+        size: 3
+        type: DECIMATION
+      ONLY_HIGH_DATA:
+        access: rw
+        offset: 6
+        size: 1
+      STOP_ON_FTH:
+        access: rw
+        offset: 7
+        size: 1
+  FIFO_CTRL5:
+    address: 0x0A
+    size: 1
+    fields:
+      FIFO_MODE:
+        access: rw
+        offset: 0
+        size: 3
+        type: FIFO_MODE
+      ODR_FIFO:
+        access: rw
+        offset: 3
+        size: 4
+  DRDY_PULSE_CFG:
+    address: 0x0B
+    size: 1
+    fields:
+      INT2_WRIST_TILT:
+        access: rw
+        offset: 0
+        size: 1
+      DRDY_PULSED:
+        access: rw
+        offset: 7
+        size: 1
+  INT1_CTRL:
+    address: 0x0D
+    size: 1
+    fields:
+      INT1_DRDY_XL:
+        access: rw
+        offset: 0
+        size: 1
+      INT1_DRDY_G:
+        access: rw
+        offset: 1
+        size: 1
+      INT1_BOOT:
+        access: rw
+        offset: 2
+        size: 1
+      INT1_FTH:
+        access: rw
+        offset: 3
+        size: 1
+      INT1_FIFO_OVR:
+        access: rw
+        offset: 4
+        size: 1
+      INT1_FULL_FLAG:
+        access: rw
+        offset: 5
+        size: 1
+      INT1_SIGN_MOT:
+        access: rw
+        offset: 6
+        size: 1
+      INT1_STEP_DETECTOR:
+        access: rw
+        offset: 7
+        size: 1
+  INT2_CTRL:
+    address: 0x0E
+    size: 1
+    fields:
+      INT2_DRDY_XL:
+        access: rw
+        offset: 0
+        size: 1
+      INT2_DRDY_G:
+        access: rw
+        offset: 1
+        size: 1
+      INT2_DRDY_TEMP:
+        access: rw
+        offset: 2
+        size: 1
+      INT2_FTH:
+        access: rw
+        offset: 3
+        size: 1
+      INT2_FIFO_OVR:
+        access: rw
+        offset: 4
+        size: 1
+      INT2_FULL_FLAG:
+        access: rw
+        offset: 5
+        size: 1
+      INT2_STEP_COUNT_OV:
+        access: rw
+        offset: 6
+        size: 1
+      INT2_STEP_DELTA:
+        access: rw
+        offset: 7
+        size: 1
+  WHO_AM_I:
+    address: 0x0F
+    size: 1
+    fields:
+      VALUE:
+        access: r
+        offset: 0
+        size: 8
+  CTRL1_XL:
+    address: 0x10
+    size: 1
+    fields:
+      BW0_XL:
+        access: rw
+        offset: 0
+        size: 1
+        type: BW0_XL
+      LPF_BW_SEL:
+        access: rw
+        offset: 1
+        size: 1
+enums:
+  FUNC_CFG_ACCESS:
+    DISABLE: 0x00
+    BANK_A_EN: 0x80
+    BANK_B_EN: 0xA0
+  SENSOR_SYNC_RES_RATIO:
+    "2_11": 0x00
+    "2_12": 0x01
+    "2_13": 0x02
+    "2_14": 0x03
+  DECIMATION:
+    NOT_IN_FIFO: 0x00
+    NONE: 0x01
+    FACTOR_2: 0x02
+    FACTOR_3: 0x03
+    FACTOR_4: 0x04
+    FACTOR_8: 0x05
+    FACTOR_16: 0x06
+    FACTOR_32: 0x07
+  FIFO_MODE:
+    BYPASS: 0x00
+    FIFO: 0x01
+    CONTINUOUS_THEN_FIFO: 0x03
+    BYPASS_THEN_CONTINUOUS: 0x04
+    CONTINUOUS: 0x06
+  BW0_XL:
+    "400_HZ": 0x00
+    "1_5_KHZ": 0x01
+formats:
+  SENSOR_SYNC_TIME_FRAME_MS:
+    lsb: 500
+    signed: false

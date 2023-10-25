@@ -1,0 +1,71 @@
+name: lm75b
+registers:
+  TEMP:
+    address: 0x00
+    size: 2
+    fields:
+      VALUE:
+        access: r
+        offset: 5
+        size: 11
+        type: TEMP_FINE
+  CONF:
+    address: 0x01
+    size: 1
+    fields:
+      SHUTDOWN:
+        access: rw
+        offset: 1
+        size: 1
+      OS_COMP_INT:
+        access: rw
+        offset: 1
+        size: 1
+        type: OS_OP_MODE
+      OS_POL:
+        access: rw
+        offset: 2
+        size: 1
+        type: OS_POL
+      OS_F_QUE:
+        access: rw
+        offset: 3
+        size: 2
+        type: CONS_FAULT_NUM
+  TOS:
+    address: 0x03
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 7
+        size: 9
+        type: TEMP_COARSE
+  THYST:
+    address: 0x02
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 7
+        size: 9
+        type: TEMP_COARSE
+enums:
+  OS_OP_MODE:
+    COMPARATOR: 0x00
+    INTERRUPT: 0x01
+  OS_POL:
+    ACTIVE_LOW: 0x00
+    ACTIVE_HIGH: 0x01
+  CONS_FAULT_NUM:
+    "1": 0x00
+    "2": 0x01
+    "4": 0x02
+    "6": 0x03
+formats:
+  TEMP_FINE:
+    signed: true
+    lsb: 0.125
+  TEMP_COARSE:
+    signed: true
+    lsb: 0.5

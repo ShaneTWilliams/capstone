@@ -14,7 +14,10 @@ setup(
         "click",
         "black",
         "clang-format",
+        "grpcio-tools",
+        "grpcio",
         "isort",
+        "Jinja2",
         "pylint",
         "pyyaml"
     ],

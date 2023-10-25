@@ -1,32 +1,35 @@
 syntax = "proto3";
 
 import "nanopb.proto";
+import "values.proto";
 
-/**************************************
- ********** Enum Definitions **********
- **************************************/
+message ValueGet {
+  message Request {
+    capstone.ValueTag tag = 1;
+  }
+  message Response {
+    capstone.Value value = 1;
+  }
+}
 
-/*************************************
- ******** Struct Definitions *********
- *************************************/
-
-/*************************************
- ******** Message Definitions ********
- *************************************/
-
-message Ping {
-  message Request {}
+message ValueSet {
+  message Request {
+    capstone.ValueTag tag = 1;
+    capstone.Value value = 2;
+  }
   message Response {}
 }
 
-/***********************************************
- ******** Top-Level Message Definitions ********
- ***********************************************/
-
 message Request {
-  oneof payload { Ping ping = 1; }
+  oneof payload {
+    ValueGet.Request get = 1;
+    ValueSet.Request set = 2;
+  }
 }
 
 message Response {
-  oneof payload { Ping ping = 1; }
+  oneof payload {
+    ValueGet.Response get = 1;
+    ValueSet.Response set = 2;
+  }
 }

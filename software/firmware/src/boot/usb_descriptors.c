@@ -34,9 +34,9 @@
  *   [MSB]         HID | MSC | CDC          [LSB]
  */
 #define _PID_MAP(itf, n) ((CFG_TUD_##itf) << (n))
-#define USB_PID                                                        \
-    (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
-     _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4))
+#define USB_PID                                                                            \
+    (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | _PID_MAP(MIDI, 3) | \
+     _PID_MAP(VENDOR, 4))
 
 #define USB_VID 0x2E8A
 #define USB_BCD 0x0200
@@ -49,34 +49,32 @@
 // Device Descriptors
 //--------------------------------------------------------------------+
 tusb_desc_device_t const desc_device = {
-    .bLength = sizeof(tusb_desc_device_t),
+    .bLength         = sizeof(tusb_desc_device_t),
     .bDescriptorType = TUSB_DESC_DEVICE,
-    .bcdUSB = USB_BCD,
+    .bcdUSB          = USB_BCD,
 
     // Use Interface Association Descriptor (IAD) for CDC
     // As required by USB Specs IAD's subclass must be common
     // class (2) and protocol must be IAD (1)
-    .bDeviceClass = TUSB_CLASS_MISC,
+    .bDeviceClass    = TUSB_CLASS_MISC,
     .bDeviceSubClass = MISC_SUBCLASS_COMMON,
     .bDeviceProtocol = MISC_PROTOCOL_IAD,
 
     .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
 
-    .idVendor = USB_VID,
+    .idVendor  = USB_VID,
     .idProduct = USB_PID,
     .bcdDevice = 0x0100,
 
     .iManufacturer = STRID_MANUFACTURER,
-    .iProduct = STRID_PRODUCT,
+    .iProduct      = STRID_PRODUCT,
     .iSerialNumber = STRID_SERIAL,
 
     .bNumConfigurations = 0x01};
 
 // Invoked when received GET DEVICE DESCRIPTOR
 // Application return pointer to descriptor
-uint8_t const *tud_descriptor_device_cb(void) {
-    return (uint8_t const *)&desc_device;
-}
+uint8_t const *tud_descriptor_device_cb(void) { return (uint8_t const *)&desc_device; }
 
 //--------------------------------------------------------------------+
 // Configuration Descriptor
@@ -97,8 +95,7 @@ uint8_t const desc_fs_configuration[] = {
 
     // Interface number, string index, EP notification address and size, EP data
     // address (out, in) and size.
-    TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 4, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT,
-                       EPNUM_CDC_IN, 64),
+    TUD_CDC_DESCRIPTOR(ITF_NUM_CDC, 4, EPNUM_CDC_NOTIF, 8, EPNUM_CDC_OUT, EPNUM_CDC_IN, 64),
 };
 
 // Invoked when received GET CONFIGURATION DESCRIPTOR
@@ -113,9 +110,7 @@ uint8_t const *tud_descriptor_configuration_cb(uint8_t index) {
 //--------------------------------------------------------------------+
 // String Descriptors
 //--------------------------------------------------------------------+
-static char
-    serial_str[16 + 14 +
-               1];  // 16 for serial, 14 for "capstone-boot-", 1 for null.
+static char serial_str[16 + 14 + 1];  // 16 for serial, 14 for "capstone-boot-", 1 for null.
 
 // array of pointer to string descriptors
 char const *string_desc_arr[] = {
@@ -143,18 +138,17 @@ uint16_t const *tud_descriptor_string_cb(uint8_t index, uint16_t langid) {
         // Note: the 0xEE index string is a Microsoft OS 1.0 Descriptors.
         // https://docs.microsoft.com/en-us/windows-hardware/drivers/usbcon/microsoft-defined-usb-descriptors
 
-        if (!(index < sizeof(string_desc_arr) / sizeof(string_desc_arr[0])))
-            return NULL;
+        if (!(index < sizeof(string_desc_arr) / sizeof(string_desc_arr[0]))) return NULL;
 
         char *str;
         if (index == STRID_SERIAL) {
             pico_unique_board_id_t serial;
             pico_get_unique_board_id(&serial);
-            sprintf((char *)serial_str, "%s%04X%04X%04X%04X", "capstone-boot-",
-                    serial.id[0] << 8 | serial.id[1],
-                    serial.id[2] << 8 | serial.id[3],
-                    serial.id[4] << 8 | serial.id[5],
-                    serial.id[6] << 8 | serial.id[7]);
+            sprintf(
+                (char *)serial_str, "%s%04X%04X%04X%04X", "capstone-boot-",
+                serial.id[0] << 8 | serial.id[1], serial.id[2] << 8 | serial.id[3],
+                serial.id[4] << 8 | serial.id[5], serial.id[6] << 8 | serial.id[7]
+            );
         }
         str = (char *)string_desc_arr[index];
 

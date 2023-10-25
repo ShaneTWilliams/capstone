@@ -1,0 +1,74 @@
+{% import 'c_macros.j2' as macro %}
+{% import 'c_reg_macros.j2' as reg_macro %}
+#pragma once
+
+#include "driver_defs.h"
+
+{{ macro.block_comment('REGISTER DIAGRAMS') }}
+
+/*
+{{ diagrams }}
+*/
+
+{{ macro.block_comment('FIELD ENUMS') }}
+
+{% for enum_name, enum in cfg.enums.items() %}
+typedef enum {
+    {% for value_name, value in enum.items() %}
+    {{ cfg.name.upper() }}_{{ enum_name.upper() }}_{{ value_name }} = 0x{{ '%02x' %  value }},
+    {% endfor %}
+} {{cfg.name.lower()}}_{{ enum_name.lower() }}_t;
+
+{% endfor %}
+
+{% for reg_name, register in cfg.registers.items() %}
+{{ macro.block_comment('REGISTER: ' + reg_name) }}
+
+    {% if register.fields|read|length > 0 %}
+{{ reg_macro.get_reg_func_sig(cfg.name, reg_name, register, get_type)}};
+    {% endif %}
+    {% if register.fields|write|length > 0 %}
+{{ reg_macro.set_reg_func_sig(cfg.name, reg_name, register, get_type)}};
+    {% endif %}
+
+#define {{ cfg.name.upper() }}_{{ reg_name.upper() }}_ADDRESS 0x{{ '%02x' % register.address }}U
+#define {{ cfg.name.upper() }}_{{ reg_name.upper() }}_SIZE {{ register.size }}U
+
+    {% for field_name, field in register.fields.items() %}
+        {% set offset = macro.offset(cfg.name, reg_name, field_name) %}
+        {% set size = macro.field_size(cfg.name, reg_name, field_name) %}
+        {% set mask = macro.mask(cfg.name, reg_name, field_name) %}
+        {% set lsb = macro.lsb(cfg.name, reg_name, field_name) %}
+        {% set get = macro.get(cfg.name, reg_name, field_name) %}
+        {% set get_fmt = macro.get_fmt(cfg.name, reg_name, field_name) %}
+        {% set set = macro.set(cfg.name, reg_name, field_name) %}
+        {% set set_fmt = macro.set_fmt(cfg.name, reg_name, field_name) %}
+        {% set type = macro.type(cfg.name, reg_name, field_name) %}
+
+#define {{ offset }} {{ field.offset }}U
+#define {{ size }} {{ field.size }}U
+#define {{ type }} {{ get_type(field) }}
+#define {{ mask }} (1 << {{ size }}) - 1
+        {% if 'r' in field.access %}
+#define {{ get }}(reg) (((reg) >> {{ macro.offset(cfg.name, reg_name, field_name) }}) & {{ macro.mask(cfg.name, reg_name, field_name) }})
+        {% endif %}
+        {% if 'w' in field.access %}
+#define {{ set }}(reg, value) (reg) = ((reg) & ~({{ mask }} << {{ offset }})) | ((value & {{ mask }}) << {{ offset }})
+        {% endif %}
+
+        {% if field.type in cfg.formats %}
+            {% if cfg.formats[field.type].signed %}
+                {% set bin_to_fmt = "BIN_TO_FMT_SIGNED" %}
+            {% else %}
+                {% set bin_to_fmt = "BIN_TO_FMT_UNSIGNED" %}
+            {% endif %}
+#define {{ macro.lsb(cfg.name, reg_name, field_name) }} {{ cfg.formats[field.type].lsb|float }}f
+            {% if 'r' in field.access %}
+#define {{ get_fmt }}(reg) ({{ bin_to_fmt }}({{ get }}(reg), {{ lsb }}, {{ size }}))
+            {% endif %}
+            {% if 'w' in field.access %}
+#define {{ set_fmt }}(reg, value) (reg) = (FMT_TO_BIN(value, {{ lsb }}, {{ type }}))
+            {% endif %}
+        {% endif %}{# if field.type in cfg.formats #}
+    {% endfor %}{# field_name, field #}
+{% endfor %}{# reg_name, register #}

@@ -3,13 +3,21 @@ import platform
 import shutil
 import subprocess
 import sys
-from glob import glob
+from concurrent import futures
 from pathlib import Path
+import math
 
 import click
-from capstone.tools.drivers import DriverGenerator
+import grpc
+import serial
+import yaml
+from capstone.constants import GRPC_PORT
+from capstone.tools.drivers.command_dev import CommandDriverGenerator
+from capstone.tools.drivers.register_dev import RegisterDriverGenerator
 from capstone.tools.flash import flash as flash_usb
-from capstone.tools.flash import get_boards
+from capstone.tools.usb import prompt_and_get_board, send_request
+from capstone.tools.values import ValuesGenerator
+from grpc_tools.protoc import main as grpc_main
 
 #####################################
 ############### PATHS ###############
@@ -33,6 +41,7 @@ SOFTWARE_DIR = os.path.relpath(
 )
 FIRMWARE_DIR = os.path.join(SOFTWARE_DIR, "firmware")
 FIRMWARE_SRC_DIR = os.path.join(FIRMWARE_DIR, "src")
+APP_SRC_DIR = os.path.join(FIRMWARE_SRC_DIR, "app")
 BUILD_DIR = os.path.join(FIRMWARE_DIR, "build")
 TOOLS_DIR = os.path.join(SOFTWARE_DIR, "tools")
 PYTHON_DIR = os.path.join(SOFTWARE_DIR, "python")
@@ -43,15 +52,19 @@ NANOPB_PROTO_DIR = os.path.join(FIRMWARE_DIR, "lib", "nanopb", "generator", "pro
 LIB_DIR = os.path.join(FIRMWARE_DIR, "lib")
 OPENOCD_DIR = os.path.join(LIB_DIR, "openocd")
 OPENOCD_TCL_DIR = os.path.join(OPENOCD_DIR, "tcl")
-DRIVERS_YAML_DIR = os.path.join(FIRMWARE_DIR, "drivers")
-DRIVERS_OUTPUT_DIR = os.path.join(FIRMWARE_DIR, "drivers", "output")
+DRIVERS_YAML_DIR = os.path.join(APP_SRC_DIR, "drivers")
+CMD_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "command")
+REG_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "register")
+GENERATED_DIR = os.path.join(APP_SRC_DIR, "generated")
+VALUES_YAML_DIR = os.path.join(SOFTWARE_DIR, "values")
 
 # Files
 OPENOCD_CFG = os.path.join(FIRMWARE_DIR, "capstone-ocd.cfg")
-BOOT_PROTO = os.path.join(PROTO_DIR, "boot.proto")
-APP_PROTO = os.path.join(PROTO_DIR, "app.proto")
-GROUND_PROTO = os.path.join(PROTO_DIR, "ground.proto")
 PYLINTRC = os.path.join(PYTHON_DIR, "pylintrc")
+VALUES_YAML = os.path.join(VALUES_YAML_DIR, "values.yaml")
+CONTROL_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "control_pack.yaml")
+TELEM_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "telem_pack.yaml")
+GROUND_PROTO_FILE = os.path.join(PROTO_DIR, "ground.proto")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
@@ -62,6 +75,15 @@ BOOT_ELF = os.path.join(BUILD_DIR, "boot.elf")
 APP_BIN = os.path.join(BUILD_DIR, "app.bin")
 BOOT_BIN = os.path.join(BUILD_DIR, "boot.bin")
 
+# Values file
+with open(VALUES_YAML, "r") as f:
+    VALUES = yaml.safe_load(f)
+VALUE_NAMES = {}
+for value_name in VALUES["values"].keys():
+    VALUE_NAMES[value_name.upper()] = value_name
+    VALUE_NAMES[value_name.lower()] = value_name
+    VALUE_NAMES["-".join(value_name.upper().split("_"))] = value_name
+    VALUE_NAMES["-".join(value_name.lower().split("_"))] = value_name
 
 #####################################
 ############## HELPERS ##############
@@ -92,6 +114,9 @@ def remove_dir(path):
 
 
 def build_helper(executable):
+    for proto_file in os.listdir(PROTO_DIR):
+        proto_helper(os.path.join(PROTO_DIR, proto_file))
+
     cmake_cmd = [
         "cmake",
         "-DCMAKE_BUILD_TYPE=Debug",
@@ -128,6 +153,87 @@ def proto_helper(input_file):
     click.secho(f"Successfully generated {output_file}", bold=True, fg="green")
 
 
+def run_grpc():
+    from capstone.ground.server import GroundStationServicer
+    from capstone.proto import ground_pb2_grpc
+
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    ground_pb2_grpc.add_GroundStationServicer_to_server(GroundStationServicer(), server)
+    server.add_insecure_port(f"localhost:50051")
+    server.start()
+    return server
+
+
+def proto_bool_from_str(value):
+    is_false = value.lower() in ["false", "0", "no", "off", "disable", "disabled"]
+    is_true = value.lower() in ["true", "1", "yes", "on", "enable", "enabled"]
+    if not is_false and not is_true:
+        raise ValueError("Invalid boolean value: {}".format(value))
+    return is_true
+
+
+def proto_pack_value(proto_msg, tag, value):
+    if VALUES["values"][tag.name]["type"]["base"] == "bool":
+        is_false = value.lower() in ["false", "0", "no", "off", "disable", "disabled"]
+        is_true = value.lower() in ["true", "1", "yes", "on", "enable", "enabled"]
+        if not is_false and not is_true:
+            raise ValueError("Invalid boolean value: {}".format(value))
+        proto_msg.b = is_true
+    elif VALUES["values"][tag.name]["type"]["base"] == "decimal":
+        proto_msg.f32 = float(value)
+    elif VALUES["values"][tag.name]["type"]["base"] == "int":
+        proto_msg.i32 = int(value)
+    elif VALUES["values"][tag.name]["type"]["base"] == "enum":
+        proto_msg.u32 = VALUES["values"][tag.name]["enum"].index(value)
+    else:
+        raise ValueError("Invalid type: {}".format(VALUES["values"][tag.name]["type"]))
+
+
+def get_proto_value(proto_msg, tag):
+    if VALUES["values"][tag.name]["type"]["base"] == "bool":
+        return proto_msg.b
+    if VALUES["values"][tag.name]["type"]["base"] == "decimal":
+        # Round to nearest LSB
+        lsb = VALUES["values"][tag.name]["type"]["lsb"]
+        lsb_rounded = round(proto_msg.f32 / lsb) * lsb
+        return round(lsb_rounded, 10)  # Prevent ugly floating point errors
+    if VALUES["values"][tag.name]["type"]["base"] == "int":
+        return proto_msg.i32
+    if VALUES["values"][tag.name]["type"]["base"] == "enum":
+        return VALUES["enums"][VALUES["values"][tag.name]["type"]["enum"]][
+            proto_msg.u32
+        ]
+    raise ValueError("Invalid type: {}".format(VALUES["values"][tag.name]["type"]))
+
+
+def values_helper():
+    if not os.path.exists(GENERATED_DIR):
+        os.makedirs(GENERATED_DIR)
+
+    c = os.path.join(GENERATED_DIR, "values.c")
+    h = os.path.join(GENERATED_DIR, "values.h")
+    proto = os.path.join(PROTO_DIR, "values.proto")
+    python = os.path.join(PYTHON_PACKAGE_DIR, "values.py")
+    output_files = [c, h]
+    gen = ValuesGenerator(VALUES_YAML, CONTROL_PACKET_YAML, TELEM_PACKET_YAML)
+    with open(c, "w") as f:
+        f.write(gen.generate_c())
+    with open(h, "w") as f:
+        f.write(gen.generate_h())
+    with open(proto, "w") as f:
+        f.write(gen.generate_proto())
+    with open(python, "w") as f:
+        f.write(gen.generate_python())
+
+    click.secho("Successfully generated value code", bold=True, fg="green")
+    run_cmd(
+        ["clang-format", "-i", "-style=file", "-verbose"] + output_files,
+        "Failed to format generated drivers",
+    )
+    run_cmd(["black", python], "Failed to format Python code")
+    click.secho("Successfully formatted value code", bold=True, fg="green")
+
+
 #####################################
 ########### CLICK TARGETS ###########
 #####################################
@@ -142,7 +248,7 @@ def cli():
 @click.option(
     "--executable",
     "-e",
-    default="both",
+    default="app",
     type=click.Choice(["boot", "app", "both"]),
     help="The executable to build.",
 )
@@ -162,7 +268,7 @@ def clean(hard):
     remove_dir(os.path.join(PYTHON_PACKAGE_DIR, "__pycache__"))
     remove_dir(os.path.join(SOFTWARE_DIR, "build"))
     remove_dir(PYTHON_PROTO_DIR)
-    remove_dir(DRIVERS_OUTPUT_DIR)
+    remove_dir(GENERATED_DIR)
     for path in Path(PYTHON_PACKAGE_DIR).rglob("__pycache__"):
         remove_dir(path.absolute())
     if hard:
@@ -171,20 +277,21 @@ def clean(hard):
 
 
 @click.command()
-@click.option(
-    "--interface",
-    "-i",
-    default="all",
-    type=click.Choice(["app", "ground", "boot", "all"]),
-    help="The proto file to build.",
-)
-def proto(interface):
-    if interface in ("boot", "all"):
-        proto_helper(os.path.join(PROTO_DIR, "boot.proto"))
-    if interface in ("app", "all"):
-        proto_helper(os.path.join(PROTO_DIR, "app.proto"))
-    if interface in ("ground", "all"):
-        proto_helper(os.path.join(PROTO_DIR, "ground.proto"))
+def proto():
+    for proto_file in os.listdir(PROTO_DIR):
+        proto_helper(os.path.join(PROTO_DIR, proto_file))
+    grpc_cmd = [
+        "grpc_tools.protoc",
+        f"-I{PROTO_DIR}",
+        f"-I{NANOPB_PROTO_DIR}",
+        f"--python_out={PYTHON_PROTO_DIR}",
+        f"--pyi_out={PYTHON_PROTO_DIR}",
+        f"--grpc_python_out={PYTHON_PROTO_DIR}",
+        GROUND_PROTO_FILE,
+    ]
+    click.secho("Running " + " ".join(grpc_cmd), bold=True)
+    grpc_main(grpc_cmd)
+    click.secho("Successfully generated proto code", bold=True, fg="green")
 
 
 @click.command()
@@ -251,21 +358,13 @@ def flash(executable, transport):
         )
         click.secho(f"Successfully flashed {elf_file}", bold=True, fg="green")
     elif transport == "usb" and executable == "app":
-        boards = get_boards()
-        if len(boards) == 0:
+        device = prompt_and_get_board("boot")
+        if device is None:
             click.secho("No flashable devices found", bold=True, fg="red")
-        else:
-            if len(boards) == 1:
-                board = boards[0]
-            else:
-                click.secho("Multiple flashable devices found:")
-                for i, board in enumerate(boards):
-                    click.secho(f"    [{i+1}] {board}")
-                index = int(input("Select a device: ")) - 1
-                board = boards[index]
-            build_helper(executable)
-            flash_usb(APP_BIN, board)
-            click.secho(f"Successfully flashed {APP_BIN}", bold=True, fg="green")
+            return
+        build_helper(executable)
+        flash_usb(APP_BIN, device)
+        click.secho(f"Successfully flashed {APP_BIN}", bold=True, fg="green")
 
 
 @click.command()
@@ -338,8 +437,8 @@ def format_code(code):
         c_files = []
         file_endings = ["*.c", "*.h"]
         for file_ending in file_endings:
-            for file in glob(os.path.join(FIRMWARE_SRC_DIR, "**", file_ending)):
-                c_files.append(file)
+            for path in Path(FIRMWARE_SRC_DIR).rglob(file_ending):
+                c_files.append(path.as_posix())
         run_cmd(
             ["clang-format", "-i", "-style=file", "-verbose"] + c_files,
             "Failed to format C code",
@@ -372,31 +471,41 @@ def lint(code):
 
 @click.command()
 def drivers():
-    if not os.path.exists(DRIVERS_OUTPUT_DIR):
-        os.makedirs(DRIVERS_OUTPUT_DIR)
+    if not os.path.exists(GENERATED_DIR):
+        os.makedirs(GENERATED_DIR)
 
-    input_filenames = [
-        os.path.join(DRIVERS_YAML_DIR, f)
-        for f in os.listdir(DRIVERS_YAML_DIR)
-        if os.path.isfile(os.path.join(DRIVERS_YAML_DIR, f)) and f.endswith(".yaml")
+    reg_dev_yaml_filenames = [
+        os.path.join(REG_DEV_YAML_DIR, f)
+        for f in os.listdir(REG_DEV_YAML_DIR)
+        if os.path.isfile(os.path.join(REG_DEV_YAML_DIR, f)) and f.endswith(".yaml")
+    ]
+    cmd_dev_yaml_filenames = [
+        os.path.join(CMD_DEV_YAML_DIR, f)
+        for f in os.listdir(CMD_DEV_YAML_DIR)
+        if os.path.isfile(os.path.join(CMD_DEV_YAML_DIR, f)) and f.endswith(".yaml")
     ]
 
-    output_files = []
-    for filename in input_filenames:
+    def generate(filename, GeneratorClass):
         click.secho(f"Generating driver code for {filename}")
-        driver_gen = DriverGenerator(filename)
-        output_filename = os.path.join(
-            DRIVERS_OUTPUT_DIR, os.path.basename(filename).removesuffix(".yaml")
-        )
-        header_file = output_filename + ".h"
-        source_file = output_filename + ".c"
-        output_files.extend([source_file, header_file])
-        with open(header_file, "w+", encoding="utf-8") as file:
-            file.write(driver_gen.generate_header())
-        with open(source_file, "w+", encoding="utf-8") as file:
-            file.write(driver_gen.generate_source())
-    click.secho("Successfully generated driver code", bold=True, fg="green")
+        with open(filename, "r", encoding="ascii") as file:
+            driver_yaml = yaml.safe_load(file)
+            driver_gen = GeneratorClass(driver_yaml)
+            output_filename = Path(filename).stem
+            c_file = os.path.join(GENERATED_DIR, f"{output_filename}.c")
+            h_file = os.path.join(GENERATED_DIR, f"{output_filename}.h")
+            with open(c_file, "w") as f:
+                f.write(driver_gen.generate_source())
+            with open(h_file, "w") as f:
+                f.write(driver_gen.generate_header())
+        output_files.extend([c_file, h_file])
 
+    output_files = []
+    for filename in cmd_dev_yaml_filenames:
+        generate(filename, CommandDriverGenerator)
+    for filename in reg_dev_yaml_filenames:
+        generate(filename, RegisterDriverGenerator)
+
+    click.secho("Successfully generated driver code", bold=True, fg="green")
     run_cmd(
         ["clang-format", "-i", "-style=file", "-verbose"] + output_files,
         "Failed to format generated drivers",
@@ -404,15 +513,89 @@ def drivers():
     click.secho("Successfully formatted driver code", bold=True, fg="green")
 
 
+@click.command()
+def generate_values():
+    values_helper()
+
+
+@click.command()
+def ground():
+    server = run_grpc()
+    server.wait_for_termination()
+
+
+@click.command()
+@click.argument("tag_str", type=click.Choice(VALUE_NAMES.keys()))
+@click.argument("value")
+def usb_set(tag_str, value):
+    # pylint: disable=import-outside-toplevel,no-name-in-module
+    from capstone.proto.app_pb2 import Request, Response
+
+    from capstone import values
+
+    device_path = prompt_and_get_board("app")
+    if device_path is None:
+        click.secho("No USB devices found", bold=True, fg="red")
+        return
+    device = serial.Serial(device_path)
+
+    tag = values.ValueTag[VALUE_NAMES[tag_str]]
+
+    request = Request()
+    request.set.tag = int(tag)
+    proto_pack_value(request.set.value, tag, value)
+    send_request(request, device, Response)
+
+
+@click.command()
+@click.argument("tag_str", type=click.Choice(VALUE_NAMES.keys()))
+def usb_get(tag_str):
+    # pylint: disable=import-outside-toplevel,no-name-in-module
+    from capstone.proto.app_pb2 import Request, Response
+
+    from capstone import values
+
+    device_path = prompt_and_get_board("app")
+    if device_path is None:
+        click.secho("No USB devices found", bold=True, fg="red")
+        return
+    device = serial.Serial(device_path)
+
+    tag = values.ValueTag[VALUE_NAMES[tag_str]]
+
+    request = Request()
+    request.get.tag = int(tag)
+    response = send_request(request, device, Response)
+    output = str(get_proto_value(response.get.value, tag))
+    output += " " + VALUES["values"][tag.name].get("unit", "")
+    click.secho(output, bold=True)
+
+@click.command()
+def grpc_test():
+    from capstone.proto import ground_pb2_grpc, values_pb2
+
+    channel = grpc.insecure_channel('localhost:50051')
+    stub = ground_pb2_grpc.GroundStationStub(channel)
+    feature = stub.GetValue(values_pb2.Value())
+
 def main():
     cli.add_command(build)
     cli.add_command(clean)
     cli.add_command(proto)
     cli.add_command(flash)
     cli.add_command(debug)
-    cli.add_command(format_code, "format")
+    cli.add_command(format_code, "format")  # `format` is a built-in
     cli.add_command(lint)
     cli.add_command(drivers)
+    cli.add_command(generate_values, "values")
+    cli.add_command(ground)
+    cli.add_command(usb_get, "get")
+    cli.add_command(usb_set, "set")
+    cli.add_command(grpc_test)
+
+    # So that generated proto files can import one another.
+    sys.path.append(PYTHON_PROTO_DIR)
+    sys.path.append(NANOPB_PROTO_DIR)
 
     try:
         ctx = cli.make_context("cli", sys.argv[1:])

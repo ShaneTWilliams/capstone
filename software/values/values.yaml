@@ -1,0 +1,25 @@
+values:
+  LED_STATE:
+    display: LED State
+    type:
+      base: bool
+  MCU_TEMP:
+    display: MCU Temperature
+    type:
+      base: decimal
+      min: -40
+      max: 125
+      lsb: 0.005
+    unit: °C
+    conditions:
+      warning:
+        - over: 50
+        - under: 0
+      critical:
+        - over: 80
+        - under: -10
+enums:
+  DRONE_STATE:
+    - SAFE
+    - ARMED
+    - FATAL

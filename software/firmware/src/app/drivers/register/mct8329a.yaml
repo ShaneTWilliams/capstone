@@ -1,4 +1,4 @@
-transport: i2c
+name: mct8329a
 registers:
   ISD_CONFIG:
     address: 0x80
