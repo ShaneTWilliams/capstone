@@ -53,7 +53,7 @@ Close and reopen your PowerShell window.
 Install dependencies with the following command:
 
 ```
-sudo apt install cmake protobuf-compiler
+sudo apt install cmake protobuf-compiler pnpm
 ```
 
 Install the [GNU ARM embedded toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) manually.
@@ -76,7 +76,7 @@ export PATH=$PATH:<scripts dir here>
 Install dependencies with the following command:
 
 ```
-brew install make cmake protobuf gcc-arm-embedded
+brew install make cmake protobuf gcc-arm-embedded pnpm
 ```
 
 Install the Python package with:

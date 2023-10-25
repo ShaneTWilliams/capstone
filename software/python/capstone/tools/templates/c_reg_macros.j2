@@ -1,0 +1,17 @@
+{% import 'c_macros.j2' as macro %}
+
+{% macro get_reg_func_sig(dev, reg_name, reg_config, get_type) -%}
+void get_{{ dev.lower() }}_{{ reg_name.lower() }}(uint{{reg_config.size * 8}}_t reg
+{% for field_name, field in reg_config.fields|read %}
+   ,{{ get_type(field) }}* {{ field_name.lower() }}
+{% endfor %}
+)
+{%- endmacro %}
+
+{% macro set_reg_func_sig(dev, reg_name, reg_config, get_type) -%}
+void set_{{ dev.lower() }}_{{ reg_name.lower() }}(uint{{reg_config.size * 8}}_t reg
+{% for field_name, field in reg_config.fields|write %}
+   ,{{ get_type(field) }} {{ field_name.lower() }}
+{% endfor %}
+)
+{%- endmacro %}

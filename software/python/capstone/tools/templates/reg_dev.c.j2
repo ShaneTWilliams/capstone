@@ -1,0 +1,50 @@
+{% import 'c_macros.j2' as macro %}
+{% import 'c_reg_macros.j2' as reg_macro %}
+
+#include <stdlib.h>
+
+#include "{{ cfg.name }}.h"
+
+{% for reg_name, register in cfg.registers.items() %}
+{% set address = macro.address(cfg.name, reg_name) %}
+{% set reg_size = macro.reg_size(cfg.name, reg_name) %}
+{{ macro.block_comment('REGISTER: ' + reg_name) }}
+
+{% if register.fields|read|length > 0 %}
+{{ reg_macro.get_reg_func_sig(cfg.name, reg_name, register, get_type) }} {
+    {% for field_name, field in register.fields.items() %}
+        {% set get = macro.get(cfg.name, reg_name, field_name) %}
+        {% set get_fmt = macro.get_fmt(cfg.name, reg_name, field_name) %}
+if ({{ field_name.lower() }} != NULL) {
+        {% if field.type in cfg.formats %}
+    *{{ field_name.lower() }} = {{ get_fmt }}(reg);
+        {% else %}
+    *{{ field_name.lower() }} = {{ get }}(reg);
+        {% endif %}
+}
+    {% endfor %}
+}
+{% endif %}
+
+{% if register.fields|write|length > 0 %}
+{{ reg_macro.set_reg_func_sig(cfg.name, reg_name, register, get_type) }} {
+    {% for field_name, field in register.fields|write %}
+        {% set set = macro.set(cfg.name, reg_name, field_name) %}
+        {% set set_fmt = macro.set_fmt(cfg.name, reg_name, field_name) %}
+        {% if field.type in cfg.formats %}
+    {{ set_fmt }}(reg, {{ field_name.lower() }});
+        {% else %}
+    {{ set }}(reg, {{ field_name.lower() }});
+        {% endif %}
+    {% endfor %}
+}
+{% endif %}
+
+{% for field_name, field in register.fields.items() %}
+{% set get = macro.get(cfg.name, reg_name, field_name) %}
+{% set get_fmt = macro.get_fmt(cfg.name, reg_name, field_name) %}
+{% set set = macro.set(cfg.name, reg_name, field_name) %}
+{% set set_fmt = macro.set_fmt(cfg.name, reg_name, field_name) %}
+
+{% endfor %}
+{% endfor %}

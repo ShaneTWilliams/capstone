@@ -1,0 +1,57 @@
+{% import 'c_macros.j2' as macro %}
+{% import 'c_cmd_macros.j2' as cmd_macro %}
+
+#pragma once
+
+#include "driver_defs.h"
+
+{{ macro.block_comment('FIELD ENUMS') }}
+
+{% for enum_name, enum in cfg.enums.items() %}
+typedef enum {
+    {% for value_name, value in enum.items() %}
+    {{ cfg.name.upper() }}_{{ enum_name.upper() }}_{{ value_name }} = 0x{{ '%02x' %  value }},
+    {% endfor %}
+} {{cfg.name.lower()}}_{{ enum_name.lower() }}_t;
+
+{% endfor %}
+
+{% for cmd_name, command in cfg.commands.items() %}
+{{ macro.block_comment('COMMAND: ' + cmd_name) }}
+
+{{ cmd_macro.cmd_func_sig(cfg.name, cmd_name, command, get_type)}};
+
+#define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_TX_SIZE {{ command.tx.size }}U
+#define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_RX_SIZE {{ command.rx.size }}U
+
+{% for tx_field_name, tx_field in command.tx.fields.items() %}
+{% set tx_offset = macro.offset(cfg.name, cmd_name, tx_field_name) %}
+{% set tx_size = macro.field_size(cfg.name, cmd_name, tx_field_name) %}
+{% set tx_lsb = macro.lsb(cfg.name, cmd_name, tx_field_name) %}
+{% set tx_type = macro.type(cfg.name, cmd_name, tx_field_name) %}
+{% set tx_mask = macro.mask(cfg.name, cmd_name, tx_field_name) %}
+
+#define {{ tx_offset }} {{ tx_field.offset % 8 }}U
+#define {{ tx_size }} {{ tx_field.size }}U
+#define {{ tx_mask }} (1 << {{ tx_offset }}) - 1
+#define {{ tx_type }} {{ get_type(tx_field) }}
+
+{% endfor %}
+
+{% if command.rx.fields %}
+{% for rx_field_name, rx_field in command.rx.fields.items() %}
+{% set rx_offset = macro.offset(cfg.name, cmd_name, rx_field_name) %}
+{% set rx_size = macro.field_size(cfg.name, cmd_name, rx_field_name) %}
+{% set rx_lsb = macro.lsb(cfg.name, cmd_name, rx_field_name) %}
+{% set rx_type = macro.type(cfg.name, cmd_name, rx_field_name) %}
+{% set rx_mask = macro.mask(cfg.name, cmd_name, rx_field_name) %}
+
+#define {{ rx_offset }} {{ rx_field.offset }}U
+#define {{ rx_size }} {{ rx_field.size }}U
+#define {{ rx_mask }} (1 << {{ rx_offset }}) - 1
+#define {{ rx_type }} {{ get_type(rx_field) }}
+
+{% endfor %}
+{% endif %}
+
+{% endfor %}

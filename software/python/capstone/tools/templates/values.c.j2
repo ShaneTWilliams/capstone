@@ -1,0 +1,135 @@
+{% import 'macros.j2' as macro %}
+{% import 'values_macros.j2' as value_macro %}
+
+#include "values.h"
+
+#include "values.pb.h"
+
+{{ macro.block_comment("PROTO") }}
+
+void pack_proto_value(values_Value* value_struct, values_ValueTag tag) {
+    switch (tag) {
+{% for name, config in values.items() %}
+        case values_ValueTag_{{ name }}:
+{% if config.type.base == "bool" %}
+            value_struct->which_value = values_Value_b_tag;
+            value_struct->value.b = values.{{ name.lower() }};
+{% elif config.type.base == "decimal" %}
+            value_struct->which_value = values_Value_f32_tag;
+            value_struct->value.f32 = values.{{ name.lower() }};
+{% elif config.type.base == "int" %}
+            value_struct->which_value = values_Value_i32_tag;
+            value_struct->value.i32 = values.{{ name.lower() }};
+{% elif config.type.base == "enum" %}
+            value_struct->which_value = values_Value_u32_tag;
+            value_struct->value.u32 = values.{{ name.lower() }};
+{% endif %}
+            break;
+{% endfor %}
+        default:
+            break;
+    }
+}
+
+void unpack_proto_value(values_Value* value_struct, values_ValueTag tag) {
+    switch (tag) {
+{% for name, config in values.items() %}
+        case values_ValueTag_{{ name }}:
+{% if config.type.base == "bool" %}
+            values.{{ name.lower() }} = value_struct->value.b;
+{% elif config.type.base == "decimal" %}
+            values.{{ name.lower() }} = value_struct->value.f32;
+{% elif config.type.base == "int" %}
+            values.{{ name.lower() }} = value_struct->value.i32;
+{% elif config.type.base == "enum" %}
+            values.{{ name.lower() }} = value_struct->value.u32;
+{% endif %}
+            break;
+{% endfor %}
+        default:
+            break;
+    }
+}
+
+{{ macro.block_comment("PACKETS") }}
+
+#define PACK_BOOL(value) GET_##value & 0x00000001U
+#define PACK_DECIMAL(value) (GET_##value)
+#define PACK_UINT(value) (GET_##value & ((1 << value##_SIZE) - 1))
+#define PACK_ENUM(value) PACK_UINT(value)
+#define PACK_INT(value) ((GET_##value & ((1 << (value##_SIZE - 1)) - 1)) | (((GET_##value >> ((sizeof(GET_##value) * 8) - 1)) & 0x01)) << (value##_SIZE - 1))
+
+{% for packet, packet_values in telem.items() %}
+#define {{ packet.upper() }}_SIZE_BYTES {{ ceil(get_packet_size(packet) / 8) }}U
+{% endfor %}
+
+{% for packet, packet_values in telem.items() %}
+    {% for value in packet_values %}
+#define {{value}}_SIZE {{get_value_size(value)}}U
+#define {{value}}_MASK (1 << {{value}}_SIZE) - 1
+        {% if values[value].type.base == 'int' and values[value].type.min < 0 %}
+#define {{value}}_SIGN_BIT (1 << ({{value}}_SIZE - 1))
+        {% endif %}
+        {% if values[value].type.base == 'decimal' and values[value].type.min < 0 %}
+#define {{value}}_LSB ()
+        {% endif %}
+#define GET_{{value}} (values.{{value.lower()}})
+#define SET_{{value}}(val) (values.{{value.lower()}} = (val))
+    {% endfor %}
+{% endfor %}
+
+{% for packet, packet_values in telem.items() %}
+    {% for value in packet_values %}
+#define {{packet}}_{{value}}_OFFSET {{get_value_offset(value, packet)}}U
+    {% endfor %}
+{% endfor %}
+
+typedef enum {
+    VALUE_TAG_FIRST = 0,
+
+{% for name, _ in values.items() %}
+    VALUE_TAG_{{ name }} = {{ loop.index0 }},
+{% endfor %}
+
+    VALUE_TAG_COUNT = {{ values|length }}
+} value_tag_t;
+
+values_t values = {
+{% for value, value_config in values.items() %}
+    .{{ value.lower() }} =
+    {% if value_config.type.base == 'decimal' %}
+        0.0f
+    {% elif value_config.type.base == 'bool' %}
+        false
+    {% elif value_config.type.base == 'int' %}
+        0U
+    {% elif value_config.type.base == 'enum' %}
+        {{value_config.type.name}}_{{enums[value_config.type.name][0]}}
+    {% endif %}
+    ,
+{% endfor %}
+};
+
+{% for packet, packet_values in telem.items() %}
+uint8_t {{ packet.lower() }}_buf[{{ packet.upper() }}_SIZE_BYTES];
+{% endfor %}
+
+{% for packet, packet_values in telem.items() %}
+{{ value_macro.pack_packet_sig(packet) }} {
+    {% for value in packet_values %}
+{{ get_value_int_type(value) }} packed_{{ value.lower() }} =
+        PACK_{{values[value].type.base.upper()}}({{ value }});
+    {% endfor %}
+    {% for byte in range(get_packet_size(packet) // 8) %}
+    {{ packet.lower() }}_buf[{{ byte }}] =
+        {% for value, offset in get_values_in_byte(byte, packet) %}
+            {% if not loop.first %}
+                |
+            {% endif %}
+    packed_{{ value.lower() }} << {{ offset }}
+        {% endfor %}
+        ;
+    {% endfor %}
+}
+
+{% endfor %}

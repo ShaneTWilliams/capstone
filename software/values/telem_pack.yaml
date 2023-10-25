@@ -1,0 +1,3 @@
+TELEM1:
+  - MCU_TEMP
+  - LED_STATE

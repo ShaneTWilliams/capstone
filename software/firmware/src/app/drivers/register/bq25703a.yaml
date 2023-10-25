@@ -1,0 +1,742 @@
+name: bq25703a
+registers:
+  CHARGE_OPTION_0:
+    address: 0x00
+    size: 2
+    fields:
+      CHRG_INHIBIT:
+        access: rw
+        offset: 0
+        size: 1
+      EN_IDPM:
+        access: rw
+        offset: 1
+        size: 1
+      EN_LDO:
+        access: rw
+        offset: 2
+        size: 1
+      IBAT_GAIN:
+        access: rw
+        offset: 3
+        size: 1
+        type: IBAT_GAIN
+      IADPT_GAIN:
+        access: rw
+        offset: 4
+        size: 1
+        type: IADPT_GAIN
+      EN_LEARN:
+        access: rw
+        offset: 5
+        size: 1
+      PWM_FREQ:
+        access: rw
+        offset: 9
+        size: 1
+        type: PWM_FREQ
+      EN_OOA:
+        access: rw
+        offset: 10
+        size: 1
+      OTG_ON_CHRGOK:
+        access: rw
+        offset: 11
+        size: 1
+      IDPM_AUTO_DISABLE:
+        access: rw
+        offset: 12
+        size: 1
+      WDTMR_ADJ:
+        access: rw
+        offset: 13
+        size: 2
+        type: WDTMR_ADJ
+      EN_LWPWR:
+        access: rw
+        offset: 15
+        size: 1
+  CHARGE_CURRENT:
+    address: 0x02
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 6
+        size: 7
+        type: CHARGE_CURRENT_MA
+  MAX_CHARGE_VOLTAGE:
+    address: 0x04
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 4
+        size: 11
+        type: CHARGE_VOLTAGE_MV
+  OTG_VOLTAGE:
+    address: 0x06
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 6
+        size: 8
+        type: SYS_VOLTAGE_MV
+  OTG_CURRENT:
+    address: 0x08
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 8
+        size: 6
+        type: IIN_MA
+  INPUT_VOLTAGE:
+    address: 0x0A
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 6
+        size: 8
+        type: SYS_VOLTAGE_MV
+  MIN_CHARGE_VOLTAGE:
+    address: 0x0C
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 8
+        size: 6
+        type: SYS_VOLTAGE_MV
+  IIN_HOST:
+    address: 0x0E
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 8
+        size: 7
+        type: IIN_MA
+  CHARGER_STATUS:
+    address: 0x20
+    size: 2
+    fields:
+      FAULT_OTG_OCP:
+        access: r
+        offset: 0
+        size: 1
+      FAULT_OTG_OVP:
+        access: r
+        offset: 1
+        size: 1
+      FAULT_LATCHOFF:
+        access: r
+        offset: 2
+        size: 1
+      SYSOVP_STAT:
+        access: r
+        offset: 4
+        size: 1
+      FAULT_ACOC:
+        access: r
+        offset: 5
+        size: 1
+      FAULT_BATOC:
+        access: r
+        offset: 6
+        size: 1
+      FAULT_ACOV:
+        access: r
+        offset: 7
+        size: 1
+      IN_OTG:
+        access: r
+        offset: 8
+        size: 1
+      IN_PCHRG:
+        access: r
+        offset: 9
+        size: 1
+      IN_FCHRG:
+        access: r
+        offset: 10
+        size: 1
+      IN_IINDDPM:
+        access: r
+        offset: 11
+        size: 1
+      IN_VINDDPM:
+        access: r
+        offset: 12
+        size: 1
+      ICO_DONE:
+        access: r
+        offset: 14
+        size: 1
+      AC_STAT:
+        access: r
+        offset: 15
+        size: 1
+  PROCHOT_STATUS:
+    address: 0x22
+    size: 2
+    fields:
+      STAT_ADAPTER_REMOVAL:
+        access: r
+        offset: 0
+        size: 1
+      STAT_BATTERY_REMOVAL:
+        access: r
+        offset: 1
+        size: 1
+      STAT_VSYS:
+        access: r
+        offset: 2
+        size: 1
+      STAT_IDCHG:
+        access: r
+        offset: 3
+        size: 1
+      STAT_INOM:
+        access: r
+        offset: 4
+        size: 1
+      STAT_ICRIT:
+        access: r
+        offset: 5
+        size: 1
+      STAT_COMP:
+        access: r
+        offset: 6
+        size: 1
+  IIN_DPM:
+    address: 0x24
+    size: 2
+    fields:
+      VALUE:
+        access: r
+        offset: 8
+        size: 7
+        type: IIN_MA
+  ADC_VBUS_PSYS:
+    address: 0x26
+    size: 2
+    fields:
+      PSYS:
+        access: r
+        offset: 0
+        size: 8
+        type: PSYS_CMPIN_MV
+      VBUS:
+        access: r
+        offset: 8
+        size: 8
+        type: VBUS_MV
+  ADC_IBAT:
+    address: 0x28
+    size: 2
+    fields:
+      IDCHG:
+        access: r
+        offset: 0
+        size: 8
+        type: IDCHG_MA
+      ICHG:
+        access: r
+        offset: 8
+        size: 8
+        type: ICHG_MA
+  ADC_IIN_CMPIN:
+    address: 0x2A
+    size: 2
+    fields:
+      CMPIN:
+        access: r
+        offset: 0
+        size: 8
+        type: PSYS_CMPIN_MV
+      IIN:
+        access: r
+        offset: 8
+        size: 8
+        type: IIN_MA
+  ADC_VSYS_VBAT:
+    address: 0x2C
+    size: 2
+    fields:
+      VSYS:
+        access: r
+        offset: 0
+        size: 8
+        type: VSYS_VBAT_MV
+      VBAT:
+        access: r
+        offset: 8
+        size: 8
+        type: VSYS_VBAT_MV
+  MANUFACTURE_ID:
+    address: 0x2E
+    size: 1
+    fields:
+      VALUE:
+        access: r
+        offset: 0
+        size: 8
+  DEVICE_ID:
+    address: 0x2F
+    size: 1
+    fields:
+      VALUE:
+        access: r
+        offset: 0
+        size: 8
+  CHARGE_OPTION_1:
+    address: 0x30
+    size: 2
+    fields:
+      AUTO_WAKEUP_EN:
+        access: rw
+        offset: 0
+        size: 1
+      EN_SHIP_DCHG:
+        access: rw
+        offset: 1
+        size: 1
+      FORCE_LATCHOFF:
+        access: rw
+        offset: 3
+        size: 1
+      CMP_DEG:
+        access: rw
+        offset: 4
+        size: 2
+        type: CMP_DEG_TIME
+      CMP_POL:
+        access: rw
+        offset: 6
+        size: 1
+        type: CMP_POL
+      CMP_REF:
+        access: rw
+        offset: 7
+        size: 1
+        type: CMP_REF_V
+      PSYS_RATIO:
+        access: rw
+        offset: 9
+        size: 1
+        type: PSYS_RATIO
+      RSNS_RSR:
+        access: rw
+        offset: 10
+        size: 1
+        type: SENSE_RESISTANCE_MOHM
+      RSNS_RAC:
+        access: rw
+        offset: 11
+        size: 1
+        type: SENSE_RESISTANCE_MOHM
+      EN_PSYS:
+        access: rw
+        offset: 12
+        size: 1
+      EN_PROCHOT_LPWR:
+        access: rw
+        offset: 13
+        size: 2
+        type: PROTCHOT_LWPWR_MODE
+      EN_IBAT:
+        access: rw
+        offset: 15
+        size: 1
+  CHARGE_OPTION_2:
+    address: 0x32
+    size: 2
+    fields:
+      BATOC_VTH:
+        access: rw
+        offset: 0
+        size: 1
+        type: DISCHARGE_OC_THRESH_PROCHOT
+      EN_BATOC:
+        access: rw
+        offset: 1
+        size: 1
+      ACOC_VTH:
+        access: rw
+        offset: 2
+        size: 1
+        type: CHARGE_OC_THRESH_IDPM
+      EN_ACOC:
+        access: rw
+        offset: 3
+        size: 1
+      ACX_OCP:
+        access: rw
+        offset: 4
+        size: 1
+        type: CHARGE_OC_THRESH_ACPACN
+      Q2_OCP:
+        access: rw
+        offset: 5
+        size: 1
+        type: Q2_OC_THRESH
+      EN_ICHG_IDCHG:
+        access: rw
+        offset: 6
+        size: 1
+      EN_EXTIILM:
+        access: rw
+        offset: 7
+        size: 1
+      PKPWR_TMAX:
+        access: rw
+        offset: 8
+        size: 2
+        type: PKPWR_TMAX
+      PKPWR_RELAX_STAT:
+        access: rw
+        offset: 10
+        size: 1
+      PKPWR_OVLD_STAT:
+        access: rw
+        offset: 11
+        size: 1
+      EN_PKPWR_VSYS:
+        access: rw
+        offset: 12
+        size: 1
+      EN_PKPWR_IDPM:
+        access: rw
+        offset: 13
+        size: 1
+      PKPWR_TOVLD_DEG:
+        access: rw
+        offset: 14
+        size: 2
+        type: PKPWR_OVLD_TIME
+  CHARGE_OPTION_3:
+    address: 0x34
+    size: 2
+    fields:
+      PSYS_OTG_IDCHG:
+        access: rw
+        offset: 0
+        size: 1
+        type: PSYS_OTG_IDCHG
+      BATFETOFF_HIZ:
+        access: rw
+        offset: 1
+        size: 1
+        type: BATFET_STATUS
+      EN_ICO_MODE:
+        access: rw
+        offset: 11
+        size: 1
+      EN_OTG:
+        access: rw
+        offset: 12
+        size: 1
+      RESET_VINDPM:
+        access: rw
+        offset: 13
+        size: 1
+      RESET_REG:
+        access: rw
+        offset: 14
+        size: 1
+      EN_HIZ:
+        access: rw
+        offset: 15
+        size: 1
+  PROCHOT_OPTION_1:
+    address: 0x36
+    size: 2
+    fields:
+      INOM_DEG:
+        access: rw
+        offset: 1
+        size: 1
+        type: INOM_DEG_TIME
+      PROCHOT_CLEAR:
+        access: rw
+        offset: 2
+        size: 1
+      PROCHOT_WIDTH:
+        access: rw
+        offset: 3
+        size: 2
+        type: PROCHOT_WIDTH
+      EN_PROCHOT_EXT:
+        access: rw
+        offset: 5
+        size: 1
+      VSYS_VTH:
+        access: rw
+        offset: 6
+        size: 2
+        type: VSYS_VTH
+      ICRIT_DEG:
+        access: rw
+        offset: 9
+        size: 2
+        type: ICRIT_DEG_TIME
+      ILIM_VTH:
+        access: rw
+        offset: 11
+        size: 5
+        type: ILIM2_VTH
+  PROCHOT_OPTION_1:
+    address: 0x38
+    size: 2
+    fields:
+      PP_ACOK:
+        access: rw
+        offset: 0
+        size: 1
+      PP_BATPRES:
+        access: rw
+        offset: 1
+        size: 1
+      PP_VSYS:
+        access: rw
+        offset: 2
+        size: 1
+      PP_IDCHG:
+        access: rw
+        offset: 3
+        size: 1
+      PP_INOM:
+        access: rw
+        offset: 4
+        size: 1
+      PP_ICRIT:
+        access: rw
+        offset: 5
+        size: 1
+      PROCHOT_PROFILE_IC:
+        access: rw
+        offset: 6
+        size: 1
+      IDCHG_DEG:
+        access: rw
+        offset: 8
+        size: 2
+        type: IDCHG_DEG_TIME
+      IDCHG_VTH:
+        access: rw
+        offset: 10
+        size: 6
+        type: IDCHG_THRESH_MA
+  ADC_OPTION:
+    address: 0x3A
+    size: 2
+    fields:
+      EN_ADC_VBAT:
+        access: rw
+        offset: 0
+        size: 1
+      EN_ADC_VSYS:
+        access: rw
+        offset: 1
+        size: 1
+      EN_ADC_ICHG:
+        access: rw
+        offset: 2
+        size: 1
+      EN_ADC_IDCHG:
+        access: rw
+        offset: 3
+        size: 1
+      EN_ADC_IIN:
+        access: rw
+        offset: 4
+        size: 1
+      EN_ADC_PSYS:
+        access: rw
+        offset: 5
+        size: 1
+      EN_ADC_VBUS:
+        access: rw
+        offset: 6
+        size: 1
+      EN_ADC_CMPIN:
+        access: rw
+        offset: 7
+        size: 1
+      ADC_FULLSCALE:
+        access: rw
+        offset: 13
+        size: 1
+        type: ADC_FULLSCALE
+      ADC_START:
+        access: rw
+        offset: 14
+        size: 1
+      ADC_CONV:
+        access: rw
+        offset: 15
+        size: 1
+        type: ADC_CONV_TYPE
+enums:
+  IBAT_GAIN:
+    8X: 0x00
+    16X: 0x01
+  IADPT_GAIN:
+    20X: 0x00
+    40X: 0x01
+  PWM_FREQ:
+    1200_KHZ: 0x00
+    800_KHZ: 0x01
+  WDTMR_ADJ:
+    DISABLED: 0x00
+    ENABLED_5_S: 0x01
+    ENABLED_88_S: 0x02
+    ENABLED_175_S: 0x03
+  CMP_DEG_TIME:
+    DISABLED: 0x00
+    1_US: 0x01
+    2_MS: 0x02
+    5_S: 0x03
+  CMP_POL:
+    LOW_ABOVE_THRESH: 0x00
+    HIGH_ABOVE_THRESH: 0x01
+  CMP_REF_V:
+    2_3_V: 0x00
+    1_2_V: 0x01
+  PSYS_RATIO:
+    0_25_UA_PER_W: 0x00
+    0_5_UA_PER_W: 0x01
+  SENSE_RESISTANCE_MOHM:
+    "10": 0x00
+    "20": 0x01
+  PROTCHOT_LWPWR_MODE:
+    DISABLE: 0x00
+    EN_EDCHG: 0x01
+    EN_VSYS: 0x02
+  DISCHARGE_OC_THRESH_PROCHOT:
+    125_PCT: 0x00
+    200_PCT: 0x01
+  CHARGE_OC_THRESH_IDPM:
+    125_PCT: 0x00
+    210_PCT: 0x01
+  CHARGE_OC_THRESH_ACPACN:
+    280_MV: 0x00
+    150_MV: 0x01
+  Q2_OC_THRESH:
+    210_MV: 0x00
+    150_MV: 0x01
+  PKPWR_TMAX:
+    5_MS: 0x00
+    10_MS: 0x01
+    20_MS: 0x02
+    40_MS: 0x03
+  PKPWR_OVLD_TIME:
+    1_MS: 0x00
+    2_MS: 0x01
+    10_MS: 0x02
+    20_MS: 0x03
+  PSYS_OTG_IDCHG:
+    DISCHARGE_ONLY: 0x00
+    DISCHAGE_MINUS_OTG: 0x01
+  BATFET_STATUS:
+    "ON": 0x00
+    "OFF": 0x01
+  INOM_DEG_TIME:
+    1_MS: 0x00
+    50_MS: 0x01
+  PROCHOT_WIDTH:
+    100_US: 0x00
+    1_MS: 0x01
+    10_MS: 0x02
+    5_MS: 0x03
+  VSYS_VTH:
+    575V_2TO4S_285V_1S: 0x00
+    600V_2TO4S_310V_1S: 0x01
+    625V_2TO4S_335V_1S: 0x02
+    650V_2TO4S_360V_1S: 0x03
+  ICRIT_DEG_TIME:
+    15_US: 0x00
+    100_US: 0x01
+    400_US: 0x02
+    800_US: 0x03
+  ILIM2_VTH:
+    110_PCT: 0x01
+    115_PCT: 0x02
+    120_PCT: 0x03
+    125_PCT: 0x04
+    130_PCT: 0x05
+    135_PCT: 0x06
+    140_PCT: 0x07
+    145_PCT: 0x08
+    150_PCT: 0x09
+    155_PCT: 0x10
+    160_PCT: 0x11
+    165_PCT: 0x12
+    170_PCT: 0x13
+    175_PCT: 0x14
+    180_PCT: 0x15
+    185_PCT: 0x16
+    190_PCT: 0x17
+    195_PCT: 0x18
+    200_PCT: 0x19
+    205_PCT: 0x20
+    210_PCT: 0x21
+    215_PCT: 0x22
+    220_PCT: 0x23
+    225_PCT: 0x24
+    230_PCT: 0x25
+    250_PCT: 0x26
+    300_PCT: 0x27
+    350_PCT: 0x28
+    400_PCT: 0x29
+    450_PCT: 0x30
+  IDCHG_DEG_TIME:
+    1_6_MS: 0x00
+    100_US: 0x01
+    6_MS: 0x02
+    12_MS: 0x03
+  ADC_FULLSCALE:
+    2_04_V: 0x00
+    3_06_V: 0x01
+  ADC_CONV_TYPE:
+    ONE_SHOT: 0x00
+    CONTINUOUS: 0x01
+formats:
+  IDCHG_THRESH_MA:
+    lsb: 512
+    signed: false
+  CHARGE_CURRENT_MA:
+    lsb: 64
+    signed: false
+  CHARGE_VOLTAGE_MV:
+    lsb: 256
+    signed: false
+  SYS_VOLTAGE_MV:
+    lsb: 256
+    signed: false
+  IIN_MA:
+    lsb: 50
+    signed: false
+  PSYS_CMPIN_MV:
+    lsb: 12
+    signed: false
+  VBUS_MV:
+    lsb: 64
+    signed: false
+    offset: 3200
+  ICHG_MA:
+    lsb: 64
+    signed: false
+  IDCHG_MA:
+    lsb: 256
+    signed: false
+  IIN_MA:
+    lsb: 50
+    signed: false
+  VSYS_VBAT_MV:
+    lsb: 64
+    signed: false
+    offset: 2880

@@ -1,0 +1,3 @@
+{% macro pack_packet_sig(packet) -%}
+void pack_{{ packet.lower() }}(void)
+{%- endmacro %}

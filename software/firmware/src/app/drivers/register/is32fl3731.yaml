@@ -1,0 +1,593 @@
+name: is31fl3731
+registers:
+  PRODUCT_ID:
+    address: 0x00
+    size: 1
+    fields:
+      DEV_ADDR:
+        access: r
+        offset: 0
+        size: 7
+  SHDN_CTRL:
+    address: 0x01
+    size: 1
+    fields:
+      SSD:
+        access: rw
+        offset: 0
+        size: 1
+        type: SHDN_MODE
+      SLE:
+        access: rw
+        offset: 1
+        size: 2
+        type: SLEEP_MODE
+      EN1:
+        access: rw
+        offset: 4
+        size: 1
+      EN2:
+        access: rw
+        offset: 5
+        size: 1
+      EN3:
+        access: rw
+        offset: 6
+        size: 1
+      EN4:
+        access: rw
+        offset: 7
+        size: 1
+  OUT_MODE_CONFIG:
+    address: 0x02
+    size: 1
+    fields:
+      MOD1:
+        access: rw
+        offset: 0
+        size: 2
+        type: OUT_1_3_MODE
+      MOD2:
+        access: rw
+        offset: 2
+        size: 2
+        type: OUT_1_3_MODE
+      MOD3:
+        access: rw
+        offset: 4
+        size: 2
+        type: OUT_1_3_MODE
+      MOD4:
+        access: rw
+        offset: 6
+        size: 1
+        type: OUT_4_MODE
+  CHG_PUMP_CFG_1:
+    address: 0x03
+    size: 1
+    fields:
+      CPPM:
+        access: rw
+        offset: 0
+        size: 2
+        type: CHG_PUMP_POWERUP_MODE
+      CPM:
+        access: rw
+        offset: 2
+        size: 2
+        type: CHG_PUMP_WORKING_MODE
+  CHG_PUMP_CFG_2:
+    address: 0x04
+    size: 1
+    fields:
+      CPDE1:
+        access: rw
+        offset: 0
+        size: 1
+      CPDE2:
+        access: rw
+        offset: 1
+        size: 1
+      CPDE3:
+        access: rw
+        offset: 2
+        size: 1
+      CPDE4:
+        access: rw
+        offset: 3
+        size: 1
+      HRT:
+        access: rw
+        offset: 4
+        size: 3
+        type: HEADROOM_THRESH
+  CURR_BAND:
+    address: 0x05
+    size: 1
+    fields:
+      CB1:
+        access: rw
+        offset: 0
+        size: 2
+        type: CURR_BAND
+      CB2:
+        access: rw
+        offset: 2
+        size: 2
+        type: CURR_BAND
+      CB3:
+        access: rw
+        offset: 4
+        size: 2
+        type: CURR_BAND
+      CB4:
+        access: rw
+        offset: 6
+        size: 2
+        type: CURR_BAND
+  COLOR_HOLD:
+    address: 0x06
+    size: 1
+    fields:
+      HT:
+        access: rw
+        offset: 0
+        size: 1
+        type: HOLD_TIME
+      CHF:
+        access: rw
+        offset: 1
+        size: 1
+  PHASE_DELAY:
+    address: 0x07
+    size: 1
+    fields:
+      PD:
+        access: rw
+        offset: 0
+        size: 1
+        type: PHASE_DELAY
+  PATT_STATE:
+    address: 0x0F
+    size: 1
+    fields:
+      TS:
+        access: r
+        offset: 0
+        size: 1
+        type: TIME_STATE
+      CS1:
+        access: r
+        offset: 4
+        size: 1
+      CS2:
+        access: r
+        offset: 5
+        size: 1
+      CS3:
+        access: r
+        offset: 6
+        size: 1
+      PS:
+        access: r
+        offset: 7
+        size: 1
+  OUT1_CURR:
+    address: 0x10
+    size: 1
+    fields:
+      CL:
+        access: rw
+        offset: 0
+        size: 8
+  OUT2_CURR:
+    address: 0x11
+    size: 1
+    fields:
+      CL:
+        access: rw
+        offset: 0
+        size: 8
+  OUT3_CURR:
+    address: 0x12
+    size: 1
+    fields:
+      CL:
+        access: rw
+        offset: 0
+        size: 8
+  OUT4_CURR:
+    address: 0x13
+    size: 1
+    fields:
+      CL:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR1_OUT1:
+    address: 0x10
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR1_OUT2:
+    address: 0x11
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR1_OUT3:
+    address: 0x12
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR2_OUT1:
+    address: 0x14
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR2_OUT2:
+    address: 0x15
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR2_OUT3:
+    address: 0x16
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR3_OUT1:
+    address: 0x17
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR3_OUT2:
+    address: 0x18
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  COLOR3_OUT3:
+    address: 0x19
+    size: 1
+    fields:
+      SETTING:
+        access: rw
+        offset: 0
+        size: 8
+  OUT1_PWM:
+    address: 0x1A
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 12
+        type: PWM_DUTY_OUT_DIV_BAND_PCT
+  OUT2_PWM:
+    address: 0x1C
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 12
+        type: PWM_DUTY_OUT_DIV_BAND_PCT
+  OUT3_PWM:
+    address: 0x1E
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 12
+        type: PWM_DUTY_OUT_DIV_BAND_PCT
+  OUT4_PWM:
+    address: 0x20
+    size: 2
+    fields:
+      VALUE:
+        access: rw
+        offset: 0
+        size: 12
+        type: PWM_DUTY_OUT_DIV_BAND_PCT
+  PATT_TS_T1:
+    address: 0x22
+    size: 1
+    fields:
+      TS:
+        access: rw
+        offset: 0
+        size: 4
+        type: PATTERN_TIME
+      T1:
+        access: rw
+        offset: 4
+        size: 4
+        type: PATTERN_TIME
+  PATT_T2_T3:
+    address: 0x23
+    size: 1
+    fields:
+      T2:
+        access: rw
+        offset: 0
+        size: 4
+        type: PATTERN_TIME
+      T3:
+        access: rw
+        offset: 4
+        size: 4
+        type: PATTERN_TIME
+  PATT_TP_T4:
+    address: 0x24
+    size: 1
+    fields:
+      TP:
+        access: rw
+        offset: 0
+        size: 4
+        type: PATTERN_TIME
+      T4:
+        access: rw
+        offset: 4
+        size: 4
+        type: PATTERN_TIME
+  PATT_CROSSFADE_EN:
+    address: 0x25
+    size: 1
+    fields:
+      CFE1:
+        access: rw
+        offset: 0
+        size: 1
+      CFE2:
+        access: rw
+        offset: 1
+        size: 1
+      CFE3:
+        access: rw
+        offset: 2
+        size: 1
+  PATT_CROSSFADE:
+    address: 0x26
+    size: 1
+    fields:
+      TC:
+        access: rw
+        offset: 0
+        size: 4
+        type: CROSSFADE_TIME
+  PATT_COLOR_EN:
+    address: 0x27
+    size: 1
+    fields:
+      CE1:
+        access: rw
+        offset: 0
+        size: 1
+      CE2:
+        access: rw
+        offset: 1
+        size: 1
+      CE3:
+        access: rw
+        offset: 2
+        size: 1
+  PATT_COLOR_TIMES:
+    address: 0x28
+    size: 1
+    fields:
+      CCT1:
+        access: rw
+        offset: 0
+        size: 2
+        type: CYCLE_TIMES
+      CCT2:
+        access: rw
+        offset: 2
+        size: 2
+        type: CYCLE_TIMES
+      CCT3:
+        access: rw
+        offset: 4
+        size: 2
+        type: CYCLE_TIMES
+  PATT_GAMMA_MTPLT:
+    address: 0x29
+    size: 1
+    fields:
+      GAM:
+        access: rw
+        offset: 2
+        size: 2
+        type: GAMMA
+      MTPLT:
+        access: rw
+        offset: 4
+        size: 4
+        type: MULTI_PULSE_LOOP_TIME
+  PATT_LOOP_TIMES:
+    address: 0x2A
+    size: 1
+    fields:
+      PLT_L:
+        access: rw
+        offset: 0
+        size: 7
+      PLT_L:
+        access: rw
+        offset: 7
+        size: 1
+        type: uint8_t
+  COLOR_UPDATE:
+    address: 0x2B
+    size: 1
+    fields:
+      FIELD:
+        access: w
+        offset: 0
+        size: 8
+        type: MAGIC_NUM
+  PWM_UPDATE:
+    address: 0x2C
+    size: 1
+    fields:
+      FIELD:
+        access: w
+        offset: 0
+        size: 8
+        type: MAGIC_NUM
+  PATT_UPDATE:
+    address: 0x2D
+    size: 1
+    fields:
+      FIELD:
+        access: w
+        offset: 0
+        size: 8
+        type: MAGIC_NUM
+  RESET:
+    address: 0x3F
+    size: 1
+    fields:
+      FIELD:
+        access: w
+        offset: 0
+        size: 8
+        type: MAGIC_NUM
+enums:
+  SHDN_MODE:
+    SHDN: 0x00
+    NORMAL: 0x01
+  SLEEP_MODE:
+    DISABLED: 0x00
+    SLEEP_1: 0x01
+    SLEEP_2: 0x02
+  OUT_1_3_MODE:
+    PWM_CURR: 0x00
+    PATTERN: 0x01
+    CURR: 0x02
+  OUT_4_MODE:
+    PWM_CURR: 0x00
+    CURR: 0x01
+  CHG_PUMP_POWERUP_MODE:
+    1X: 0x00
+    1_5X: 0x01
+    2X: 0x03
+  CHG_PUMP_WORKING_MODE:
+    AUTO: 0x00
+    1X: 0x01
+    1_5X: 0x02
+    2X: 0x03
+  HEADROOM_THRESH:
+    50_MV: 0x00
+    100_MV: 0x01
+    125_MV: 0x02
+    150_MV: 0x03
+    175_MV: 0x04
+    200_MV: 0x05
+    250_MV: 0x06
+    300_MV: 0x07
+  CURR_BAND:
+    BAND1: 0x00
+    BAND2: 0x01
+    BAND3: 0x02
+    BAND4: 0x03
+  HOLD_TIME:
+    ALWAYS_OFF: 0x00
+    ALWAYS_ON: 0x01
+  PHASE_DELAY:
+    MODE_1: 0x00
+    MODE_2: 0x01
+  TIME_STATE:
+    TS: 0x00
+    T1: 0x01
+    T2: 0x02
+    T3: 0x03
+    TP: 0x04
+    T4: 0x05
+    TC: 0x06
+  PATTERN_TIME:
+    0_03_S: 0x00
+    0_13_S: 0x01
+    0_26_S: 0x02
+    0_38_S: 0x03
+    0_51_S: 0x04
+    0_77_S: 0x05
+    1_04_S: 0x06
+    1_60_S: 0x07
+    2_10_S: 0x08
+    2_60_S: 0x09
+    3_10_S: 0x0A
+    4_20_S: 0x0B
+    5_20_S: 0x0C
+    6_20_S: 0x0D
+    7_30_S: 0x0E
+    8_30_S: 0x0F
+  CROSSFADE_TIME:
+    0_51_S: 0x04
+    0_77_S: 0x05
+    1_04_S: 0x06
+    1_60_S: 0x07
+    2_10_S: 0x08
+    2_60_S: 0x09
+    3_10_S: 0x0A
+    4_20_S: 0x0B
+    5_20_S: 0x0C
+    6_20_S: 0x0D
+    7_30_S: 0x0E
+    8_30_S: 0x0F
+  CYCLE_TIMES:
+    ENDLESS: 0x00
+    1_TIME: 0x01
+    2_TIME: 0x02
+    3_TIME: 0x03
+  GAMMA:
+    "2_4": 0x00
+    "3_5": 0x01
+    LINEAR: 0x02
+  MULTI_PULSE_LOOP_TIME:
+    ENDLESS: 0x00
+    1_TIME: 0x01
+    2_TIMES: 0x02
+    3_TIMES: 0x03
+    4_TIMES: 0x04
+    5_TIMES: 0x05
+    6_TIMES: 0x06
+    7_TIMES: 0x07
+    8_TIMES: 0x08
+    9_TIMES: 0x09
+    10_TIMES: 0x0A
+    11_TIMES: 0x0B
+    12_TIMES: 0x0C
+    13_TIMES: 0x0D
+    14_TIMES: 0x0E
+    15_TIMES: 0x0F
+  MAGIC_NUM:
+    VALUE: 0xC5
+formats:
+  PWM_DUTY_OUT_DIV_BAND_PCT:
+    signed: false
+    lsb: 0.00390625

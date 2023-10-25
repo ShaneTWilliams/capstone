@@ -1,4 +1,4 @@
-transport: i2c
+name: tca9539
 registers:
   INPUT_PORT_0:
     address: 0x00

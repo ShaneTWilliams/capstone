@@ -1,0 +1,36 @@
+{% import 'values_macros.j2' as value_macro %}
+
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "values.pb.h"
+
+void pack_proto_value(values_Value* value_struct, values_ValueTag tag);
+void unpack_proto_value(values_Value* value_struct, values_ValueTag tag);
+
+{% for enum, enum_values in enums.items() %}
+typedef enum {
+    {{ enum }}_FIRST = 0,
+{% for enum_value in enum_values %}
+    {{ enum }}_{{ enum_value }}
+    {% if loop.first %} = {{ enum }}_FIRST{% endif %},
+{% endfor %}
+    {{ enum }}_COUNT
+} value_{{ enum.lower() }}_t;
+{% endfor %}
+
+typedef struct {
+{% for value_name, value in values.items() %}
+    {{ get_c_type(value) }} {{ value_name.lower() }};
+{% endfor %}
+} values_t;
+
+extern values_t values;
+{% for packet in telem.keys() %}
+extern uint8_t* {{packet.lower()}};
+{% endfor %}
+
+
+{% for packet, packet_values in telem.items() %}
+{{ value_macro.pack_packet_sig(packet) }};
+{% endfor %}

@@ -1,6 +1,7 @@
 syntax = "proto3";
+package capstone;
 
-import "nanopb.proto";
+import "values.proto";
 
 /**************************************
  ********** Enum Definitions **********
@@ -14,19 +15,14 @@ import "nanopb.proto";
  ******** Message Definitions ********
  *************************************/
 
-message Ping {
-  message Request {}
-  message Response {}
+message ValueRequest {
+  capstone.ValueTag tag = 1;
 }
 
 /***********************************************
  ******** Top-Level Message Definitions ********
  ***********************************************/
 
-message Request {
-  oneof payload { Ping ping = 1; }
-}
-
-message Response {
-  oneof payload { Ping ping = 1; }
+service GroundStation {
+  rpc GetValue(ValueRequest) returns (capstone.Value) {}
 }
