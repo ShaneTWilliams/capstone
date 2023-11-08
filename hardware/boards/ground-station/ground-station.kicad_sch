@@ -989,6 +989,11 @@
     (uuid f9cb556b-3d62-409d-92e1-73ade4d53c4c)
   )
 
+  (text "NEED THESE I2C PINS\nMOVE IO SOMEWHERE\n" (at 116.84 40.64 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 1fa67522-35c8-483f-8288-454141049197)
+  )
+
   (label "CAM_D0_N" (at 224.155 112.395 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 03a26d9b-b8bb-48cc-b2b7-2642f6565cf7)
@@ -1486,6 +1491,23 @@
     )
   )
 
+  (sheet (at 101.6 146.05) (size 46.99 38.1) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 34e775c7-9b03-4a1d-aa6b-2d9558a2090b)
+    (property "Sheetname" "Wireless Power TX" (at 101.6 145.3384 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "WirelessPowerTX.kicad_sch" (at 101.6 184.7346 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "ground-station"
+        (path "/ce329892-de08-4d39-b253-15f3aaf1c085" (page "7"))
+      )
+    )
+  )
+
   (sheet (at 170.815 35.56) (size 33.02 48.26) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))
@@ -1559,6 +1581,23 @@
     (instances
       (project "ground-station"
         (path "/ce329892-de08-4d39-b253-15f3aaf1c085" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 29.21 102.87) (size 39.37 35.56) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 448ef7a9-bc5a-4b03-856d-4da8b62bdbd1)
+    (property "Sheetname" "Power" (at 29.21 102.1584 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "Power.kicad_sch" (at 29.21 139.0146 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "ground-station"
+        (path "/ce329892-de08-4d39-b253-15f3aaf1c085" (page "8"))
       )
     )
   )
