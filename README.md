@@ -1,5 +1,8 @@
 # capstone
 
+<img width="1203" alt="Screenshot 2023-11-19 at 9 28 59 PM" src="https://github.com/ShaneTWilliams/capstone/assets/44215543/8c8dc27f-abcb-48eb-9e67-2c526ce97632">
+<img width="1103" alt="Screenshot 2023-11-19 at 9 29 54 PM" src="https://github.com/ShaneTWilliams/capstone/assets/44215543/a03519ca-c2b6-45cd-9c22-6c8706f74f3d">
+
 ## Setup
 
 First, clone submodules with:
