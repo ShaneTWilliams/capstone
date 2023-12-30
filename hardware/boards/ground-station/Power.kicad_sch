@@ -329,11 +329,11 @@
         )
       )
     )
-    (symbol "power:+3.3V" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
+    (symbol "power:+3V3" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
       (property "Reference" "#PWR" (at 0 -3.81 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "Value" "+3.3V" (at 0 3.556 0)
+      (property "Value" "+3V3" (at 0 3.556 0)
         (effects (font (size 1.27 1.27)))
       )
       (property "Footprint" "" (at 0 0 0)
@@ -345,10 +345,10 @@
       (property "ki_keywords" "global power" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (property "ki_description" "Power symbol creates a global label with name \"+3.3V\"" (at 0 0 0)
+      (property "ki_description" "Power symbol creates a global label with name \"+3V3\"" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "+3.3V_0_1"
+      (symbol "+3V3_0_1"
         (polyline
           (pts
             (xy -0.762 1.27)
@@ -374,9 +374,9 @@
           (fill (type none))
         )
       )
-      (symbol "+3.3V_1_1"
+      (symbol "+3V3_1_1"
         (pin power_in line (at 0 0 90) (length 0) hide
-          (name "+3.3V" (effects (font (size 1.27 1.27))))
+          (name "+3V3" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
         )
       )
@@ -1548,6 +1548,31 @@
     )
   )
 
+  (symbol (lib_id "power:+3V3") (at 220.98 81.28 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid b4ac4366-7588-408e-93b5-abd8e839c8a1)
+    (property "Reference" "#PWR0604" (at 220.98 85.09 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+3V3" (at 220.98 77.47 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 220.98 81.28 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 220.98 81.28 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 010d78d5-b4c5-4ca3-a56a-2297e0552d7d))
+    (instances
+      (project "ground-station"
+        (path "/ce329892-de08-4d39-b253-15f3aaf1c085/448ef7a9-bc5a-4b03-856d-4da8b62bdbd1"
+          (reference "#PWR0604") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Device:R_Small_US") (at 194.31 41.91 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b6fe15bf-0db9-4451-a99d-695268d59755)
@@ -1825,31 +1850,6 @@
       (project "ground-station"
         (path "/ce329892-de08-4d39-b253-15f3aaf1c085/448ef7a9-bc5a-4b03-856d-4da8b62bdbd1"
           (reference "R4") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:+3.3V") (at 220.98 81.28 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid dfd7eff0-e9db-4a93-8553-2e37b4676f27)
-    (property "Reference" "#PWR030" (at 220.98 85.09 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "+3.3V" (at 220.98 77.47 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 220.98 81.28 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 220.98 81.28 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 879b1a9c-729c-4c23-a438-0d52a1fbf316))
-    (instances
-      (project "ground-station"
-        (path "/ce329892-de08-4d39-b253-15f3aaf1c085/448ef7a9-bc5a-4b03-856d-4da8b62bdbd1"
-          (reference "#PWR030") (unit 1)
         )
       )
     )
