@@ -1368,8 +1368,8 @@
     )
   )
 
-  (text_box "TODO: Make sure LDOs can supply enough current to the digitizer"
-    (at 222.25 68.58 0) (size 18.415 13.97)
+  (text_box "TODO: Make sure LDOs can supply enough current to the digitizer\n\nDylan says looks good"
+    (at 222.25 68.58 0) (size 18.415 16.51)
     (stroke (width 0) (type default))
     (fill (type color) (color 255 255 0 1))
     (effects (font (size 1.27 1.27)) (justify right top))
@@ -2771,13 +2771,13 @@
     (property "Reference" "U601" (at 130.4641 186.055 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "~" (at 127 117.475 0)
+    (property "Value" "ADV7282A-M" (at 127 117.475 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Footprint" "" (at 127 117.475 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (property "Datasheet" "" (at 127 117.475 0)
+    (property "Datasheet" "https://www.analog.com/media/en/technical-documentation/data-sheets/adv7282a.pdf" (at 127 117.475 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (pin "1" (uuid cce679ba-84ee-4176-9d4e-b002122ae6e4))
