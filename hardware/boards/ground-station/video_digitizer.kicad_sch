@@ -1368,8 +1368,8 @@
     )
   )
 
-  (text_box "TODO: Make sure LDOs can supply enough current to the digitizer\n\nDylan says looks good"
-    (at 222.25 68.58 0) (size 18.415 16.51)
+  (text_box "TODO: Make sure LDOs can supply enough current to the digitizer"
+    (at 222.25 68.58 0) (size 18.415 11.43)
     (stroke (width 0) (type default))
     (fill (type color) (color 255 255 0 1))
     (effects (font (size 1.27 1.27)) (justify right top))
