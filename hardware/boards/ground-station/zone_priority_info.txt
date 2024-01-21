@@ -1,0 +1,19 @@
+F.Cu
+
+Top GND Plane: 0
+5V Input Plane: 1
+Buck Converter Output: 1
+DIGITIZER_ANALOG_SUPPLY: 1
+GPS 3V3: 1
+U201 Vreg: 1
+
+Buck Converter Switch Node: 999
+
+
+In1.Cu
+
+GND Plane: 0
+
+In2.Cu
+
+B.Cu
