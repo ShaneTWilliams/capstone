@@ -6,8 +6,15 @@ Buck Converter Output: 1
 DIGITIZER_ANALOG_SUPPLY: 1
 GPS 3V3: 1
 U201 Vreg: 1
+3V3 Plane for 1V8 regulator digital supply: 1
+Digital Radio 3V3 supply: 1
+J101_5V_Pin2: 1
+
+TVS diode GND plane: 2
+Video radio 5V plane: 2
 
 Buck Converter Switch Node: 999
+C219 Pin 1: 999
 
 
 In1.Cu
@@ -16,4 +23,12 @@ GND Plane: 0
 
 In2.Cu
 
+3V3 Plane: 0
+Video radio 5V plane: 1
+
+
+J101_5V_Pin2: 2
+
 B.Cu
+
+GND: 0
