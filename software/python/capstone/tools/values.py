@@ -61,6 +61,35 @@ class ValuesGenerator:
         if value["type"]["base"] == "enum":
             return "uint32"
 
+    @staticmethod
+    def _get_proto_type_field(value):
+        proto_type = ValuesGenerator._get_proto_type(value)
+        mapping = {
+            "uint32": "u32",
+            "sint32": "i32",
+            "uint64": "u64",
+            "sint64": "i64",
+            "float": "f32",
+            "double": "f64",
+            "bool": "b",
+        }
+        return mapping[proto_type]
+
+    @staticmethod
+    def _get_python_type(value):
+        if value["type"]["base"] == "bool":
+            return "bool"
+        if value["type"]["base"] == "decimal":
+            return "float"
+        if value["type"]["base"] == "int":
+            return "int"
+        if value["type"]["base"] == "enum":
+            return ValuesGenerator._camel(value["type"]["name"])
+
+    @staticmethod
+    def _camel(string):
+        return "".join(word.capitalize() for word in string.split("_"))
+
     def _get_value_size(self, value):
         enums = self._values_file["enums"]
         value_config = self._values_file["values"][value]
@@ -72,8 +101,6 @@ class ValuesGenerator:
             size += 1
         elif type_config["base"] == "int":
             size += math.ceil(math.log2(type_config["max"] - type_config["min"]))
-            if type_config["min"] < 0:
-                size += 1
         elif type_config["base"] == "decimal":
             size += math.ceil(
                 math.log2(
@@ -129,7 +156,7 @@ class ValuesGenerator:
         )
         return sum(self._get_value_size(val) for val in values)
 
-    def get_values_in_byte(self, byte, packet):
+    def _get_values_in_byte(self, byte, packet):
         values = (
             self._control_file[packet]
             if packet in self._control_file
@@ -139,8 +166,10 @@ class ValuesGenerator:
         for value in values:
             offset = self._get_value_offset_in_packet(value, packet)
             size = self._get_value_size(value)
+            first_byte = offset // 8
+            relative_byte = byte - first_byte
             if offset < (byte + 1) * 8 and offset + size > byte * 8:
-                ret.append(value)
+                ret.append((value, offset % 8 - (relative_byte * 8)))
         return ret
 
     def _process_telem(self):
@@ -219,4 +248,7 @@ class ValuesGenerator:
             values=self._values_file["values"],
             enums=self._values_file["enums"],
             get_proto_type=self._get_proto_type,
+            get_python_type=self._get_python_type,
+            get_proto_type_field=self._get_proto_type_field,
+            camel=self._camel,
         )

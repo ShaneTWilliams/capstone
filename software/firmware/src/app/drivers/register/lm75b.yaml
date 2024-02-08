@@ -1,4 +1,5 @@
 name: lm75b
+endianness: big
 registers:
   TEMP:
     address: 0x00

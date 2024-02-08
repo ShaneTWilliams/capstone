@@ -32,9 +32,9 @@ if ({{ field_name.lower() }} != NULL) {
         {% set set = macro.set(cfg.name, reg_name, field_name) %}
         {% set set_fmt = macro.set_fmt(cfg.name, reg_name, field_name) %}
         {% if field.type in cfg.formats %}
-    {{ set_fmt }}(reg, {{ field_name.lower() }});
+    {{ set_fmt }}(*reg, {{ field_name.lower() }});
         {% else %}
-    {{ set }}(reg, {{ field_name.lower() }});
+    {{ set }}(*reg, {{ field_name.lower() }});
         {% endif %}
     {% endfor %}
 }

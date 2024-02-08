@@ -1,17 +1,17 @@
+import curses
+import json
 import os
 import platform
 import shutil
 import subprocess
 import sys
-from concurrent import futures
+import time
 from pathlib import Path
-import math
 
 import click
 import grpc
-import serial
 import yaml
-from capstone.constants import GRPC_PORT
+from capstone.constants import GRPC_SERVER_PORT
 from capstone.tools.drivers.command_dev import CommandDriverGenerator
 from capstone.tools.drivers.register_dev import RegisterDriverGenerator
 from capstone.tools.flash import flash as flash_usb
@@ -57,6 +57,11 @@ CMD_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "command")
 REG_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "register")
 GENERATED_DIR = os.path.join(APP_SRC_DIR, "generated")
 VALUES_YAML_DIR = os.path.join(SOFTWARE_DIR, "values")
+FRONTEND_DIR = os.path.join(SOFTWARE_DIR, "frontend")
+FRONTEND_PROTO_DIR = os.path.join(FRONTEND_DIR, "proto")
+GRPC_WEB_PROTOC = os.path.join(
+    FRONTEND_DIR, "node_modules", ".bin", "grpc_tools_node_protoc"
+)
 
 # Files
 OPENOCD_CFG = os.path.join(FIRMWARE_DIR, "capstone-ocd.cfg")
@@ -65,15 +70,20 @@ VALUES_YAML = os.path.join(VALUES_YAML_DIR, "values.yaml")
 CONTROL_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "control_pack.yaml")
 TELEM_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "telem_pack.yaml")
 GROUND_PROTO_FILE = os.path.join(PROTO_DIR, "ground.proto")
+VALUES_PROTO_FILE = os.path.join(PROTO_DIR, "values.proto")
+ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
+ENVOY = "envoy"
 
 # Binaries
 APP_ELF = os.path.join(BUILD_DIR, "app.elf")
 BOOT_ELF = os.path.join(BUILD_DIR, "boot.elf")
+RADIO_ELF = os.path.join(BUILD_DIR, "radio.elf")
 APP_BIN = os.path.join(BUILD_DIR, "app.bin")
 BOOT_BIN = os.path.join(BUILD_DIR, "boot.bin")
+RADIO_BIN = os.path.join(BUILD_DIR, "radio.bin")
 
 # Values file
 with open(VALUES_YAML, "r") as f:
@@ -126,7 +136,11 @@ def build_helper(executable):
     if platform.system() == "Windows":
         cmake_cmd.extend(["-G", "Unix Makefiles"])
     cmake_cmd.append("..")
-    elf_file = APP_ELF if executable == "app" else BOOT_ELF
+    elf_file = {
+        "app": APP_ELF,
+        "boot": BOOT_ELF,
+        "radio": RADIO_ELF,
+    }[executable]
 
     click.secho(f"Building {elf_file}", bold=True)
     Path(f"{FIRMWARE_DIR}/build").mkdir(exist_ok=True)
@@ -153,17 +167,6 @@ def proto_helper(input_file):
     click.secho(f"Successfully generated {output_file}", bold=True, fg="green")
 
 
-def run_grpc():
-    from capstone.ground.server import GroundStationServicer
-    from capstone.proto import ground_pb2_grpc
-
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    ground_pb2_grpc.add_GroundStationServicer_to_server(GroundStationServicer(), server)
-    server.add_insecure_port(f"localhost:50051")
-    server.start()
-    return server
-
-
 def proto_bool_from_str(value):
     is_false = value.lower() in ["false", "0", "no", "off", "disable", "disabled"]
     is_true = value.lower() in ["true", "1", "yes", "on", "enable", "enabled"]
@@ -172,38 +175,40 @@ def proto_bool_from_str(value):
     return is_true
 
 
-def proto_pack_value(proto_msg, tag, value):
+def proto_pack_value(proto_value, tag, value):
     if VALUES["values"][tag.name]["type"]["base"] == "bool":
         is_false = value.lower() in ["false", "0", "no", "off", "disable", "disabled"]
         is_true = value.lower() in ["true", "1", "yes", "on", "enable", "enabled"]
         if not is_false and not is_true:
             raise ValueError("Invalid boolean value: {}".format(value))
-        proto_msg.b = is_true
+        proto_value.b = is_true
     elif VALUES["values"][tag.name]["type"]["base"] == "decimal":
-        proto_msg.f32 = float(value)
+        proto_value.f32 = float(value)
     elif VALUES["values"][tag.name]["type"]["base"] == "int":
-        proto_msg.i32 = int(value)
+        proto_value.i32 = int(value)
     elif VALUES["values"][tag.name]["type"]["base"] == "enum":
-        proto_msg.u32 = VALUES["values"][tag.name]["enum"].index(value)
+        proto_value.u32 = VALUES["values"][tag.name]["type"]["name"].index(value)
     else:
         raise ValueError("Invalid type: {}".format(VALUES["values"][tag.name]["type"]))
 
 
-def get_proto_value(proto_msg, tag):
-    if VALUES["values"][tag.name]["type"]["base"] == "bool":
+def proto_unpack_value(proto_msg, tag):
+    type_config = VALUES["values"][tag.name]["type"]
+    if type_config["base"] == "bool":
         return proto_msg.b
-    if VALUES["values"][tag.name]["type"]["base"] == "decimal":
+    if type_config["base"] == "decimal":
         # Round to nearest LSB
-        lsb = VALUES["values"][tag.name]["type"]["lsb"]
+        lsb = type_config["lsb"]
         lsb_rounded = round(proto_msg.f32 / lsb) * lsb
         return round(lsb_rounded, 10)  # Prevent ugly floating point errors
-    if VALUES["values"][tag.name]["type"]["base"] == "int":
-        return proto_msg.i32
-    if VALUES["values"][tag.name]["type"]["base"] == "enum":
-        return VALUES["enums"][VALUES["values"][tag.name]["type"]["enum"]][
-            proto_msg.u32
-        ]
-    raise ValueError("Invalid type: {}".format(VALUES["values"][tag.name]["type"]))
+    if type_config["base"] == "int":
+        if type_config["min"] < 0:
+            return proto_msg.i32
+        if type_config["base"] == "int":
+            return proto_msg.u32
+    if type_config["base"] == "enum":
+        return VALUES["enums"][type_config["enum"]][proto_msg.u32]
+    raise ValueError(f"Invalid type: {type_config}")
 
 
 def values_helper():
@@ -249,14 +254,16 @@ def cli():
     "--executable",
     "-e",
     default="app",
-    type=click.Choice(["boot", "app", "both"]),
+    type=click.Choice(["boot", "app", "radio", "all"]),
     help="The executable to build.",
 )
 def build(executable):
-    if executable in ("app", "both"):
-        build_helper("app")
-    if executable in ("boot", "both"):
+    if executable == "all":
         build_helper("boot")
+        build_helper("app")
+        build_helper("radio")
+    else:
+        build_helper(executable)
 
 
 @click.command()
@@ -278,20 +285,39 @@ def clean(hard):
 
 @click.command()
 def proto():
+    if not os.path.exists(FRONTEND_PROTO_DIR):
+        os.makedirs(FRONTEND_PROTO_DIR)
     for proto_file in os.listdir(PROTO_DIR):
         proto_helper(os.path.join(PROTO_DIR, proto_file))
-    grpc_cmd = [
+    python_server_cmd = [
         "grpc_tools.protoc",
         f"-I{PROTO_DIR}",
         f"-I{NANOPB_PROTO_DIR}",
+        "-I/usr/include",
+        "-I/usr/local/include",
         f"--python_out={PYTHON_PROTO_DIR}",
         f"--pyi_out={PYTHON_PROTO_DIR}",
         f"--grpc_python_out={PYTHON_PROTO_DIR}",
         GROUND_PROTO_FILE,
     ]
-    click.secho("Running " + " ".join(grpc_cmd), bold=True)
-    grpc_main(grpc_cmd)
-    click.secho("Successfully generated proto code", bold=True, fg="green")
+
+    click.secho("Running " + " ".join(python_server_cmd), bold=True)
+    if grpc_main(python_server_cmd) == 0:
+        click.secho("Successfully generated GRPC proto code", bold=True, fg="green")
+    else:
+        click.secho("Failed to generate GRPC proto code", bold=True, fg="red")
+        return
+    for proto_file in [GROUND_PROTO_FILE, VALUES_PROTO_FILE]:
+        js_client_cmd = [
+            GRPC_WEB_PROTOC,
+            f"-I{PROTO_DIR}",
+            proto_file,
+            f"--js_out=import_style=commonjs:{FRONTEND_PROTO_DIR}",
+            f"--grpc-web_out=import_style=commonjs,mode=grpcwebtext:{FRONTEND_PROTO_DIR}",
+        ]
+        click.secho("Running " + " ".join(js_client_cmd), bold=True)
+        run_cmd(js_client_cmd, "Failed to generate JS client code")
+    click.secho("Successfully generated JS proto code", bold=True, fg="green")
 
 
 @click.command()
@@ -299,7 +325,7 @@ def proto():
     "--executable",
     "-e",
     default="app",
-    type=click.Choice(["boot", "app"]),
+    type=click.Choice(["boot", "app", "radio"]),
     help="The executable to flash.",
 )
 @click.option(
@@ -372,7 +398,7 @@ def flash(executable, transport):
     "--executable",
     "-e",
     default="app",
-    type=click.Choice(["boot", "app"]),
+    type=click.Choice(["boot", "app", "radio"]),
     help="The application to debug.",
     required=True,
 )
@@ -403,7 +429,11 @@ def debug(executable):
                 break
 
         click.secho("Running GDB", bold=True)
-        elf_file = APP_ELF if executable == "app" else BOOT_ELF
+        elf_file = {
+            "app": APP_ELF,
+            "boot": BOOT_ELF,
+            "radio": RADIO_ELF,
+        }[executable]
         with subprocess.Popen(
             ["arm-none-eabi-gdb", "-ex", f"target extended-remote :{port}", elf_file],
         ) as gdb:
@@ -520,63 +550,121 @@ def generate_values():
 
 @click.command()
 def ground():
-    server = run_grpc()
-    server.wait_for_termination()
+    from capstone.ground.server import main as ground_station_main
+
+    with subprocess.Popen(
+        [
+            ENVOY,
+            "-c",
+            ENVOY_YAML,
+        ],
+        stderr=subprocess.PIPE,
+        stdin=subprocess.PIPE,
+    ) as envoy:
+        ground_station_main(VALUES)
+        envoy.kill()
 
 
 @click.command()
 @click.argument("tag_str", type=click.Choice(VALUE_NAMES.keys()))
 @click.argument("value")
-def usb_set(tag_str, value):
+def grpc_set(tag_str, value):
     # pylint: disable=import-outside-toplevel,no-name-in-module
-    from capstone.proto.app_pb2 import Request, Response
+    from capstone.proto import ground_pb2, ground_pb2_grpc
+    from google.protobuf.empty_pb2 import Empty
 
     from capstone import values
 
-    device_path = prompt_and_get_board("app")
-    if device_path is None:
-        click.secho("No USB devices found", bold=True, fg="red")
-        return
-    device = serial.Serial(device_path)
-
+    channel = grpc.insecure_channel(f"localhost:{GRPC_SERVER_PORT}")
+    stub = ground_pb2_grpc.GroundStationStub(channel)
     tag = values.ValueTag[VALUE_NAMES[tag_str]]
-
-    request = Request()
-    request.set.tag = int(tag)
-    proto_pack_value(request.set.value, tag, value)
-    send_request(request, device, Response)
+    request = ground_pb2.SetValueRequest()
+    request.tag = tag
+    proto_pack_value(request.value, tag, value)
+    assert type(stub.SetValue(request)) == Empty
 
 
 @click.command()
 @click.argument("tag_str", type=click.Choice(VALUE_NAMES.keys()))
-def usb_get(tag_str):
+def grpc_get(tag_str):
     # pylint: disable=import-outside-toplevel,no-name-in-module
-    from capstone.proto.app_pb2 import Request, Response
+    from capstone.proto import ground_pb2, ground_pb2_grpc
 
     from capstone import values
 
-    device_path = prompt_and_get_board("app")
-    if device_path is None:
-        click.secho("No USB devices found", bold=True, fg="red")
-        return
-    device = serial.Serial(device_path)
-
+    channel = grpc.insecure_channel(f"localhost:{GRPC_SERVER_PORT}")
+    stub = ground_pb2_grpc.GroundStationStub(channel)
     tag = values.ValueTag[VALUE_NAMES[tag_str]]
+    request = ground_pb2.GetValueRequest()
+    request.tag = tag
+    response = stub.GetValue(request)
+    value = proto_unpack_value(response, tag)
+    print(value)
 
-    request = Request()
-    request.get.tag = int(tag)
-    response = send_request(request, device, Response)
-    output = str(get_proto_value(response.get.value, tag))
-    output += " " + VALUES["values"][tag.name].get("unit", "")
-    click.secho(output, bold=True)
 
 @click.command()
-def grpc_test():
-    from capstone.proto import ground_pb2_grpc, values_pb2
+@click.argument("tag_strings", type=click.Choice(VALUE_NAMES.keys()), nargs=-1)
+def watch(tag_strings):
+    # pylint: disable=import-outside-toplevel,no-name-in-module
+    from capstone.proto import ground_pb2, ground_pb2_grpc
 
-    channel = grpc.insecure_channel('localhost:50051')
+    from capstone import values
+
+    stdscr = curses.initscr()
+    curses.noecho()
+    curses.cbreak()
+    stdscr.keypad(True)
+    curses.start_color()
+    curses.use_default_colors()
+    curses.init_pair(1, curses.COLOR_GREEN, -1)
+
+    channel = grpc.insecure_channel(f"localhost:{GRPC_SERVER_PORT}")
     stub = ground_pb2_grpc.GroundStationStub(channel)
-    feature = stub.GetValue(values_pb2.Value())
+    request = ground_pb2.GetValueRequest()
+
+    while True:
+        try:
+            stdscr.clear()
+            for i, tag_str in enumerate(tag_strings):
+                tag = values.ValueTag[VALUE_NAMES[tag_str]]
+                request.tag = tag
+                response = stub.GetValue(request)
+                value = proto_unpack_value(response, tag)
+                if (
+                    VALUES["values"][tag.name]["type"]["base"] == "int"
+                    and VALUES["values"][tag.name]["type"]["hex"]
+                ):
+                    value = f"0x{value:02X}"
+
+                stdscr.addstr(i, 0, tag_str + ":", curses.A_BOLD | curses.color_pair(1))
+                stdscr.addstr(i, len(tag_str) + 2, str(value))
+            stdscr.refresh()
+            time.sleep(0.05)
+        except:
+            curses.nocbreak()
+            stdscr.keypad(False)
+            curses.echo()
+            curses.endwin()
+            raise
+
+
+@click.command()
+def ui():
+    run_cmd(
+        ["npm", "run", "dev"], "Failed to run frontend development server", FRONTEND_DIR
+    )
+
+
+@click.command()
+def convert():
+    with open(VALUES_YAML_DIR + "/values.json", "w+") as f:
+        json.dump(VALUES, f)
+
+
+@click.command()
+def controller():
+    from capstone.control.controller import main
+    main()
 
 def main():
     cli.add_command(build)
@@ -589,9 +677,12 @@ def main():
     cli.add_command(drivers)
     cli.add_command(generate_values, "values")
     cli.add_command(ground)
-    cli.add_command(usb_get, "get")
-    cli.add_command(usb_set, "set")
-    cli.add_command(grpc_test)
+    cli.add_command(grpc_get, "get")
+    cli.add_command(grpc_set, "set")
+    cli.add_command(watch)
+    cli.add_command(ui)
+    cli.add_command(convert)
+    cli.add_command(controller)
 
     # So that generated proto files can import one another.
     sys.path.append(PYTHON_PROTO_DIR)

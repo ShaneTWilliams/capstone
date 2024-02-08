@@ -1,4 +1,5 @@
-name: is31fl3731
+name: is31fl3197
+endianness: big
 registers:
   PRODUCT_ID:
     address: 0x00
@@ -590,4 +591,4 @@ enums:
 formats:
   PWM_DUTY_OUT_DIV_BAND_PCT:
     signed: false
-    lsb: 0.00390625
+    lsb: 0.00024420024

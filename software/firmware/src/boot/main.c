@@ -126,9 +126,9 @@ int main() {
     gpio_init(BOOT_PIN);
     gpio_set_dir(BOOT_PIN, GPIO_IN);
 
-    if (gpio_get(BOOT_PIN)) {
-        jump_to_app();
-    }
+    // if (gpio_get(BOOT_PIN)) {
+    jump_to_app();
+    // }
 
     tusb_init();
 

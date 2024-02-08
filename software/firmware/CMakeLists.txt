@@ -5,7 +5,7 @@ include(lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/FreeRTOS_Kernel_impor
 include(lib/pico-sdk/lib/tinyusb/hw/bsp/family_support.cmake)
 include(lib/nanopb/extra/FindNanopb.cmake)
 
-project(notch_serial_tool C CXX ASM)
+project(capstone C CXX ASM)
 
 set(ENV{PICO_PLATFORM} rp2040)
 set(CMAKE_C_STANDARD 11)
@@ -17,7 +17,8 @@ pico_sdk_init()
 
 add_compile_options(
     -Wall
-    -Og
+    -O0
+    -Werror
 )
 
 include_directories(
@@ -35,10 +36,29 @@ if(${TARGET} STREQUAL "app")
         src/app/main.c
         src/app/usb_descriptors.c
         src/app/fatal.c
+        src/app/hw_config.c
+        src/app/globals.c
+        src/app/iox.c
         src/app/modules/adc.c
         src/app/modules/indication.c
         src/app/modules/usb.c
+        src/app/modules/dma.c
+        src/app/modules/imu.c
+        src/app/modules/lp_i2c.c
+        src/app/modules/hp_i2c.c
+        src/app/modules/radio.c
+        src/app/modules/gps.c
+        src/app/modules/qi.c
+        src/app/modules/motor.c
         src/app/generated/values.c
+        src/app/generated/bq25703a.c
+        src/app/generated/is31fl3197.c
+        src/app/generated/lm75b.c
+        src/app/generated/lsm6dsm.c
+        src/app/generated/max17320.c
+        src/app/generated/mct8329a.c
+        src/app/generated/tca9539.c
+        src/app/generated/sx1262.c
         ${APP_PROTO_SRCS}
         ${APP_PROTO_HDRS}
         ${VALUES_PROTO_SRCS}
@@ -51,6 +71,12 @@ if(${TARGET} STREQUAL "app")
         pico_unique_id
         hardware_pio
         hardware_adc
+        hardware_spi
+        hardware_dma
+        hardware_pwm
+        hardware_i2c
+        hardware_uart
+        hardware_clocks
         FreeRTOS-Kernel
         FreeRTOS-Kernel-Heap4
         tinyusb_device
@@ -59,7 +85,6 @@ if(${TARGET} STREQUAL "app")
         src
         src/app
         src/app/modules
-        src/app/generated
     )
 
 elseif(${TARGET} STREQUAL "boot")
@@ -74,6 +99,20 @@ elseif(${TARGET} STREQUAL "boot")
     )
     target_link_libraries(${TARGET} pico_stdlib pico_unique_id tinyusb_device)
     pico_set_linker_script(${TARGET} ${CMAKE_CURRENT_LIST_DIR}/ld/bootloader.ld)
+
+elseif(${TARGET} STREQUAL "radio")
+    add_executable(${TARGET}
+        src/radio/main.c
+        src/app/generated/sx1262.c
+    )
+    include_directories(
+        src/radio
+        src/app
+    )
+    target_link_libraries(${TARGET} pico_stdlib pico_unique_id pico_time hardware_spi)
+    pico_set_linker_script(${TARGET} ${CMAKE_CURRENT_LIST_DIR}/ld/application.ld)
+    pico_enable_stdio_usb(${TARGET} 1)
+    pico_enable_stdio_uart(${TARGET} 0)
 endif()
 
 target_link_directories(${TARGET} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/ld)

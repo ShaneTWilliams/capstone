@@ -1,3 +1,2 @@
 TELEM1:
-  - MCU_TEMP
-  - LED_STATE
+  - LV_3V3_CURRENT

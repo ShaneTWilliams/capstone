@@ -4,56 +4,24 @@
 #include "{{ cfg.name.lower() }}.h"
 
 #include <stdlib.h>
-
-{{ macro.block_comment('FIXED FIELDS') }}
-
-{% for cmd_name, command in cfg.commands.items() %}
-{% for field_name, field in command.tx.fields.items() %}
-{% if field.value %}
-static const {{ cmd_macro.cmd_dev_field(cfg.name, cmd_name, field_name) }} = 0x{{ '%02X' %  field.value }};
-{% endif %}
-{% endfor %}
-{% endfor %}
+#include <string.h>
 
 {% for cmd_name, command in cfg.commands.items() %}
 {{ macro.block_comment('COMMAND: ' + cmd_name) }}
 
-{{ cmd_macro.cmd_func_sig(cfg.name, cmd_name, command, get_type)}} {
-{% if command.tx.size == 0 %}
-    uint8_t* tx_buf = NULL;
-{% else %}
-    uint8_t tx_buf[{{ cmd_macro.tx_size(cfg.name, cmd_name) }}] = {0};
-{% endif %}
-{% if command.rx.size == 0 %}
-    uint8_t* rx_buf = NULL;
-{% else %}
-    uint8_t rx_buf[{{ cmd_macro.rx_size(cfg.name, cmd_name) }}] = {0};
-{% endif %}
-
-{% if command.tx.fields %}
-{% for field_name, field in command.tx.fields.items() %}
-{{ cmd_macro.cmd_dev_tx_assign(cfg.name.upper(), cmd_name, field_name, field) }}
-{%- endfor %}
-{% endif %}
-
-{% if command.rx.fields %}
-cmd_dev_status_t ret = dev->operations.execute(tx_buf, rx_buf, {{ cmd_macro.tx_size(cfg.name, cmd_name) }}, {{ cmd_macro.rx_size(cfg.name, cmd_name) }});
-if (ret != CMD_DEV_STATUS_OK) {
-    return ret;
+{{ cmd_macro.pack_func_sig(cfg.name, cmd_name, command, get_type)}} {
+    memset(tx_buf, 0x00, {{ command.tx.size }}U);
+    {% for field_name, field in command.tx.fields.items() %}
+        {{ cmd_macro.cmd_dev_tx_assign(cfg.name.upper(), cmd_name, field_name, field) }}
+    {%- endfor %}
 }
-{% else %}
-return dev->operations.execute(tx_buf, rx_buf, {{ cmd_macro.tx_size(cfg.name, cmd_name) }}, {{ cmd_macro.rx_size(cfg.name, cmd_name) }});
-{% endif %}
 
-{% if command.rx.fields %}
-{% for field_name, field in command.rx.fields.items() %}
-{{ cmd_macro.cmd_dev_rx_assign(cfg.name.upper(), cmd_name, field_name, field) }}
-{%- endfor %}
-{% endif %}
-
-{% if command.rx.fields %}
-return CMD_DEV_STATUS_OK;
-{% endif %}
+{% if command.rx.size > 0 %}
+{{ cmd_macro.unpack_func_sig(cfg.name, cmd_name, command, get_type)}} {
+    {% for field_name, field in command.rx.fields.items() %}
+        {{ cmd_macro.cmd_dev_rx_assign(cfg.name.upper(), cmd_name, field_name, field) }}
+    {%- endfor %}
 }
+{% endif %}
 
 {% endfor %}

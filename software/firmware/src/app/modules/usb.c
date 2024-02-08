@@ -7,6 +7,7 @@
 
 #include "app.pb.h"
 #include "fatal.h"
+#include "generated/values.h"
 #include "indication.h"
 
 #define RX_BUFFER_SIZE Request_size

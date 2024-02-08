@@ -1,0 +1,29 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0",
+    "google-protobuf": "^3.21.2",
+    "grpc-tools": "^1.12.4",
+    "grpc-web": "^1.4.2",
+    "next": "14.0.0",
+    "next-yaml": "^1.0.1",
+    "protoc-gen-js": "^3.21.2",
+    "react": "^18",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18",
+    "react-icons": "^4.11.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10",
+    "postcss": "^8",
+    "tailwindcss": "^3"
+  }
+}

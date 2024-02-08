@@ -1,4 +1,5 @@
 name: max17320
+endianness: little
 registers:
   STATUS:
     address: 0x00
@@ -345,7 +346,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   V_CELL:
     address: 0x1A
     size: 2
@@ -354,7 +355,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   TEMP:
     address: 0x1B
     size: 2
@@ -475,7 +476,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   MIX_CAP:
     address: 0x2B
     size: 2
@@ -570,6 +571,7 @@ registers:
         access: r
         offset: 0
         size: 16
+        type: TEMPERATURE_C
   QR_TABLE_30:
     address: 0x42
     size: 2
@@ -678,7 +680,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   MPP_CURRENT:
     address: 0xA9
     size: 2
@@ -752,7 +754,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   MIN_CURR:
     address: 0xAE
     size: 2
@@ -943,7 +945,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   AVG_CELL3:
     address: 0xD2
     size: 2
@@ -952,7 +954,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   AVG_CELL2:
     address: 0xD3
     size: 2
@@ -961,7 +963,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   AVG_CELL1:
     address: 0xD4
     size: 2
@@ -970,7 +972,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   CELL4:
     address: 0xD5
     size: 2
@@ -979,7 +981,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   CELL3:
     address: 0xD6
     size: 2
@@ -988,7 +990,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   CELL2:
     address: 0xD7
     size: 2
@@ -997,7 +999,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   CELL1:
     address: 0xD8
     size: 2
@@ -1006,7 +1008,7 @@ registers:
         access: r
         offset: 0
         size: 16
-        type: VOLTAGE_MV
+        type: VOLTAGE_V
   PROT_STATUS:
     address: 0xD9
     size: 2
@@ -1153,8 +1155,8 @@ formats:
   CAPACITY_UVH_RSENSE:
     lsb: 5.0
     signed: false
-  VOLTAGE_MV:
-    lsb: 0.078125
+  VOLTAGE_V:
+    lsb: 0.000078125
     signed: false
   VOLTAGE_8BIT_MV:
     lsb: 20

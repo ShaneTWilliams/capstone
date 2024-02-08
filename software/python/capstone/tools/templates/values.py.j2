@@ -1,6 +1,46 @@
 from enum import IntEnum
+from capstone.proto import values_pb2
+
+
+{% for name, config in values.items() %}
+    {% if config.type.base == "enum" %}
+class {{ camel(name) }}(IntEnum):
+        {% for enum in enums[config.type.name] %}
+    {{ enum }} = {{ loop.index0 }}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
 
 class ValueTag(IntEnum):
 {% for name, _ in values.items() %}
     {{ name }} = {{ loop.index0 }}
+{% endfor %}
+
+
+class CurrentValues:
+    def __init__(self):
+        self._values = {
+{% for name, config in values.items() %}
+            ValueTag.{{ name }}: None,
+{% endfor %}
+        }
+
+    def get(self, tag: ValueTag):
+        return self._values[tag]
+
+    def get_proto(self, tag: ValueTag) -> values_pb2.Value:
+{% for name, config in values.items() %}
+        if tag == ValueTag.{{ name }}:
+            return values_pb2.Value(
+                {{- get_proto_type_field(config) }}=self._values[tag])
+{% endfor %}
+
+    def set(self, tag: ValueTag, value):
+        self._values[tag] = value
+
+    def set_proto(self, tag: ValueTag, value) -> values_pb2.Value:
+{% for name, config in values.items() %}
+        if tag == ValueTag.{{ name }}:
+            self._values[tag] = value.{{get_proto_type_field(config) }}
 {% endfor %}

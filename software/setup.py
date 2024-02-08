@@ -14,6 +14,7 @@ setup(
         "click",
         "black",
         "clang-format",
+        "curses",
         "grpcio-tools",
         "grpcio",
         "isort",

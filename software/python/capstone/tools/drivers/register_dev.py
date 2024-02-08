@@ -27,6 +27,24 @@ class RegisterDriverGenerator:
             if "w" in config["access"]
         ]
 
+    def _get_endian_func(self, reg):
+        if reg["size"] == 1:
+            return ""
+        if self._yaml["endianness"] == "big":
+            prefix = "be"
+        else:
+            prefix = "le"
+        return f"{prefix}{reg['size'] * 8}toh"
+
+    def _set_endian_func(self, reg):
+        if reg["size"] == 1:
+            return ""
+        if self._yaml["endianness"] == "big":
+            suffix = "be"
+        else:
+            suffix = "le"
+        return f"hto{suffix}{reg['size'] * 8}"
+
     def _type_from_field(self, field_config):
         if "type" in field_config:
             if field_config["type"] in {
@@ -43,7 +61,7 @@ class RegisterDriverGenerator:
                 "formats" in self._yaml
                 and field_config["type"] in self._yaml["formats"]
             ):
-                return "double"
+                return "float"
             raise TypeError(f"Invalid type: {field_config['type']}")
         return self._type_from_size(field_config["size"])
 
@@ -191,6 +209,9 @@ class RegisterDriverGenerator:
             cfg=self._yaml,
             diagrams=self._generate_diagrams(),
             get_type=self._type_from_field,
+            get_int_type=self._type_from_size,
+            get_endian_func=self._get_endian_func,
+            set_endian_func=self._set_endian_func,
         )
 
     def generate_source(self):

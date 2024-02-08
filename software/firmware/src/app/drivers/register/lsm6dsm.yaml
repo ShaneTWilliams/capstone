@@ -1,4 +1,5 @@
 name: lsm6dsm
+endianness: big
 registers:
   FUNC_CFG_ACCESS:
     address: 0x01

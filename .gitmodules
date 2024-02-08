@@ -11,3 +11,6 @@
 [submodule "software/firmware/lib/pico-sdk"]
 	path = software/firmware/lib/pico-sdk
 	url = https://github.com/raspberrypi/pico-sdk.git
+[submodule "software/firmware/lib/picoprobe"]
+	path = software/firmware/lib/picoprobe
+	url = https://github.com/raspberrypi/picoprobe.git

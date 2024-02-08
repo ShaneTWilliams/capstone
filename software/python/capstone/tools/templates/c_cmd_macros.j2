@@ -8,22 +8,27 @@
 {{ dev.upper() }}_{{ cmd.upper() }}_RX_SIZE
 {%- endmacro %}
 
-{% macro cmd_func_sig(dev, cmd_name, cmd_config, get_type) -%}
-cmd_dev_status_t {{ dev.lower() }}_{{ cmd_name.lower() }}({{ dev }}_t* dev
-{% for field_name, field in cmd_config.tx.fields.items() %}
-{% if not field.value %}
-,
-   {{ get_type(field) }} in_{{ field_name.lower() }}
-{% endif %}
-{% endfor %}
-{% if cmd_config.rx.fields %}
-{% for field_name, field in cmd_config.rx.fields.items() %}
-{% if not field.value %}
-,
-   {{ get_type(field) }}* out_{{ field_name.lower() }}
-{% endif %}
-{% endfor %}
-{% endif %}
+{% macro pack_func_sig(dev, cmd_name, cmd_config, get_type) -%}
+void {{ dev.lower() }}_pack_{{ cmd_name.lower() }}(
+    uint8_t* tx_buf
+    {% for field_name, field in cmd_config.tx.fields.items() %}
+        {% if not field.value %}
+            ,{{ get_type(field) }} {{ field_name.lower() }}
+        {% endif %}
+    {% endfor %}
+)
+{%- endmacro %}
+
+{% macro unpack_func_sig(dev, cmd_name, cmd_config, get_type) -%}
+void {{ dev.lower() }}_unpack_{{ cmd_name.lower() }}(
+    uint8_t* rx_buf
+    {% if cmd_config.rx.fields %}
+        {% for field_name, field in cmd_config.rx.fields.items() %}
+            {% if not field.value %}
+                ,{{ get_type(field) }}* {{ field_name.lower() }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 )
 {%- endmacro %}
 
@@ -32,41 +37,41 @@ cmd_dev_status_t {{ dev.lower() }}_{{ cmd_name.lower() }}({{ dev }}_t* dev
 {%- endmacro %}
 
 {% macro cmd_dev_tx_assign(dev, cmd, field_name, field) -%}
-   {% if field.value %}
-      {% set name = dev + "_" + cmd + "_" + field_name %}
-   {% else %}
-      {% set name = "in_" + field_name.lower() %}
-   {% endif %}
+    {% if field.value %}
+        {% set name = dev + "_" + cmd + "_" + field_name %}
+    {% else %}
+        {% set name = field_name.lower() %}
+    {% endif %}
 
-   {%- if field.size > 4 * 8 %}
-memcpy(&tx_buf[{{field.offset // 8}}], &{{name}}, {{ macro.field_size(dev, cmd, field_name) }} / 8);
-   {% else %}
-      {%- for bit in range(field.offset, field.offset + field.size, 8) %}
-         {% set byte = bit // 8 %}
-         {% set rel_byte = byte - (field.offset // 8) %}
-         {% if field.offset % 8 == 0 %}
+    {%- if field.size > 4 * 8 %}
+memcpy(&tx_buf[{{field.offset // 8}}], {{name}}, {{ macro.field_size(dev, cmd, field_name) }} / 8);
+    {% else %}
+        {%- for bit in range(field.offset, field.offset + field.size, 8) %}
+            {% set byte = bit // 8 %}
+            {% set rel_byte = (field.offset // 8) + (field.size / 8)|round(0, 'ceil')|int - byte - 1%}
+            {% if field.offset % 8 == 0 %}
 tx_buf[{{byte}}] |= ((uint8_t*)&{{name}})[{{rel_byte}}] & {{ macro.mask(dev, cmd, field_name) }};
-         {% else %}
+            {% else %}
 tx_buf[{{byte}}] |= (((uint8_t*)&{{name}})[{{rel_byte}}] & {{ macro.mask(dev, cmd, field_name) }}) << {{ macro.offset(dev, cmd, field_name) }};
-         {% endif %}
-      {% endfor %}
-   {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {%- endmacro %}
 
 {% macro cmd_dev_rx_assign(dev, cmd, field_name, field) -%}
-   {% set name = "out_" + field_name.lower() %}
+    {% set name = field_name.lower() %}
 
-   {%- if field.size > 4 * 8 %}
-memcpy(&tx_buf[{{field.offset // 8}}], &{{name}}, {{ macro.field_size(dev, cmd, field_name) }} / 8);
-   {% else %}
-      {%- for bit in range(field.offset, field.offset + field.size, 8) %}
-         {% set byte = bit // 8 %}
-         {% set rel_byte = byte - (field.offset // 8) %}
-         {% if field.offset % 8 == 0 %}
-((uint8_t*)&{{name}})[{{rel_byte}}] = rx_buf[{{byte}}] & {{ macro.mask(dev, cmd, field_name) }};
-         {% else %}
-((uint8_t*)&{{name}})[{{rel_byte}}] = (rx_buf[{{byte}}] >> {{ macro.offset(dev, cmd, field_name) }}) & {{ macro.mask(dev, cmd, field_name) }};
-         {% endif %}
-      {% endfor %}
-   {% endif %}
+    {%- if field.size > 4 * 8 %}
+memcpy(&rx_buf[{{field.offset // 8}}], {{name}}, {{ macro.field_size(dev, cmd, field_name) }} / 8);
+    {% else %}
+        {%- for bit in range(field.offset, field.offset + field.size, 8) %}
+            {% set byte = bit // 8 %}
+            {% set rel_byte = byte - (field.offset // 8) %}
+            {% if field.offset % 8 == 0 %}
+((uint8_t*){{name}})[{{rel_byte}}] = rx_buf[{{byte}}] & {{ macro.mask(dev, cmd, field_name) }};
+            {% else %}
+((uint8_t*){{name}})[{{rel_byte}}] = (rx_buf[{{byte}}] >> {{ macro.offset(dev, cmd, field_name) }}) & {{ macro.mask(dev, cmd, field_name) }};
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {%- endmacro %}

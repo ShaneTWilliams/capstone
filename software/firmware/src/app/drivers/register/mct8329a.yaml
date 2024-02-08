@@ -1,4 +1,5 @@
 name: mct8329a
+endianness: big
 registers:
   ISD_CONFIG:
     address: 0x80

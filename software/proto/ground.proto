@@ -1,22 +1,61 @@
 syntax = "proto3";
 package capstone;
 
+import "google/protobuf/empty.proto";
 import "values.proto";
 
 /**************************************
  ********** Enum Definitions **********
  **************************************/
 
+enum PadState {
+  UP = 0;
+  RIGHT = 1;
+  DOWN = 2;
+  LEFT = 3;
+  CENTER = 4;
+  NONE = 5;
+}
+
 /*************************************
  ******** Struct Definitions *********
  *************************************/
+
+message JoystickState {
+  float x = 1;
+  float y = 2;
+}
 
 /*************************************
  ******** Message Definitions ********
  *************************************/
 
-message ValueRequest {
+message GetValueRequest {
   capstone.ValueTag tag = 1;
+}
+
+message SetValueRequest {
+  capstone.ValueTag tag = 1;
+  capstone.Value value = 2;
+}
+
+message SetControllerState {
+  bool a = 1;
+  bool b = 2;
+  bool x = 3;
+  bool y = 4;
+  bool lb = 5;
+  bool rb = 6;
+  float lt = 7;
+  float rt = 8;
+  bool xbox = 9;
+  bool view = 10;
+  bool menu = 11;
+  bool l3 = 12;
+  bool r3 = 13;
+  capstone.PadState pad = 14;
+  capstone.JoystickState left_stick = 15;
+  capstone.JoystickState right_stick = 16;
 }
 
 /***********************************************
@@ -24,5 +63,7 @@ message ValueRequest {
  ***********************************************/
 
 service GroundStation {
-  rpc GetValue(ValueRequest) returns (capstone.Value) {}
+  rpc GetValue(GetValueRequest) returns (capstone.Value) {}
+  rpc SetValue(SetValueRequest) returns (google.protobuf.Empty) {}
+  rpc SetController(SetControllerState) returns (google.protobuf.Empty) {}
 }

@@ -5,53 +5,65 @@
 
 #include "driver_defs.h"
 
+{{ macro.block_comment('FIXED FIELDS') }}
+
+{% for cmd_name, command in cfg.commands.items() %}
+    {% for field_name, field in command.tx.fields.items() %}
+        {% if field.value %}
+static const uint8_t {{ cmd_macro.cmd_dev_field(cfg.name, cmd_name, field_name) }} = 0x{{ '%02X' %  field.value }};
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
 {{ macro.block_comment('FIELD ENUMS') }}
 
 {% for enum_name, enum in cfg.enums.items() %}
-typedef enum {
-    {% for value_name, value in enum.items() %}
-    {{ cfg.name.upper() }}_{{ enum_name.upper() }}_{{ value_name }} = 0x{{ '%02x' %  value }},
-    {% endfor %}
-} {{cfg.name.lower()}}_{{ enum_name.lower() }}_t;
+    typedef enum {
+        {% for value_name, value in enum.items() %}
+            {{ cfg.name.upper() }}_{{ enum_name.upper() }}_{{ value_name }} = 0x{{ '%02x' %  value }},
+        {% endfor %}
+    } {{cfg.name.lower()}}_{{ enum_name.lower() }}_t;
 
 {% endfor %}
 
 {% for cmd_name, command in cfg.commands.items() %}
-{{ macro.block_comment('COMMAND: ' + cmd_name) }}
+    {{ macro.block_comment('COMMAND: ' + cmd_name) }}
 
-{{ cmd_macro.cmd_func_sig(cfg.name, cmd_name, command, get_type)}};
+    {{ cmd_macro.pack_func_sig(cfg.name, cmd_name, command, get_type)}};
+    {% if command.rx.size > 0 %}
+        {{ cmd_macro.unpack_func_sig(cfg.name, cmd_name, command, get_type)}};
+    {% endif %}
 
-#define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_TX_SIZE {{ command.tx.size }}U
-#define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_RX_SIZE {{ command.rx.size }}U
+    #define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_TX_SIZE {{ command.tx.size }}U
+    #define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_RX_SIZE {{ command.rx.size }}U
+    #define {{ cfg.name.upper() }}_{{ cmd_name.upper() }}_XFER_SIZE {{ [command.rx.size, command.tx.size]|max }}U
 
-{% for tx_field_name, tx_field in command.tx.fields.items() %}
-{% set tx_offset = macro.offset(cfg.name, cmd_name, tx_field_name) %}
-{% set tx_size = macro.field_size(cfg.name, cmd_name, tx_field_name) %}
-{% set tx_lsb = macro.lsb(cfg.name, cmd_name, tx_field_name) %}
-{% set tx_type = macro.type(cfg.name, cmd_name, tx_field_name) %}
-{% set tx_mask = macro.mask(cfg.name, cmd_name, tx_field_name) %}
+    {# TODO: Find out how to merge these two dictionaries #}
+    {% for field_name, field in command.tx.fields.items() %}
+        {% set offset = macro.offset(cfg.name, cmd_name, field_name) %}
+        {% set size = macro.field_size(cfg.name, cmd_name, field_name) %}
+        {% set lsb = macro.lsb(cfg.name, cmd_name, field_name) %}
+        {% set type = macro.type(cfg.name, cmd_name, field_name) %}
+        {% set mask = macro.mask(cfg.name, cmd_name, field_name) %}
 
-#define {{ tx_offset }} {{ tx_field.offset % 8 }}U
-#define {{ tx_size }} {{ tx_field.size }}U
-#define {{ tx_mask }} (1 << {{ tx_offset }}) - 1
-#define {{ tx_type }} {{ get_type(tx_field) }}
+        #define {{ offset }} {{ field.offset % 8 }}U
+        #define {{ size }} {{ field.size }}U
+        #define {{ mask }} ((1ULL << {{ size }}) - 1)
+        #define {{ type }} {{ get_type(field) }}
+    {% endfor %}
+    {% if command.rx.fields %}
+        {% for field_name, field in command.rx.fields.items() %}
+            {% set offset = macro.offset(cfg.name, cmd_name, field_name) %}
+            {% set size = macro.field_size(cfg.name, cmd_name, field_name) %}
+            {% set lsb = macro.lsb(cfg.name, cmd_name, field_name) %}
+            {% set type = macro.type(cfg.name, cmd_name, field_name) %}
+            {% set mask = macro.mask(cfg.name, cmd_name, field_name) %}
 
-{% endfor %}
-
-{% if command.rx.fields %}
-{% for rx_field_name, rx_field in command.rx.fields.items() %}
-{% set rx_offset = macro.offset(cfg.name, cmd_name, rx_field_name) %}
-{% set rx_size = macro.field_size(cfg.name, cmd_name, rx_field_name) %}
-{% set rx_lsb = macro.lsb(cfg.name, cmd_name, rx_field_name) %}
-{% set rx_type = macro.type(cfg.name, cmd_name, rx_field_name) %}
-{% set rx_mask = macro.mask(cfg.name, cmd_name, rx_field_name) %}
-
-#define {{ rx_offset }} {{ rx_field.offset }}U
-#define {{ rx_size }} {{ rx_field.size }}U
-#define {{ rx_mask }} (1 << {{ rx_offset }}) - 1
-#define {{ rx_type }} {{ get_type(rx_field) }}
-
-{% endfor %}
-{% endif %}
+            #define {{ offset }} {{ field.offset % 8 }}U
+            #define {{ size }} {{ field.size }}U
+            #define {{ mask }} ((1ULL << {{ size }}) - 1)
+            #define {{ type }} {{ get_type(field) }}
+        {% endfor %}
+    {% endif %}
 
 {% endfor %}

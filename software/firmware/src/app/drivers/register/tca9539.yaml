@@ -1,4 +1,5 @@
 name: tca9539
+endianness: big
 registers:
   INPUT_PORT_0:
     address: 0x00
@@ -306,5 +307,5 @@ registers:
         type: DIRECTION
 enums:
   DIRECTION:
-    INPUT: 0x00
-    OUTPUT: 0x01
+    INPUT: 0x01
+    OUTPUT: 0x00
