@@ -6,6 +6,9 @@ typedef enum {
     UNALIGNED_WRITE_OFFSET = 4,
     UNALIGNED_ERASE_OFFSET = 5,
     UNALIGNED_ERASE_LENGTH = 6,
+    FAILED_SPI_XFER        = 7,
+    UNREACHABLE            = 8,
+    UART_BUF_OVERRUN       = 9,
 } fatal_reason_t;
 
 void fatal(fatal_reason_t reason);

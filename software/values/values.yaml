@@ -1,15 +1,17 @@
 values:
-  LED_STATE:
-    display: LED State
-    type:
-      base: bool
-  MCU_TEMP:
-    display: MCU Temperature
+
+###############################
+##### TEMPERATURE SENSORS #####
+###############################
+
+  QI_TEMP:
+    origin: drone
+    display: QI Temperature
     type:
       base: decimal
-      min: -40
-      max: 125
-      lsb: 0.005
+      min: -20
+      max: 120
+      lsb: 0.125
     unit: °C
     conditions:
       warning:
@@ -18,8 +20,407 @@ values:
       critical:
         - over: 80
         - under: -10
+  HP_TEMP:
+    origin: drone
+    display: HP Temperature
+    type:
+      base: decimal
+      min: -20
+      max: 120
+      lsb: 0.125
+    unit: °C
+    conditions:
+      warning:
+        - over: 50
+        - under: 0
+      critical:
+        - over: 80
+        - under: -10
+  BMS_TEMP:
+    origin: drone
+    display: BMS Temperature
+    type:
+      base: decimal
+      min: -20
+      max: 120
+      lsb: 0.1
+    unit: °C
+    conditions:
+      warning:
+        - over: 50
+        - under: 0
+      critical:
+        - over: 80
+        - under: -10
+  MCU_TEMP:
+    origin: drone
+    display: MCU Temperature
+    type:
+      base: decimal
+      min: -20
+      max: 120
+      lsb: 0.125
+    unit: °C
+    conditions:
+      warning:
+        - over: 50
+        - under: 0
+      critical:
+        - over: 80
+        - under: -10
+
+########################
+##### IMU READINGS #####
+########################
+
+  XL_X:
+    origin: drone
+    display: Accelerometer X
+    type:
+      base: decimal
+      min: -16
+      max: 16
+      lsb: 0.0001
+  XL_Y:
+    origin: drone
+    display: Accelerometer Y
+    type:
+      base: decimal
+      min: -16
+      max: 16
+      lsb: 0.0001
+  XL_Z:
+    origin: drone
+    display: Accelerometer Z
+    type:
+      base: decimal
+      min: -16
+      max: 16
+      lsb: 0.0001
+
+############################
+##### LP CURRENT SENSE #####
+############################
+
+  LV_3V3_CURRENT:
+    origin: drone
+    display: 3.3 V Current
+    type:
+      base: decimal
+      min: 0
+      max: 3
+      lsb: 0.001
+    unit: A
+    conditions:
+      warning:
+        - over: 0.2
+      critical:
+        - over: 0.5
+  LV_5V0_CURRENT:
+    origin: drone
+    display: 5 V Current
+    type:
+      base: decimal
+      min: 0
+      max: 3
+      lsb: 0.001
+    unit: A
+    conditions:
+      warning:
+        - over: 0.2
+      critical:
+        - over: 0.5
+  MOTOR_FL_CURRENT:
+    origin: drone
+    display: Front Left Motor Current
+    type:
+      base: decimal
+      min: 0
+      max: 25
+      lsb: 0.1
+    unit: A
+    conditions:
+      warning:
+        - over: 2
+      critical:
+        - over: 3
+  MOTOR_FR_CURRENT:
+    origin: drone
+    display: Front Right Motor Current
+    type:
+      base: decimal
+      min: 0
+      max: 25
+      lsb: 0.1
+    unit: A
+    conditions:
+      warning:
+        - over: 2
+      critical:
+        - over: 3
+  MOTOR_RL_CURRENT:
+    origin: drone
+    display: Rear Left Motor Current
+    type:
+      base: decimal
+      min: 0
+      max: 25
+      lsb: 0.1
+    unit: A
+    conditions:
+      warning:
+        - over: 2
+      critical:
+        - over: 3
+  MOTOR_RR_CURRENT:
+    origin: drone
+    display: Rear Right Motor Current
+    type:
+      base: decimal
+      min: 0
+      max: 25
+      lsb: 0.1
+    unit: A
+    conditions:
+      warning:
+        - over: 2
+      critical:
+        - over: 3
+
+########################
+##### GPS READINGS #####
+########################
+
+  LATITUDE:
+    origin: drone
+    display: Latitude
+    type:
+      base: decimal
+      min: -90
+      max: 90
+      lsb: 0.00001
+  LONGITUDE:
+    origin: drone
+    display: Longitude
+    type:
+      base: decimal
+      min: 0
+      max: 180
+      lsb: 0.00001
+  UTC_TIME_H:
+    origin: drone
+    display: UTC Time
+    type:
+      base: int
+      hex: false
+      min: 0
+      max: 23
+  UTC_TIME_M:
+    origin: drone
+    display: UTC Time
+    type:
+      base: int
+      hex: false
+      min: 0
+      max: 59
+  UTC_TIME_S:
+    origin: drone
+    display: UTC Time
+    type:
+      base: int
+      hex: false
+      min: 0
+      max: 59
+
+########################
+##### BMS READINGS #####
+########################
+
+  CELL1_VOLTAGE:
+    origin: drone
+    display: Cell 1 Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 5
+      lsb: 0.001
+    unit: V
+    conditions:
+      warning:
+        - over: 4.2
+        - under: 3.5
+      critical:
+        - over: 4.25
+        - under: 3.4
+  CELL2_VOLTAGE:
+    origin: drone
+    display: Cell 2 Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 5
+      lsb: 0.001
+    unit: V
+    conditions:
+      warning:
+        - over: 4.2
+        - under: 3.5
+      critical:
+        - over: 4.25
+        - under: 3.4
+  CELL3_VOLTAGE:
+    origin: drone
+    display: Cell 3 Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 5
+      lsb: 0.001
+    unit: V
+    conditions:
+      warning:
+        - over: 4.2
+        - under: 3.5
+      critical:
+        - over: 4.25
+        - under: 3.4
+  CELL4_VOLTAGE:
+    origin: drone
+    display: Cell 4 Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 5
+      lsb: 0.001
+    unit: V
+    conditions:
+      warning:
+        - over: 4.2
+        - under: 3.5
+      critical:
+        - over: 4.25
+        - under: 3.4
+  BATTERY_VOLTAGE:
+    origin: drone
+    display: Battery Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 20
+      lsb: 0.001
+    unit: V
+    conditions:
+      warning:
+        - over: 16.8
+        - under: 14
+      critical:
+        - over: 17
+        - under: 13.8
+  SOC:
+    origin: drone
+    display: State of Charge
+    type:
+      base: decimal
+      min: 0
+      max: 100
+      lsb: 0.1
+    unit: "%"
+    conditions:
+      warning:
+        - under: 20
+      critical:
+        - under: 10
+  BMS_CURRENT:
+    origin: drone
+    display: BMS Current
+    type:
+      base: decimal
+      min: -20
+      max: 20
+      lsb: 0.01
+    unit: A
+    conditions:
+      warning:
+        - over: 10
+        - under: -1
+      critical:
+        - over: 15
+        - under: -2
+
+#############################
+##### CHARGE CONTROLLER #####
+#############################
+
+  CHARGE_INPUT_CURRENT:
+    origin: drone
+    display: Charge Current
+    type:
+      base: decimal
+      min: 0
+      max: 2
+      lsb: 0.01
+    unit: A
+    conditions:
+      warning:
+        - over: 1
+      critical:
+        - over: 1.2
+  CHARGE_INPUT_VOLTAGE:
+    origin: drone
+    display: Charge Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 20
+      lsb: 0.01
+    unit: V
+    conditions:
+      warning:
+        - over: 5.2
+        - under: 4.7
+      critical:
+        - over: 5.3
+        - under: 4.4
+  CHARGE_STATE:
+    origin: drone
+    display: Charge State
+    type:
+      base: boolean
+  CHARGE_OUTPUT_VOLTAGE:
+    origin: drone
+    display: Charge Output Voltage
+    type:
+      base: decimal
+      min: 0
+      max: 20
+      lsb: 0.01
+    unit: V
+    conditions:
+      warning:
+        - over: 16.8
+        - under: 14
+      critical:
+        - over: 17
+        - under: 13.8
+  CHARGE_OUTPUT_CURRENT:
+    origin: drone
+    display: Charge Output Current
+    type:
+      base: decimal
+      min: 0
+      max: 2
+      lsb: 0.01
+    unit: A
+    conditions:
+      warning:
+        - over: 0.3
+      critical:
+        - over: 0.5
+
 enums:
   DRONE_STATE:
-    - SAFE
-    - ARMED
-    - FATAL
+    - SLEEP
+    - CHARGING
+    - IDLE
+    - STARTUP
+    - FLIGHT

@@ -1,4 +1,5 @@
 name: bq25703a
+endianness: big
 registers:
   CHARGE_OPTION_0:
     address: 0x00
@@ -101,7 +102,7 @@ registers:
         offset: 6
         size: 8
         type: SYS_VOLTAGE_MV
-  MIN_CHARGE_VOLTAGE:
+  MIN_SYS_VOLTAGE:
     address: 0x0C
     size: 2
     fields:

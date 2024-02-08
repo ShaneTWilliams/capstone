@@ -230,7 +230,7 @@ commands:
           offset: 0
           value: 0x93
         FALLBACK_MODE:
-          size: 1
+          size: 8
           offset: 8
           type: TX_RX_FALLBACK_MODE
     rx:
@@ -248,7 +248,7 @@ commands:
           size: 16
           offset: 8
         VALUE:
-          size: 1
+          size: 8
           offset: 24
     rx:
       size: 2
@@ -619,7 +619,6 @@ commands:
         VALUE:
           size: 32
           offset: 8
-          type: RF_FREQ_TIMES_FXTAL
     rx:
       size: 0
       fields:
@@ -712,7 +711,7 @@ commands:
         OPCODE:
           size: 8
           offset: 0
-          value: 0x8C
+          value: 0x8B
         BR:
           size: 24
           offset: 8

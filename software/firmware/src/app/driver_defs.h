@@ -3,14 +3,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define BIN_TO_FMT_UNSIGNED(val, sz, lsb, offset) ((double)(val) * (lsb) + offset)
+#define BIN_TO_FMT_UNSIGNED(val, sz, lsb, offset) ((double)(val) * (lsb)-offset)
 
 #define BIN_TO_FMT_SIGNED(val, sz, lsb, offset)                      \
     (((double)((int32_t)((val) << ((sizeof(int32_t) * 8) - (sz)))) / \
-      (1 << ((sizeof(int32_t) * 8) - (sz))) * (lsb)) +               \
+      (1 << ((sizeof(int32_t) * 8) - (sz))) * (lsb)) -               \
      offset)
 
-#define FMT_TO_BIN(val, lsb, type) ((type)((val) / (lsb)))
+#define FMT_TO_BIN(val, lsb, type, offset) ((type)(((val) / (lsb)) + offset))
 
 typedef enum { REG_DEV_STATUS_OK, REG_DEV_STATUS_ERR } reg_dev_status_t;
 typedef enum { CMD_DEV_STATUS_OK, CMD_DEV_STATUS_ERR } cmd_dev_status_t;

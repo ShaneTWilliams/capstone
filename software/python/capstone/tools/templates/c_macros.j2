@@ -28,6 +28,10 @@
 {{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_LSB
 {%- endmacro %}
 
+{% macro fmt_offset(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_FMT_OFFSET
+{%- endmacro %}
+
 {% macro get(dev, reg, field) -%}
 {{ dev.upper() }}_GET_{{ reg.upper() }}_{{ field.upper() }}
 {%- endmacro %}

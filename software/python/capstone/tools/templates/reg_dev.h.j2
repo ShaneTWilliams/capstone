@@ -3,6 +3,7 @@
 #pragma once
 
 #include "driver_defs.h"
+#include "util.h"
 
 {{ macro.block_comment('REGISTER DIAGRAMS') }}
 
@@ -47,13 +48,13 @@ typedef enum {
 
 #define {{ offset }} {{ field.offset }}U
 #define {{ size }} {{ field.size }}U
-#define {{ type }} {{ get_type(field) }}
-#define {{ mask }} (1 << {{ size }}) - 1
+#define {{ type }} {{ get_int_type(field.size) }}
+#define {{ mask }} ((1ULL << {{ size }}) - 1)
         {% if 'r' in field.access %}
-#define {{ get }}(reg) (((reg) >> {{ macro.offset(cfg.name, reg_name, field_name) }}) & {{ macro.mask(cfg.name, reg_name, field_name) }})
+#define {{ get }}(reg) (({{ get_endian_func(register) }}(reg) >> {{ macro.offset(cfg.name, reg_name, field_name) }}) & {{ macro.mask(cfg.name, reg_name, field_name) }})
         {% endif %}
         {% if 'w' in field.access %}
-#define {{ set }}(reg, value) (reg) = ((reg) & ~({{ mask }} << {{ offset }})) | ((value & {{ mask }}) << {{ offset }})
+#define {{ set }}(reg, value) (reg) = {{ set_endian_func(register) }}(((reg) & ~({{ mask }} << {{ offset }})) | ((value & {{ mask }}) << {{ offset }}))
         {% endif %}
 
         {% if field.type in cfg.formats %}
@@ -63,11 +64,16 @@ typedef enum {
                 {% set bin_to_fmt = "BIN_TO_FMT_UNSIGNED" %}
             {% endif %}
 #define {{ macro.lsb(cfg.name, reg_name, field_name) }} {{ cfg.formats[field.type].lsb|float }}f
+            {% if 'offset' in cfg.formats[field.type] %}
+#define {{ macro.fmt_offset(cfg.name, reg_name, field_name) }} {{ cfg.formats[field.type].offset|float }}f
+            {% else %}
+#define {{ macro.fmt_offset(cfg.name, reg_name, field_name) }} 0.0f
+            {% endif %}
             {% if 'r' in field.access %}
-#define {{ get_fmt }}(reg) ({{ bin_to_fmt }}({{ get }}(reg), {{ lsb }}, {{ size }}))
+#define {{ get_fmt }}(reg) ({{ bin_to_fmt }}({{ get }}(reg), {{ size }}, {{ lsb }}, {{ macro.fmt_offset(cfg.name, reg_name, field_name) }}))
             {% endif %}
             {% if 'w' in field.access %}
-#define {{ set_fmt }}(reg, value) (reg) = (FMT_TO_BIN(value, {{ lsb }}, {{ type }}))
+#define {{ set_fmt }}(reg, value) {{ set }}(reg, (FMT_TO_BIN(value, {{ lsb }}, {{ type }}, {{ macro.fmt_offset(cfg.name, reg_name, field_name) }})))
             {% endif %}
         {% endif %}{# if field.type in cfg.formats #}
     {% endfor %}{# field_name, field #}

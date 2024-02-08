@@ -5,8 +5,8 @@
 
 #include "values.pb.h"
 
-void pack_proto_value(values_Value* value_struct, values_ValueTag tag);
-void unpack_proto_value(values_Value* value_struct, values_ValueTag tag);
+void pack_proto_value(capstone_Value* value_struct, capstone_ValueTag tag);
+void unpack_proto_value(capstone_Value* value_struct, capstone_ValueTag tag);
 
 {% for enum, enum_values in enums.items() %}
 typedef enum {

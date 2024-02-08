@@ -9,6 +9,7 @@ software/python/capstone/proto
 software/python/capstone/values.py
 software/.csvenv
 firmware/outputs
+software/frontend/proto
 
 \#auto_saved_files#
 *-cache
