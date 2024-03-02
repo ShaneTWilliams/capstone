@@ -37,22 +37,22 @@ typedef enum {
     I2C_ADDRESS_CHG_IOX    = 0x75,
 
     // HP
-    I2C_ADDRESS_HP_TEMP = 0x48,
-    I2C_ADDRESS_MTR_IOX = 0x74,
-    I2C_ADDRESS_PWR_IOX = 0x75,
-    I2C_ADDRESS_BMS_MODELGAUGE = 0x36,
+    I2C_ADDRESS_HP_TEMP         = 0x48,
+    I2C_ADDRESS_MTR_IOX         = 0x74,
+    I2C_ADDRESS_PWR_IOX         = 0x75,
+    I2C_ADDRESS_BMS_MODELGAUGE  = 0x36,
     I2C_ADDRESS_BMS_NONVOLATILE = 0x0B,
-    I2C_ADDRESS_MTR_FL = 0x60,
-    I2C_ADDRESS_MTR_RR = 0x61,
-    I2C_ADDRESS_MTR_RL = 0x62,
-    I2C_ADDRESS_MTR_FR = 0x63,
-    I2C_ADDRESS_CHG_CONT = 0x6B,
+    I2C_ADDRESS_MTR_FL          = 0x60,
+    I2C_ADDRESS_MTR_RR          = 0x61,
+    I2C_ADDRESS_MTR_RL          = 0x62,
+    I2C_ADDRESS_MTR_FR          = 0x63,
+    I2C_ADDRESS_CHG_CONTROLLER  = 0x6B,
 } i2c_addr_t;
 
 #define IMU_SPI      spi0
 #define SX_SPI       spi1
 #define IMU_SPI_FREQ 1000000U
-#define SX_SPI_FREQ  1000000U
+#define SX_SPI_FREQ  10000000U
 
 #define VIDEO_UART           uart0
 #define GPS_UART             uart1
@@ -61,5 +61,5 @@ typedef enum {
 
 #define LP_I2C i2c0
 #define HP_I2C i2c1
-
-void hw_init(void);
+#define LP_I2C_FREQ 400000U
+#define HP_I2C_FREQ 400000U

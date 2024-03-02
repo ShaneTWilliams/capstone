@@ -16,7 +16,7 @@ typedef enum {
 
 dma_channel_config spi0_ctrl_config;
 dma_channel_config spi0_data_config;
-static uint8_t tx_buf[] = {0x0B, 0x01, 0x00};
+static uint8_t tx_buf[] = { 0x0B, 0x01, 0x00 };
 
 __attribute__((aligned(2 * sizeof(uint32_t *)))) uint32_t ctrl_block[] = {
     3U, (uint32_t)tx_buf, 3U, (uint32_t)tx_buf, 3U, (uint32_t)tx_buf, 0U, 0U,
@@ -72,7 +72,7 @@ static void init(void) {
     dma_channel_start(DMA_CHANNEL_SPI0_CTRL);
 }
 
-static void run_100ms(void) {}
+static void run_100ms(uint32_t cycle) {}
 
 module_t dma_module = {
     .name       = "dma",

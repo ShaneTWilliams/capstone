@@ -1,5 +1,5 @@
 name: mct8329a
-endianness: big
+endianness: little
 registers:
   ISD_CONFIG:
     address: 0x80
@@ -588,7 +588,51 @@ registers:
         access: rw
         offset: 31
         size: 1
-  STEP_DUTY:
+  150_DEG_TWO_PH_PROFILE:
+    address: 0x96
+    size: 4
+    fields:
+      TWOPH_STEP7:
+        access: rw
+        offset: 7
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP6:
+        access: rw
+        offset: 10
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP5:
+        access: rw
+        offset: 13
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP4:
+        access: rw
+        offset: 16
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP3:
+        access: rw
+        offset: 19
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP2:
+        access: rw
+        offset: 22
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP1:
+        access: rw
+        offset: 25
+        size: 3
+        type: STEP_DUTY
+      TWOPH_STEP0:
+        access: rw
+        offset: 28
+        size: 3
+        type: STEP_DUTY
+  150_DEG_THREE_PH_PROFILE:
     address: 0x98
     size: 4
     fields:

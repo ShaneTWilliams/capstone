@@ -29,7 +29,7 @@ export default function ({ content, title }) {
                     Last Heartbeat: 44 ms
                 </p>
             </div>
-            <div className="p-4">
+            <div className="p-4 overflow-scroll">
                 {content}
             </div>
         </div>

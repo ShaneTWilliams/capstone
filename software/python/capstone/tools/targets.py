@@ -67,8 +67,6 @@ GRPC_WEB_PROTOC = os.path.join(
 OPENOCD_CFG = os.path.join(FIRMWARE_DIR, "capstone-ocd.cfg")
 PYLINTRC = os.path.join(PYTHON_DIR, "pylintrc")
 VALUES_YAML = os.path.join(VALUES_YAML_DIR, "values.yaml")
-CONTROL_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "control_pack.yaml")
-TELEM_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "telem_pack.yaml")
 GROUND_PROTO_FILE = os.path.join(PROTO_DIR, "ground.proto")
 VALUES_PROTO_FILE = os.path.join(PROTO_DIR, "values.proto")
 ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
@@ -88,12 +86,13 @@ RADIO_BIN = os.path.join(BUILD_DIR, "radio.bin")
 # Values file
 with open(VALUES_YAML, "r") as f:
     VALUES = yaml.safe_load(f)
-VALUE_NAMES = {}
-for value_name in VALUES["values"].keys():
-    VALUE_NAMES[value_name.upper()] = value_name
-    VALUE_NAMES[value_name.lower()] = value_name
-    VALUE_NAMES["-".join(value_name.upper().split("_"))] = value_name
-    VALUE_NAMES["-".join(value_name.lower().split("_"))] = value_name
+VALUE_NAMES = {"all": "all"}
+for key_list in ("values", "categories"):
+    for value_name in VALUES[key_list].keys():
+        VALUE_NAMES[value_name.upper()] = value_name
+        VALUE_NAMES[value_name.lower()] = value_name
+        VALUE_NAMES["-".join(value_name.upper().split("_"))] = value_name
+        VALUE_NAMES["-".join(value_name.lower().split("_"))] = value_name
 
 #####################################
 ############## HELPERS ##############
@@ -207,7 +206,7 @@ def proto_unpack_value(proto_msg, tag):
         if type_config["base"] == "int":
             return proto_msg.u32
     if type_config["base"] == "enum":
-        return VALUES["enums"][type_config["enum"]][proto_msg.u32]
+        return VALUES["enums"][type_config["name"]][proto_msg.u32]
     raise ValueError(f"Invalid type: {type_config}")
 
 
@@ -220,7 +219,7 @@ def values_helper():
     proto = os.path.join(PROTO_DIR, "values.proto")
     python = os.path.join(PYTHON_PACKAGE_DIR, "values.py")
     output_files = [c, h]
-    gen = ValuesGenerator(VALUES_YAML, CONTROL_PACKET_YAML, TELEM_PACKET_YAML)
+    gen = ValuesGenerator(VALUES_YAML)
     with open(c, "w") as f:
         f.write(gen.generate_c())
     with open(h, "w") as f:
@@ -602,13 +601,16 @@ def grpc_get(tag_str):
     print(value)
 
 
-@click.command()
-@click.argument("tag_strings", type=click.Choice(VALUE_NAMES.keys()), nargs=-1)
-def watch(tag_strings):
+def _watch(tag_strings):
     # pylint: disable=import-outside-toplevel,no-name-in-module
     from capstone.proto import ground_pb2, ground_pb2_grpc
 
     from capstone import values
+
+    if len(tag_strings) == 1 and tag_strings[0].upper() in VALUES["categories"]:
+        tag_strings = VALUES["categories"][VALUE_NAMES[tag_strings[0]]]
+    elif len(tag_strings) == 1 and tag_strings[0].lower() == "all":
+        tag_strings = VALUES["values"].keys()
 
     stdscr = curses.initscr()
     curses.noecho()
@@ -641,11 +643,25 @@ def watch(tag_strings):
             stdscr.refresh()
             time.sleep(0.05)
         except:
-            curses.nocbreak()
             stdscr.keypad(False)
-            curses.echo()
-            curses.endwin()
             raise
+
+
+@click.command()
+@click.argument("tag_strings", type=click.Choice(VALUE_NAMES.keys()), nargs=-1)
+def watch(tag_strings):
+    try:
+        _watch(tag_strings)
+    except KeyboardInterrupt:
+        curses.nocbreak()
+        curses.echo()
+        curses.endwin()
+        return
+    except:
+        curses.nocbreak()
+        curses.echo()
+        curses.endwin()
+        raise
 
 
 @click.command()
@@ -664,7 +680,9 @@ def convert():
 @click.command()
 def controller():
     from capstone.control.controller import main
+
     main()
+
 
 def main():
     cli.add_command(build)

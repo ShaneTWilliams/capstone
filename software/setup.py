@@ -20,7 +20,9 @@ setup(
         "isort",
         "Jinja2",
         "pylint",
-        "pyyaml"
+        "pyyaml",
+        "pysdl2",
+        "pysdl2-dll"
     ],
     entry_points={
         "console_scripts": [

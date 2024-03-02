@@ -37,7 +37,6 @@ if(${TARGET} STREQUAL "app")
         src/app/usb_descriptors.c
         src/app/fatal.c
         src/app/hw_config.c
-        src/app/globals.c
         src/app/iox.c
         src/app/modules/adc.c
         src/app/modules/indication.c
@@ -48,8 +47,8 @@ if(${TARGET} STREQUAL "app")
         src/app/modules/hp_i2c.c
         src/app/modules/radio.c
         src/app/modules/gps.c
-        src/app/modules/qi.c
         src/app/modules/motor.c
+        src/app/modules/state.c
         src/app/generated/values.c
         src/app/generated/bq25703a.c
         src/app/generated/is31fl3197.c
@@ -109,9 +108,9 @@ elseif(${TARGET} STREQUAL "radio")
         src/radio
         src/app
     )
-    target_link_libraries(${TARGET} pico_stdlib pico_unique_id pico_time hardware_spi)
+    target_link_libraries(${TARGET} pico_stdlib pico_unique_id pico_time hardware_spi hardware_uart)
     pico_set_linker_script(${TARGET} ${CMAKE_CURRENT_LIST_DIR}/ld/application.ld)
-    pico_enable_stdio_usb(${TARGET} 1)
+    pico_enable_stdio_usb(${TARGET} 0)
     pico_enable_stdio_uart(${TARGET} 0)
 endif()
 

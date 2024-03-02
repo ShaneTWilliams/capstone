@@ -28,6 +28,7 @@ if ({{ field_name.lower() }} != NULL) {
 
 {% if register.fields|write|length > 0 %}
 {{ reg_macro.set_reg_func_sig(cfg.name, reg_name, register, get_type) }} {
+    *reg = 0U;
     {% for field_name, field in register.fields|write %}
         {% set set = macro.set(cfg.name, reg_name, field_name) %}
         {% set set_fmt = macro.set_fmt(cfg.name, reg_name, field_name) %}

@@ -1,5 +1,5 @@
 import colors from "tailwindcss/colors";
-import yaml from "../../../../values/values.yaml";
+import yaml from "../../../../values/values.json";
 
 import { useState, useYaml } from 'react'
 import {
@@ -82,7 +82,7 @@ function ValueEntry({ valueConfig, value, isActive, onClick }) {
   return (
     <div className="flex grow flex-col justify-start cursor-default border-b border-neutral-200 last:border-0 p-2 dark:bg-zinc-900 dark:border-zinc-700">
       <div onClick={onClick} className="flex flex-row justify-start hover:cursor-pointer dark:bg-zinc-900 pl-2 pr-6">
-        <div className="w-48">
+        <div className="w-64">
           <p className="text-neutral-800 dark:text-zinc-200">
             {valueConfig.display}
           </p>

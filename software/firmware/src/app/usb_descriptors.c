@@ -48,29 +48,28 @@
 //--------------------------------------------------------------------+
 // Device Descriptors
 //--------------------------------------------------------------------+
-tusb_desc_device_t const desc_device = {
-    .bLength         = sizeof(tusb_desc_device_t),
-    .bDescriptorType = TUSB_DESC_DEVICE,
-    .bcdUSB          = USB_BCD,
+tusb_desc_device_t const desc_device = { .bLength         = sizeof(tusb_desc_device_t),
+                                         .bDescriptorType = TUSB_DESC_DEVICE,
+                                         .bcdUSB          = USB_BCD,
 
-    // Use Interface Association Descriptor (IAD) for CDC
-    // As required by USB Specs IAD's subclass must be common
-    // class (2) and protocol must be IAD (1)
-    .bDeviceClass    = TUSB_CLASS_MISC,
-    .bDeviceSubClass = MISC_SUBCLASS_COMMON,
-    .bDeviceProtocol = MISC_PROTOCOL_IAD,
+                                         // Use Interface Association Descriptor (IAD) for CDC
+                                         // As required by USB Specs IAD's subclass must be common
+                                         // class (2) and protocol must be IAD (1)
+                                         .bDeviceClass    = TUSB_CLASS_MISC,
+                                         .bDeviceSubClass = MISC_SUBCLASS_COMMON,
+                                         .bDeviceProtocol = MISC_PROTOCOL_IAD,
 
-    .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
+                                         .bMaxPacketSize0 = CFG_TUD_ENDPOINT0_SIZE,
 
-    .idVendor  = USB_VID,
-    .idProduct = USB_PID,
-    .bcdDevice = 0x0100,
+                                         .idVendor  = USB_VID,
+                                         .idProduct = USB_PID,
+                                         .bcdDevice = 0x0100,
 
-    .iManufacturer = STRID_MANUFACTURER,
-    .iProduct      = STRID_PRODUCT,
-    .iSerialNumber = STRID_SERIAL,
+                                         .iManufacturer = STRID_MANUFACTURER,
+                                         .iProduct      = STRID_PRODUCT,
+                                         .iSerialNumber = STRID_SERIAL,
 
-    .bNumConfigurations = 0x01};
+                                         .bNumConfigurations = 0x01 };
 
 // Invoked when received GET DEVICE DESCRIPTOR
 // Application return pointer to descriptor
@@ -114,11 +113,11 @@ static char serial_str[16 + 13 + 1];  // 16 for serial, 13 for "capstone-app-", 
 
 // array of pointer to string descriptors
 char const *string_desc_arr[] = {
-    (const char[]){0x09, 0x04},  // 0: is supported language is English (0x0409)
-    "capstone-group",            // 1: Manufacturer
-    "capstone-app",              // 2: Product
-    serial_str,                  // 3: Serials, should use chip ID
-    "capstone-cdc",              // 4: CDC Interface
+    (const char[]){ 0x09, 0x04 },  // 0: is supported language is English (0x0409)
+    "capstone-group",              // 1: Manufacturer
+    "capstone-app",                // 2: Product
+    serial_str,                    // 3: Serials, should use chip ID
+    "capstone-cdc",                // 4: CDC Interface
 };
 
 static uint16_t _desc_str[32];

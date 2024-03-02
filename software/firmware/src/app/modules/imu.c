@@ -23,7 +23,7 @@ static void init(void) {
     gpio_put(PIN_NUM_IMU_CS, true);
 }
 
-static void run_100ms(void) {
+static void run_100ms(uint32_t cycle) {
     tx_buf[0] = 0x10;
     tx_buf[1] = 0x7C;
     gpio_put(PIN_NUM_IMU_CS, false);

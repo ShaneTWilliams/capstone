@@ -28,7 +28,7 @@ static void handle_request(Request* request) {
             unpack_proto_value(&request->payload.set.value, request->payload.set.tag);
             break;
         default:
-            fatal(BAD_PB_TAG);
+            fatal(FATAL_BAD_PB_TAG);
             break;
     }
 }
@@ -39,7 +39,7 @@ static void send_response() {
     // Send it.
     pb_ostream_t output_stream = pb_ostream_from_buffer(tx_buffer, sizeof(tx_buffer));
     if (!pb_encode(&output_stream, Response_fields, &response)) {
-        fatal(BAD_PB_ENCODE);
+        fatal(FATAL_BAD_PB_ENCODE);
         return;
     }
     tud_cdc_write(&output_stream.bytes_written, 1);
@@ -49,7 +49,7 @@ static void send_response() {
 
 static void init(void) { tusb_init(); }
 
-static void run_1ms(void) {
+static void run_1ms(uint32_t cycle) {
     tud_task();
     while (tud_cdc_available()) {
         static uint8_t rx_buffer[RX_BUFFER_SIZE];
@@ -59,7 +59,7 @@ static void run_1ms(void) {
         if (packet_size == 0) {
             uint32_t count = tud_cdc_read(&remaining_bytes, 1);
             if (count == 0) {
-                fatal(ZERO_PACKET_SIZE);
+                fatal(FATAL_ZERO_PACKET_SIZE);
             }
             packet_size = remaining_bytes;
         }
@@ -73,7 +73,7 @@ static void run_1ms(void) {
         Request request     = Request_init_zero;
         pb_istream_t stream = pb_istream_from_buffer(rx_buffer, packet_size);
         if (!pb_decode(&stream, Request_fields, &request)) {
-            fatal(BAD_PB_DECODE);
+            fatal(FATAL_BAD_PB_DECODE);
         }
 
         packet_size = 0;

@@ -16,7 +16,7 @@ registers:
     fields:
       SHUTDOWN:
         access: rw
-        offset: 1
+        offset: 0
         size: 1
       OS_COMP_INT:
         access: rw

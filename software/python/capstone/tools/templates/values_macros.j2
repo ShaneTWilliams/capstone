@@ -1,3 +1,7 @@
-{% macro pack_packet_sig(packet) -%}
-void pack_{{ packet.lower() }}(void)
+{% macro pack_packet_sig(packet_num) -%}
+void pack_downlink_packet_{{ packet_num }}(uint8_t* buffer)
+{%- endmacro %}
+
+{% macro unpack_packet_sig(packet_num) %}
+void unpack_uplink_packet_{{ packet_num }}(const uint8_t* buffer)
 {%- endmacro %}

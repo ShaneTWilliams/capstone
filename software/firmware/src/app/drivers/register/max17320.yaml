@@ -239,7 +239,7 @@ registers:
         offset: 0
         size: 16
         type: PERCENTAGE
-  AV_SOC:
+  AVG_SOC:
     address: 0x0E
     size: 2
     fields:
@@ -502,6 +502,7 @@ registers:
         access: r
         offset: 0
         size: 16
+        type: TEMPERATURE_C
   FULL_CAP:
     address: 0x35
     size: 2

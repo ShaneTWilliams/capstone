@@ -11,6 +11,7 @@
 #define ADC_RESOLUTION (1U << 12U)
 
 #define VOLTS_FROM_RAW(raw) ((float)(raw)*ADC_VREF / (float)ADC_RESOLUTION)
+#define TEMP_FROM_VOLTS(v)  (27 - (((float)(v)-0.706) / 0.001721))
 
 typedef enum {
     MCU_SELECT_MOTOR_CS = 0,
@@ -41,7 +42,7 @@ static void init(void) {
     write_sels(EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS);
 }
 
-static void run_100ms(void) {
+static void run_100ms(uint32_t cycle) {
     switch (current_sel) {
         case EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS:
             adc_select_input(MCU_SELECT_LV_CS);
@@ -76,12 +77,11 @@ static void run_100ms(void) {
             break;
 
         default:
-            fatal(UNREACHABLE);
+            fatal(FATAL_UNREACHABLE);
     }
 
     adc_select_input(MCU_SELECT_TEMP);
-    float conv_voltage = VOLTS_FROM_RAW(adc_read());
-    values.mcu_temp    = 27 - (((float)conv_voltage - 0.706) / 0.001721);
+    values.mcu_temp = TEMP_FROM_VOLTS(VOLTS_FROM_RAW(adc_read()));
 }
 
 module_t adc_module = {
