@@ -47,6 +47,42 @@ values:
       hex: false
     unit: ms
 
+  DEBUG_32_FL:
+    origin: drone
+    display: Debug 32 FL
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+  DEBUG_32_FR:
+    origin: drone
+    display: Debug 32 FR
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+  DEBUG_32_RL:
+    origin: drone
+    display: Debug 32 RL
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+  DEBUG_32_RR:
+    origin: drone
+    display: Debug 32 RR
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
 ##########################
 ##### CONTROL INPUTS #####
 ##########################

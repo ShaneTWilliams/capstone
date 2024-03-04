@@ -92,8 +92,8 @@ class Drone:
                     break
 
     def start(self):
-        #self.usb_thread.start()
-        self.radio_thread.start()
+        self.usb_thread.start()
+        #self.radio_thread.start()
 
     def stop(self):
         self.running = False

@@ -74,7 +74,7 @@ ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
-ENVOY = "./envoy-1.29.1-linux-aarch_64"
+ENVOY = "envoy"  # "./envoy-1.29.1-linux-aarch_64"
 
 # Binaries
 APP_ELF = os.path.join(BUILD_DIR, "app.elf")
