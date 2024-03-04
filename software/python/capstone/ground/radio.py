@@ -1,7 +1,7 @@
 from serial.tools import list_ports
 import serial
 
-class Radio:
+class UARTRadio:
     def __init__(self, baudrate=115200):
         ports = list_ports.comports()
         self.devs = []
@@ -22,3 +22,13 @@ class Radio:
             if dev.in_waiting > 0:
                 return dev.read()
         return None
+
+class Radio:
+    def __init__(self):
+        pass
+
+    def send(self, data):
+        print(data)
+
+    def recv(self):
+        return bytes()

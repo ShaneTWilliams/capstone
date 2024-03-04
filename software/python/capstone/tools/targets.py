@@ -55,7 +55,8 @@ OPENOCD_TCL_DIR = os.path.join(OPENOCD_DIR, "tcl")
 DRIVERS_YAML_DIR = os.path.join(APP_SRC_DIR, "drivers")
 CMD_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "command")
 REG_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "register")
-GENERATED_DIR = os.path.join(APP_SRC_DIR, "generated")
+C_GENERATED_DIR = os.path.join(APP_SRC_DIR, "generated")
+PY_GENERATED_DIR = os.path.join(PYTHON_PACKAGE_DIR, "drivers")
 VALUES_YAML_DIR = os.path.join(SOFTWARE_DIR, "values")
 FRONTEND_DIR = os.path.join(SOFTWARE_DIR, "frontend")
 FRONTEND_PROTO_DIR = os.path.join(FRONTEND_DIR, "proto")
@@ -73,7 +74,7 @@ ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
-ENVOY = "envoy"
+ENVOY = "./envoy-1.29.1-linux-aarch_64"
 
 # Binaries
 APP_ELF = os.path.join(BUILD_DIR, "app.elf")
@@ -211,11 +212,11 @@ def proto_unpack_value(proto_msg, tag):
 
 
 def values_helper():
-    if not os.path.exists(GENERATED_DIR):
-        os.makedirs(GENERATED_DIR)
+    if not os.path.exists(C_GENERATED_DIR):
+        os.makedirs(C_GENERATED_DIR)
 
-    c = os.path.join(GENERATED_DIR, "values.c")
-    h = os.path.join(GENERATED_DIR, "values.h")
+    c = os.path.join(C_GENERATED_DIR, "values.c")
+    h = os.path.join(C_GENERATED_DIR, "values.h")
     proto = os.path.join(PROTO_DIR, "values.proto")
     python = os.path.join(PYTHON_PACKAGE_DIR, "values.py")
     output_files = [c, h]
@@ -274,7 +275,7 @@ def clean(hard):
     remove_dir(os.path.join(PYTHON_PACKAGE_DIR, "__pycache__"))
     remove_dir(os.path.join(SOFTWARE_DIR, "build"))
     remove_dir(PYTHON_PROTO_DIR)
-    remove_dir(GENERATED_DIR)
+    remove_dir(C_GENERATED_DIR)
     for path in Path(PYTHON_PACKAGE_DIR).rglob("__pycache__"):
         remove_dir(path.absolute())
     if hard:
@@ -500,8 +501,10 @@ def lint(code):
 
 @click.command()
 def drivers():
-    if not os.path.exists(GENERATED_DIR):
-        os.makedirs(GENERATED_DIR)
+    if not os.path.exists(C_GENERATED_DIR):
+        os.makedirs(C_GENERATED_DIR)
+    if not os.path.exists(PY_GENERATED_DIR):
+        os.makedirs(PY_GENERATED_DIR)
 
     reg_dev_yaml_filenames = [
         os.path.join(REG_DEV_YAML_DIR, f)
@@ -514,32 +517,50 @@ def drivers():
         if os.path.isfile(os.path.join(CMD_DEV_YAML_DIR, f)) and f.endswith(".yaml")
     ]
 
-    def generate(filename, GeneratorClass):
+    c_files = []
+    py_files = []
+
+    def generate(filename, GeneratorClass, py=False):
         click.secho(f"Generating driver code for {filename}")
+        generated_files = []
         with open(filename, "r", encoding="ascii") as file:
             driver_yaml = yaml.safe_load(file)
             driver_gen = GeneratorClass(driver_yaml)
+
             output_filename = Path(filename).stem
-            c_file = os.path.join(GENERATED_DIR, f"{output_filename}.c")
-            h_file = os.path.join(GENERATED_DIR, f"{output_filename}.h")
+            c_file = os.path.join(C_GENERATED_DIR, f"{output_filename}.c")
+            h_file = os.path.join(C_GENERATED_DIR, f"{output_filename}.h")
             with open(c_file, "w") as f:
                 f.write(driver_gen.generate_source())
             with open(h_file, "w") as f:
                 f.write(driver_gen.generate_header())
-        output_files.extend([c_file, h_file])
+            c_files.extend([c_file, h_file])
+            if py:
+                py_file = os.path.join(PY_GENERATED_DIR, f"{output_filename}.py")
+                with open(py_file, "w") as f:
+                    f.write(driver_gen.generate_py())
+                py_files.append(py_file)
 
-    output_files = []
+    c_files = []
+    py_files = []
     for filename in cmd_dev_yaml_filenames:
-        generate(filename, CommandDriverGenerator)
+        generate(filename, CommandDriverGenerator, py=True)
+
     for filename in reg_dev_yaml_filenames:
         generate(filename, RegisterDriverGenerator)
 
     click.secho("Successfully generated driver code", bold=True, fg="green")
     run_cmd(
-        ["clang-format", "-i", "-style=file", "-verbose"] + output_files,
+        ["clang-format", "-i", "-style=file", "-verbose"] + c_files,
         "Failed to format generated drivers",
     )
-    click.secho("Successfully formatted driver code", bold=True, fg="green")
+    click.secho("Successfully formatted C driver code", bold=True, fg="green")
+    run_cmd(
+        ["isort", "--profile=black", PY_GENERATED_DIR],
+        "Failed to isort Python code",
+    )
+    run_cmd(["black"] + py_files, "Failed to format Python code")
+    click.secho("Successfully formatted Python driver code", bold=True, fg="green")
 
 
 @click.command()

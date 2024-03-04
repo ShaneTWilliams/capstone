@@ -14,7 +14,6 @@ setup(
         "click",
         "black",
         "clang-format",
-        "curses",
         "grpcio-tools",
         "grpcio",
         "isort",
@@ -24,6 +23,12 @@ setup(
         "pysdl2",
         "pysdl2-dll"
     ],
+    extras_require={
+        "pi": [
+            "RPi.GPIO",
+            "spidev"
+        ]
+    },
     entry_points={
         "console_scripts": [
             "capstone = capstone.tools.targets:main",

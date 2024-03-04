@@ -23,7 +23,7 @@ class Drone:
         self.radio_thread = threading.Thread(target=self.radio_thread_func)
         self.running = True
         self.values = values
-        #self.radio = Radio()
+        self.radio = Radio()
 
     def try_connect(self):
         ports = list_ports.comports()
@@ -92,14 +92,14 @@ class Drone:
                     break
 
     def start(self):
-        self.usb_thread.start()
-        #self.radio_thread.start()
+        #self.usb_thread.start()
+        self.radio_thread.start()
 
     def stop(self):
         self.running = False
         try:
-            self.usb_thread.join()
-            #self.radio_thread.join()
+            #self.usb_thread.join()
+            self.radio_thread.join()
         except KeyboardInterrupt:
             pass
 
