@@ -21,6 +21,9 @@ static uint16_t reg16;
 static uint32_t reg32;
 
 static void i2c_write_8(uint8_t addr, uint8_t reg, uint8_t val) {
+    if (addr == I2C_ADDRESS_MTR_IOX) {
+        return;
+    }
     tx_buf[0] = reg;
     tx_buf[1] = val;
     i2c_write_blocking(HP_I2C, addr, tx_buf, 1U + sizeof(uint8_t), false);

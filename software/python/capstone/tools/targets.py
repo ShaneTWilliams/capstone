@@ -18,6 +18,7 @@ from capstone.tools.flash import flash as flash_usb
 from capstone.tools.usb import prompt_and_get_board, send_request
 from capstone.tools.values import ValuesGenerator
 from grpc_tools.protoc import main as grpc_main
+from capstone.usb.usb import main as usb_main
 
 #####################################
 ############### PATHS ###############
@@ -74,7 +75,7 @@ ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
-ENVOY = "envoy"  # "./envoy-1.29.1-linux-aarch_64"
+ENVOY = "./envoy-1.29.1-linux-aarch_64"
 
 # Binaries
 APP_ELF = os.path.join(BUILD_DIR, "app.elf")
@@ -569,6 +570,11 @@ def generate_values():
 
 
 @click.command()
+def usb():
+    usb_main()
+
+
+@click.command()
 def ground():
     from capstone.ground.server import main as ground_station_main
 
@@ -581,7 +587,7 @@ def ground():
         stderr=subprocess.PIPE,
         stdin=subprocess.PIPE,
     ) as envoy:
-        ground_station_main(VALUES)
+        ground_station_main()
         envoy.kill()
 
 
@@ -716,6 +722,7 @@ def main():
     cli.add_command(drivers)
     cli.add_command(generate_values, "values")
     cli.add_command(ground)
+    cli.add_command(usb)
     cli.add_command(grpc_get, "get")
     cli.add_command(grpc_set, "set")
     cli.add_command(watch)
