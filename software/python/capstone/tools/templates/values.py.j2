@@ -21,16 +21,24 @@ def pack_bool(value_name, value):
     return 1 if value else 0
 
 def pack_decimal(value_name, value):
+    if value is None:
+        return 0
     cfg = VALUE_CONFIGS[value_name]
     return int(value + cfg["min"] / cfg["lsb"])
 
 def pack_uint(value_name, value):
+    if value is None:
+        return 0
     return int(value & ((1 << VALUE_CONFIGS[value_name]["size"]) - 1))
 
 def pack_enum(value_name, value):
+    if value is None:
+        return 0
     return pack_uint(value)
 
 def pack_int(value_name, value):
+    if value is None:
+        return 0
     return (value - VALUE_CONFIGS[value_name]["min"])
 
 {% for name, config in values.items() %}
@@ -104,10 +112,10 @@ class CurrentValues:
 
 {% for packet in uplink_packets %}
     def pack_uplink_packet_{{ loop.index0 }}(self):
-        ret = [0] * {{ get_packet_size(loop.index0, 'uplink') }}
+        ret = [0] * {{ ceil(get_packet_size(loop.index0, 'uplink') / 8) }}
 
     {% for value in packet %}
-        packed_{{ value.lower() }} = pack_{{values[value].type.base}}("{{ value }}", self._values[ValueTag.{{ value }}])
+        packed_{{ value.lower() }} = pack_{{values[value].type.base}}("{{ value.lower() }}", self._values[ValueTag.{{ value }}])
     {% endfor %}
 
     {% set outer_loop = loop %}
@@ -120,7 +128,7 @@ class CurrentValues:
         )
     {% endfor %}
 
-        return bytearray(ret)
+        return ret
 {% endfor %}
 
     def unpack_downlink_packet(self, packet, packet_num):

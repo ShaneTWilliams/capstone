@@ -13,15 +13,19 @@ from capstone.tools.usb import send_request
 from capstone.values import CurrentValues, ValueTag
 from google.protobuf.empty_pb2 import Empty
 from capstone.ground.radio import SX1262Radio
-from capstone.ground.io import CapstoneGPIO, CapstoneSPI, CapstonePin
+from capstone.ground.io import CapstoneGPIO, CapstoneSPI, CapstonePin, GPS_UART_DEV, GPS_UART_BAUD
 
 current_values = CurrentValues()
 
 
 class BaseStation:
     def __init__(self):
-        self.radio_thread = threading.Thread(target=self.radio_thread_func)
+        self.thread_funcs = [
+            # self.radio_thread_func,
+            self.gps_thread_func
+        ]
         self.running = True
+        self.threads = []
 
     def radio_thread_func(self):
         from capstone import values
@@ -35,7 +39,8 @@ class BaseStation:
 
         count = 0
         while self.running:
-            self.radio.transmit([1, 2, 3, 4, 5, 6, 7, 8])
+            tx_data = current_values.pack_uplink_packet_0()
+            self.radio.transmit(tx_data)
             while not self.radio.tx_done():
                 pass
             tx_time = time.time()
@@ -45,26 +50,48 @@ class BaseStation:
                 if not self.radio.rx_done():
                     continue
 
-                recv_data = self.radio.get_receive_data()
-                print(bytes(recv_data).hex(), f"{count:05}")
+                rx_data = self.radio.get_receive_data()
+                print(bytes(rx_data).hex(), f"{count:05}")
                 try:
-                    current_values.unpack_downlink_packet(recv_data[1:9], int(recv_data[0]))
+                    current_values.unpack_downlink_packet(rx_data[1:9], int(rx_data[0]))
                 except KeyError as e:
                     click.secho(f"Unknown tag: {e}", bold=True, fg="red")
                 count += 1
-                recv_data = bytearray()
-                print(current_values._values)
                 break
 
+    def gps_thread_func(self):
+        dev = serial.Serial(GPS_UART_DEV, baudrate=GPS_UART_BAUD)
+        gps_pin = CapstoneGPIO(CapstonePin.GPS_RESET)
+        gps_pin.set(False)
+        time.sleep(0.01)
+        gps_pin.set(True)
+
+        while self.running:
+            try:
+                line = dev.readline().decode("ascii").split(",")
+            except UnicodeDecodeError:
+                continue
+            if line[0] == "$GNGGA":
+                try:
+                    current_values.set(ValueTag.BASE_LATITUDE, float(line[2]))
+                    current_values.set(ValueTag.BASE_LONGITUDE, float(line[4]))
+                except Exception as e:
+                    print(e)
+                    continue
+
     def start(self):
-        self.radio_thread.start()
+        for thread_func in self.thread_funcs:
+            self.threads.append(threading.Thread(target=thread_func))
+        
+        for thread in self.threads:
+            thread.start()
+
 
     def stop(self):
         self.running = False
-        try:
-            self.radio_thread.join()
-        except KeyboardInterrupt:
-            pass
+        for thread in self.threads:
+            thread.join()
+
 
 
 def main():

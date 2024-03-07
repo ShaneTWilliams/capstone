@@ -1,6 +1,8 @@
+from enum import IntEnum
+import time
+
 import RPi.GPIO as gpio_lib
 from spidev import SpiDev
-from enum import IntEnum
 
 from capstone.drivers.sx1262 import *
 
@@ -30,7 +32,7 @@ class CapstonePin(IntEnum):
     VIDEO_CH2 = 26
     VIDEO_CH3 = 27
     
-__GPIO_CONFIGS = {
+_GPIO_CONFIGS = {
     CapstonePin.DIGITAL_RADIO_DIO1: {
         "mode": gpio_lib.IN
     },
@@ -74,13 +76,21 @@ __GPIO_CONFIGS = {
     },
 }
 
+gpio_lib.setmode(gpio_lib.BCM)
+gpio_lib.setwarnings(False)
+
+for io, cfg in _GPIO_CONFIGS.items():
+    gpio_lib.setup(io, cfg["mode"])
+    if cfg["mode"] == gpio_lib.OUT:
+        gpio_lib.output(io, cfg["default"])
+
 
 class CapstoneGPIO:
     def __init__(self, pin):
         self.pin = pin
 
     def set(self, state):
-        if self.__GPIO_CONFIGS[pin]["mode"] != gpio_lib.OUT:
+        if _GPIO_CONFIGS[self.pin]["mode"] != gpio_lib.OUT:
             raise RuntimeException("Can't set input pin state")
         gpio_lib.output(self.pin, state)
 
@@ -106,44 +116,5 @@ class CapstoneSPI:
     def xfer(self, data):
         return self.bus.xfer(data)
 
-
-class SX1262:
-    def __init__(self, busy, spi):
-        self.spi = spi
-        self.busy = busy
-    
-    def xfer(self, tx):
-        rx = self.spi.xfer(tx)
-        while self.busy.get():
-            pass
-        return rx
-
-XTAL_FREQ = 32_000_000
-RF_FREQUENCY = 915_000_000
-RF_FREQUENCY_REG = int((RF_FREQUENCY) * (1 << 25) / XTAL_FREQ)
-
-if __name__ == "__main__":
-    gpio_lib.setmode(gpio_lib.BCM)
-    gpio_lib.setwarnings(False)
-
-    for io, cfg in self.__GPIO_CONFIGS.items():
-        gpio_lib.setup(io, cfg["mode"])
-        if cfg["mode"] == gpio_lib.OUT:
-            gpio_lib.output(io, cfg["default"])
-
-    busy = CapstoneGPIO(CapstonePin.DIGITAL_RADIO_BUSY)
-    spi = CapstoneSPI()
-    radio = SX1262(busy, spi)
-
-    radio.xfer(sx1262_pack_set_packet_type(Sx1262PacketType.SX1262_LORA))
-    radio.xfer(sx1262_pack_set_rf_frequency(RF_FREQUENCY_REG))
-    radio.xfer(sx1262_pack_set_pa_config(Sx1262PaConfig.SX1262_SX1262_22_DBM))
-    radio.xfer(sx1262_pack_set_tx_params(22, Sx1262RampTimeUs.SX1262_80))
-    radio.xfer(sx1262_pack_set_buffer_base_addr(0, 128))
-    radio.xfer(sx1262_pack_set_lora_modulation_params(Sx1262Sf.SX1262_SF5, Sx1262LoraBw.SX1262_500_KHZ, Sx1262Cr.SX1262_45, False))
-    radio.xfer(sx1262_pack_set_lora_packet_params(4, Sx1262LoraHeaderType.SX1262_IMPLICIT, 9, False, False))
-    radio.xfer(sx1262_pack_set_dio2_as_rf_switch_ctrl(True))
-    radio.xfer(sx1262_set_tx(0))
-
-    while True:
-        print(radio.xfer(sx1262_get_status()))
+GPS_UART_DEV = "/dev/ttyAMA0"
+GPS_UART_BAUD = 9600

@@ -322,41 +322,41 @@ values:
 ##### GPS READINGS #####
 ########################
 
-  LATITUDE:
+  DRONE_LATITUDE:
     origin: drone
-    display: Latitude
+    display: Drone Latitude
     type:
       base: decimal
       min: -90
       max: 90
       lsb: 0.00001
-  LONGITUDE:
+  DRONE_LONGITUDE:
     origin: drone
-    display: Longitude
+    display: Drone Longitude
     type:
       base: decimal
       min: 0
       max: 180
       lsb: 0.00001
-  UTC_TIME_H:
+  DRONE_UTC_TIME_H:
     origin: drone
-    display: UTC Time
+    display: Drone UTC Hours
     type:
       base: int
       hex: false
       min: 0
       max: 23
-  UTC_TIME_M:
+  DRONE_UTC_TIME_M:
     origin: drone
-    display: UTC Time
+    display: Drone UTC Minutes
     type:
       base: int
       hex: false
       min: 0
       max: 59
-  UTC_TIME_S:
+  DRONE_UTC_TIME_S:
     origin: drone
-    display: UTC Time
+    display: Drone UTC Seconds
     type:
       base: int
       hex: false
@@ -553,6 +553,27 @@ values:
     type:
       base: bool
 
+###############################
+##### BASE STATION VALUES #####
+###############################
+
+  BASE_LATITUDE:
+    origin: drone
+    display: Drone Latitude
+    type:
+      base: decimal
+      min: -90
+      max: 90
+      lsb: 0.00001
+  BASE_LONGITUDE:
+    origin: drone
+    display: Drone Longitude
+    type:
+      base: decimal
+      min: 0
+      max: 180
+      lsb: 0.00001
+
 ############################
 ##### ENUM DEFINITIONS #####
 ############################
@@ -599,11 +620,11 @@ categories:
     - CHARGE_INPUT_PRESENT
     - CHARGE_FAULT
   GPS:
-    - LATITUDE
-    - LONGITUDE
-    - UTC_TIME_H
-    - UTC_TIME_M
-    - UTC_TIME_S
+    - DRONE_LATITUDE
+    - DRONE_LONGITUDE
+    - DRONE_UTC_TIME_H
+    - DRONE_UTC_TIME_M
+    - DRONE_UTC_TIME_S
   IMU:
     - XL_X
     - XL_Y
