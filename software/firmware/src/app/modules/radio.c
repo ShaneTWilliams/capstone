@@ -123,6 +123,8 @@ void run_1ms(uint32_t cycle) {
         sx1262_pack_read_buffer(tx_buf, 128U);
         spi_xfer(3 + 9);
 
+        unpack_uplink_packet_0(&rx_buf[3]);
+
         tx_buf[2] = downlink_packet;
         pack_downlink_packet(downlink_packet, tx_buf + 3U);
         transmit(downlink_packet_lengths[downlink_packet] + 1U);

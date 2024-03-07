@@ -66,7 +66,7 @@ static void init(void) {
 }
 
 static void run_10ms(uint32_t cycle) {
-    if (values.ignition) {
+    if (false) {
         float target_speed =
             MIN(MAX(values.throttle * (1.0f - IDLE_SPEED) + IDLE_SPEED, IDLE_SPEED), 1.0f);
         if (target_speed > actual_speed) {

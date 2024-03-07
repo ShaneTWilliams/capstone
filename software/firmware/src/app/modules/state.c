@@ -22,7 +22,6 @@ static void _enter_sleep(void) {
     set_iox_gpio_output_state(IOX_GPIO_LED_SHDN, false);
     set_iox_gpio_output_state(IOX_GPIO_GPS_RESET, false);
     set_iox_gpio_output_state(IOX_GPIO_MUX_EN, true);
-    set_iox_gpio_output_state(IOX_GPIO_SX_RESET, false);
     set_iox_gpio_output_state(IOX_GPIO_50_EN, false);
     set_buzzer(BUZZER_SEQ_ENTER_SLEEP);
 }
@@ -31,7 +30,6 @@ static void _exit_sleep(void) {
     set_iox_gpio_output_state(IOX_GPIO_LED_SHDN, true);
     set_iox_gpio_output_state(IOX_GPIO_GPS_RESET, true);
     set_iox_gpio_output_state(IOX_GPIO_MUX_EN, false);
-    set_iox_gpio_output_state(IOX_GPIO_SX_RESET, true);
     set_iox_gpio_output_state(IOX_GPIO_50_EN, true);
     set_buzzer(BUZZER_SEQ_EXIT_SLEEP);
 }

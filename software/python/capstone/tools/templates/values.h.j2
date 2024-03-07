@@ -53,6 +53,10 @@ typedef enum {
 {{ value_macro.pack_packet_sig(loop.index0) }};
 {% endfor %}
 
+{% for packet in uplink_packets %}
+{{ value_macro.unpack_packet_sig(loop.index0) }};
+{% endfor %}
+
 void pack_downlink_packet(downlink_packet_t packet, uint8_t* buffer);
 
 extern values_t values;
