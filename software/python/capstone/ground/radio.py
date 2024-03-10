@@ -56,9 +56,10 @@ class SX1262Radio:
         self.xfer(sx1262_pack_set_pa_config(Sx1262PaConfig.SX1262_SX1262_14_DBM))
         self.xfer(sx1262_pack_set_tx_params(14, Sx1262RampTimeUs.SX1262_80))
         self.xfer(sx1262_pack_set_buffer_base_addr(0, 128))
-        self.xfer(sx1262_pack_set_lora_modulation_params(Sx1262Sf.SX1262_SF5, Sx1262LoraBw.SX1262_500_KHZ, Sx1262Cr.SX1262_45, False))
-        self.xfer(sx1262_pack_set_lora_packet_params(4, Sx1262LoraHeaderType.SX1262_IMPLICIT, self.__PACKET_SIZE, False, False))
+        self.xfer(sx1262_pack_set_lora_modulation_params(Sx1262Sf.SX1262_SF7, Sx1262LoraBw.SX1262_500_KHZ, Sx1262Cr.SX1262_47, False))
+        self.xfer(sx1262_pack_set_lora_packet_params(4, Sx1262LoraHeaderType.SX1262_EXPLICIT, self.__PACKET_SIZE, True, False))
         self.xfer(sx1262_pack_set_dio2_as_rf_switch_ctrl(True))
+        self.xfer([0x08, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
 
     def transmit(self, data):
         buffer = [SX1262_WRITE_BUFFER_OPCODE, 0] + data
@@ -70,6 +71,14 @@ class SX1262Radio:
         self.xfer(sx1262_pack_set_rx(0))
 
     def get_receive_data(self):
+        data = self.xfer(sx1262_pack_get_irq_status())
+        irqs = sx1262_unpack_get_irq_status(data)
+        if irqs["header_error"] or irqs["crc_error"]:
+            self.xfer(sx1262_pack_clear_irq_status(
+                False, False, False, False, False, True, True, False, False, False
+            ))
+            return []
+            
         return self.xfer([SX1262_READ_BUFFER_OPCODE, 128] + [0] * (self.__PACKET_SIZE + 3))[3:]
 
     def get_rssi(self):

@@ -24,7 +24,7 @@ def pack_decimal(value_name, value):
     if value is None:
         return 0
     cfg = VALUE_CONFIGS[value_name]
-    return int(value + cfg["min"] / cfg["lsb"])
+    return int((value + cfg["min"]) / cfg["lsb"])
 
 def pack_uint(value_name, value):
     if value is None:

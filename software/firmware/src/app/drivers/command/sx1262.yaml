@@ -500,6 +500,44 @@ commands:
           type: STATUS_CHIP_MODE
         TX_DONE:
           size: 1
+          offset: 24
+        RX_DONE:
+          size: 1
+          offset: 25
+        PREAMBLE_DETECTED:
+          size: 1
+          offset: 26
+        SYNC_WORD_VALID:
+          size: 1
+          offset: 27
+        HEADER_VALID:
+          size: 1
+          offset: 28
+        HEADER_ERROR:
+          size: 1
+          offset: 29
+        CRC_ERROR:
+          size: 1
+          offset: 30
+        CAD_DONE:
+          size: 1
+          offset: 31
+        CAD_DETECTED:
+          size: 1
+          offset: 16
+        TIMEOUT:
+          size: 1
+          offset: 17
+  CLEAR_IRQ_STATUS:
+    tx:
+      size: 3
+      fields:
+        OPCODE:
+          size: 8
+          offset: 0
+          value: 0x02
+        TX_DONE:
+          size: 1
           offset: 16
         RX_DONE:
           size: 1
@@ -524,54 +562,10 @@ commands:
           offset: 23
         CAD_DETECTED:
           size: 1
-          offset: 24
-        TIMEOUT:
-          size: 1
-          offset: 25
-        LR_FHSS_HOP:
-          size: 1
-          offset: 30
-  CLEAR_IRQ_STATUS:
-    tx:
-      size: 3
-      fields:
-        OPCODE:
-          size: 8
-          offset: 0
-          value: 0x02
-        TX_DONE:
-          size: 1
           offset: 8
-        RX_DONE:
+        TIMEOUT:
           size: 1
           offset: 9
-        PREAMBLE_DETECTED:
-          size: 1
-          offset: 10
-        SYNC_WORD_VALID:
-          size: 1
-          offset: 11
-        HEADER_VALID:
-          size: 1
-          offset: 12
-        HEADER_ERROR:
-          size: 1
-          offset: 13
-        CRC_ERROR:
-          size: 1
-          offset: 14
-        CAD_DONE:
-          size: 1
-          offset: 15
-        CAD_DETECTED:
-          size: 1
-          offset: 16
-        TIMEOUT:
-          size: 1
-          offset: 17
-        LR_FHSS_HOP:
-          size: 1
-          offset: 22
     rx:
       size: 0
       fields:

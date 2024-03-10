@@ -51,6 +51,8 @@ class BaseStation:
                     continue
 
                 rx_data = self.radio.get_receive_data()
+                if len(rx_data) == 0:
+                    break
                 print(bytes(rx_data).hex(), f"{count:05}")
                 try:
                     current_values.unpack_downlink_packet(rx_data[1:9], int(rx_data[0]))
