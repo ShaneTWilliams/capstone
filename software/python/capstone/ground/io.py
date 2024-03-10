@@ -16,7 +16,7 @@ class CapstonePin(IntEnum):
     DIGITAL_RADIO_MISO = 9
     DIGITAL_RADIO_MOSI = 10
     DIGITAL_RADIO_SCLK = 11
-    
+
     # GPS-01
     GPS_UART_RX = 14
     GPS_UART_TX = 15
@@ -31,7 +31,7 @@ class CapstonePin(IntEnum):
     VIDEO_CH1 = 25
     VIDEO_CH2 = 26
     VIDEO_CH3 = 27
-    
+
 _GPIO_CONFIGS = {
     CapstonePin.DIGITAL_RADIO_DIO1: {
         "mode": gpio_lib.IN

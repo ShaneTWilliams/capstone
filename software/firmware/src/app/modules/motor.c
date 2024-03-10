@@ -34,11 +34,28 @@ typedef struct {
 } motor_config_t;
 
 motor_config_t motor_config[MOTOR_COUNT] = {
-    [MOTOR_FL] = {.pin = PIN_NUM_MTR_FL_SPEED},
-    [MOTOR_FR] = {.pin = PIN_NUM_MTR_FR_SPEED},
-    [MOTOR_RL] = {.pin = PIN_NUM_MTR_RL_SPEED},
-    [MOTOR_RR] = {.pin = PIN_NUM_MTR_RR_SPEED},
+    [MOTOR_FL] = {
+        .pin = PIN_NUM_MTR_FL_SPEED,
+        .slice = (PIN_NUM_MTR_FL_SPEED >> 1U) & 7U,
+        .chan = PIN_NUM_MTR_FL_SPEED & 1U,
+    },
+    [MOTOR_FR] = {
+        .pin = PIN_NUM_MTR_FR_SPEED,
+        .slice = (PIN_NUM_MTR_FR_SPEED >> 1U) & 7U,
+        .chan = PIN_NUM_MTR_FR_SPEED & 1U,
+    },
+    [MOTOR_RL] = {
+        .pin = PIN_NUM_MTR_RL_SPEED,
+        .slice = (PIN_NUM_MTR_RL_SPEED >> 1U) & 7U,
+        .chan = PIN_NUM_MTR_RL_SPEED & 1U,
+    },
+    [MOTOR_RR] = {
+        .pin = PIN_NUM_MTR_RR_SPEED,
+        .slice = (PIN_NUM_MTR_RR_SPEED >> 1U) & 7U,
+        .chan = PIN_NUM_MTR_RR_SPEED & 1U,
+    },
 };
+
 motor_t startup_state = (motor_t)0U;
 uint32_t startup_timer = 0U;
 
@@ -51,8 +68,6 @@ void set_speed(float speed_pct, motor_t motor) {
 static void init(void) {
     for (motor_t motor = 0; motor < MOTOR_COUNT; motor++) {
         gpio_set_function(motor_config[motor].pin, GPIO_FUNC_PWM);
-        motor_config[motor].slice = pwm_gpio_to_slice_num(motor_config[motor].pin);
-        motor_config[motor].chan = pwm_gpio_to_channel(motor_config[motor].pin);
 
         uint32_t sys_freq_hz = clock_get_hz(clk_sys);
         uint32_t count       = sys_freq_hz / PWM_FREQ / PWM_CLKDIV;
@@ -66,7 +81,7 @@ static void init(void) {
 }
 
 static void run_10ms(uint32_t cycle) {
-    if (false) {
+    if (values.ignition) {
         float target_speed =
             MIN(MAX(values.throttle * (1.0f - IDLE_SPEED) + IDLE_SPEED, IDLE_SPEED), 1.0f);
         if (target_speed > actual_speed) {

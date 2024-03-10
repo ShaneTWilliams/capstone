@@ -21,9 +21,6 @@ static uint16_t reg16;
 static uint32_t reg32;
 
 static void i2c_write_8(uint8_t addr, uint8_t reg, uint8_t val) {
-    if (addr == I2C_ADDRESS_MTR_IOX) {
-        return;
-    }
     tx_buf[0] = reg;
     tx_buf[1] = val;
     i2c_write_blocking(HP_I2C, addr, tx_buf, 1U + sizeof(uint8_t), false);
@@ -263,7 +260,7 @@ static void run_100ms(uint32_t cycle) {
 
     for (int addr = 0x60; addr < 0x64; addr++) {
         // Auto-clear faults.
-        bool bst_uv_fault, ocp_vds_fault, drv_off, mtr_lck, loss_of_sync;
+        bool bst_uv_fault, ocp_vds_fault, drv_off, mtr_lck, loss_of_sync, lock_ilimit;
 
         reg32 = mct8329a_read_32(addr, MCT8329A_INPUT_DUTY_ADDRESS);
         reg32 = mct8329a_read_32(addr, MCT8329A_CURR_DUTY_ADDRESS);
@@ -275,7 +272,7 @@ static void run_100ms(uint32_t cycle) {
         );
         reg32 = mct8329a_read_32(addr, MCT8329A_CONTROLLER_FAULT_STATUS_ADDRESS);
         get_mct8329a_controller_fault_status(
-            reg32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &mtr_lck, NULL, &loss_of_sync, NULL,
+            reg32, NULL, NULL, NULL, NULL, NULL, &lock_ilimit, NULL, &mtr_lck, NULL, &loss_of_sync, NULL,
             NULL, NULL, NULL
         );
 
@@ -284,10 +281,10 @@ static void run_100ms(uint32_t cycle) {
             mct8329a_write_32(addr, MCT8329A_ALGO_CTRL1_ADDRESS, reg32);
         }
     }
-    values.debug_32_fl = mct8329a_read_32(I2C_ADDRESS_MTR_FL, 0xe2);
-    values.debug_32_fr = mct8329a_read_32(I2C_ADDRESS_MTR_FR, 0xe2);
-    values.debug_32_rl = mct8329a_read_32(I2C_ADDRESS_MTR_RL, 0xe2);
-    values.debug_32_rr = mct8329a_read_32(I2C_ADDRESS_MTR_RR, 0xe2);
+    values.debug_32_fl = mct8329a_read_32(I2C_ADDRESS_MTR_FL, 0xe0);
+    values.debug_32_fr = mct8329a_read_32(I2C_ADDRESS_MTR_FR, 0xe0);
+    values.debug_32_rl = mct8329a_read_32(I2C_ADDRESS_MTR_RL, 0xe0);
+    values.debug_32_rr = mct8329a_read_32(I2C_ADDRESS_MTR_RR, 0xe0);
 
     set_tca9539_output_port_0(
         &reg8, get_iox_gpio_output_state(IOX_PWR, IOX_PORT_0, IOX_PIN_0),

@@ -6,13 +6,14 @@ from concurrent import futures
 import click
 import grpc
 import serial
+from serial.tools import list_ports
 
 from capstone.constants import GRPC_SERVER_PORT
 from capstone.proto import ground_pb2_grpc
-from capstone.tools.usb import send_request
-from capstone.values import CurrentValues, ValueTag
+from capstone.values import CurrentValues, ValueTag, VALUE_CONFIGS
 from google.protobuf.empty_pb2 import Empty
 from capstone.ground.radio import SX1262Radio
+from capstone.tools.usb import send_request
 from capstone.ground.io import CapstoneGPIO, CapstoneSPI, CapstonePin, GPS_UART_DEV, GPS_UART_BAUD
 
 current_values = CurrentValues()
@@ -21,8 +22,9 @@ current_values = CurrentValues()
 class BaseStation:
     def __init__(self):
         self.thread_funcs = [
-            # self.radio_thread_func,
-            self.gps_thread_func
+            self.radio_thread_func,
+            self.gps_thread_func,
+            self.usb_thread_func
         ]
         self.running = True
         self.threads = []
@@ -81,10 +83,50 @@ class BaseStation:
                     print(e)
                     continue
 
+    def usb_thread_func(self):
+        from capstone import values
+        from capstone.proto.app_pb2 import Request, Response
+
+        def try_connect():
+            ports = list_ports.comports()
+            for port in ports:
+                if port.serial_number and port.serial_number.startswith("capstone-app-"):
+                    return serial.Serial(port.device)
+            return None
+
+        while self.running:
+            device = try_connect()
+            if device is not None:
+                click.secho("USB device connected", bold=True, fg="green")
+            while device is not None and self.running:
+                for tag in values.ValueTag:
+                    origin = VALUE_CONFIGS[tag]["origin"]
+                    if origin == "drone":
+                        request = Request()
+                        request.get.tag = int(tag)
+                    elif origin == "ground":
+                        request = Request()
+                        request.set.tag = int(tag)
+                        request.set.value.CopyFrom(current_values.get_proto(tag))
+                    else:
+                        continue  # Error?
+
+                    try:
+                        response = send_request(request, device, Response)
+                    except serial.serialutil.SerialException as e:
+                        click.secho("USB device disconnected", bold=True, fg="red")
+                        device = None
+                        break
+
+                    if origin == "drone":
+                        current_values.set_proto(tag, response.get.value)
+                time.sleep(0.1)
+            time.sleep(0.5)
+
     def start(self):
         for thread_func in self.thread_funcs:
             self.threads.append(threading.Thread(target=thread_func))
-        
+
         for thread in self.threads:
             thread.start()
 

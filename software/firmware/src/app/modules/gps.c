@@ -90,13 +90,13 @@ void parse_gga(void) {
     field_buf[2]      = '\0';
     field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][0];
     field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][1];
-    values.utc_time_h = atoi(field_buf);
+    values.drone_utc_time_h = atoi(field_buf);
     field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][2];
     field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][3];
-    values.utc_time_m = atoi(field_buf);
+    values.drone_utc_time_m = atoi(field_buf);
     field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][4];
     field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][5];
-    values.utc_time_s = atoi(field_buf);
+    values.drone_utc_time_s = atoi(field_buf);
 
     // Latitude.
     field_buf[9] = '\0';
@@ -104,7 +104,7 @@ void parse_gga(void) {
     field_buf[2] = '.';
     memcpy(field_buf + 3, sentence_fields[FIELD_INDEX_GGA_LATITUDE] + 2, 2);
     memcpy(field_buf + 5, sentence_fields[FIELD_INDEX_GGA_LATITUDE] + 5, 5);
-    values.latitude = atof(field_buf);
+    values.drone_latitude = atof(field_buf);
 
     // Longitude.
     field_buf[10] = '\0';
@@ -112,7 +112,7 @@ void parse_gga(void) {
     field_buf[3] = '.';
     memcpy(field_buf + 4, sentence_fields[FIELD_INDEX_GGA_LONGITUDE] + 3, 2);
     memcpy(field_buf + 6, sentence_fields[FIELD_INDEX_GGA_LONGITUDE] + 6, 5);
-    values.longitude = atof(field_buf);
+    values.drone_longitude = atof(field_buf);
 }
 
 void parse_sentence(void) {

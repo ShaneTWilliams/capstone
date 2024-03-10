@@ -18,7 +18,6 @@ from capstone.tools.flash import flash as flash_usb
 from capstone.tools.usb import prompt_and_get_board, send_request
 from capstone.tools.values import ValuesGenerator
 from grpc_tools.protoc import main as grpc_main
-from capstone.usb.usb import main as usb_main
 
 #####################################
 ############### PATHS ###############
@@ -75,7 +74,7 @@ ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
-ENVOY = "./envoy-1.29.1-linux-aarch_64"
+ENVOY = "envoy" # "./envoy-1.29.1-linux-aarch_64"
 
 # Binaries
 APP_ELF = os.path.join(BUILD_DIR, "app.elf")

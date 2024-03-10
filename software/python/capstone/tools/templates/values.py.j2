@@ -2,9 +2,16 @@ from enum import IntEnum
 from capstone.proto import values_pb2
 
 
+
+class ValueTag(IntEnum):
+{% for name, _ in values.items() %}
+    {{ name }} = {{ loop.index0 }}
+{% endfor %}
+
+
 VALUE_CONFIGS = {
 {% for value in values %}
-    "{{ value.lower() }}": {
+    ValueTag.{{ value }}: {
         "size": {{ get_value_size(value) }},
         "mask": (1 << {{ get_value_size(value) }} - 1),
         {% if values[value].type.base in ['int', 'decimal'] %}
@@ -13,33 +20,34 @@ VALUE_CONFIGS = {
         {% if values[value].type.base == 'decimal' %}
         "lsb": {{values[value].type.lsb}},
         {% endif %}
+        "origin": "{{ values[value].origin }}",
     },
 {% endfor %}
 }
 
-def pack_bool(value_name, value):
+def pack_bool(value_tag, value):
     return 1 if value else 0
 
-def pack_decimal(value_name, value):
+def pack_decimal(value_tag, value):
     if value is None:
         return 0
-    cfg = VALUE_CONFIGS[value_name]
+    cfg = VALUE_CONFIGS[value_tag]
     return int((value + cfg["min"]) / cfg["lsb"])
 
-def pack_uint(value_name, value):
+def pack_uint(value_tag, value):
     if value is None:
         return 0
-    return int(value & ((1 << VALUE_CONFIGS[value_name]["size"]) - 1))
+    return int(value & ((1 << VALUE_CONFIGS[value_tag]["size"]) - 1))
 
-def pack_enum(value_name, value):
+def pack_enum(value_tag, value):
     if value is None:
         return 0
     return pack_uint(value)
 
-def pack_int(value_name, value):
+def pack_int(value_tag, value):
     if value is None:
         return 0
-    return (value - VALUE_CONFIGS[value_name]["min"])
+    return (value - VALUE_CONFIGS[value_tag]["min"])
 
 {% for name, config in values.items() %}
     {% if config.type.base == "enum" %}
@@ -48,12 +56,6 @@ class {{ camel(name) }}(IntEnum):
     {{ enum }} = {{ loop.index0 }}
         {% endfor %}
     {% endif %}
-{% endfor %}
-
-
-class ValueTag(IntEnum):
-{% for name, _ in values.items() %}
-    {{ name }} = {{ loop.index0 }}
 {% endfor %}
 
 
@@ -99,7 +101,7 @@ class CurrentValues:
         temp |= ((packet[{{ byte }}] & ((1 << {{ size_in_byte }}) - 1)) {{ operator }} {{ shift|abs }})
         {% endfor %}
         {% if values[value].type.base == 'decimal' %}
-        temp = temp * VALUE_CONFIGS["{{ value.lower() }}"]["lsb"] + VALUE_CONFIGS["{{ value.lower() }}"]["min"]
+        temp = temp * VALUE_CONFIGS[ValueTag.{{ value }}]["lsb"] + VALUE_CONFIGS[ValueTag.{{ value.lower() }}]["min"]
         {% endif %}
         {% if values[value].type.base == 'enum' %}
         temp = {{ camel(value) }}(temp)
@@ -115,7 +117,7 @@ class CurrentValues:
         ret = [0] * {{ ceil(get_packet_size(loop.index0, 'uplink') / 8) }}
 
     {% for value in packet %}
-        packed_{{ value.lower() }} = pack_{{values[value].type.base}}("{{ value.lower() }}", self._values[ValueTag.{{ value }}])
+        packed_{{ value.lower() }} = pack_{{values[value].type.base}}(ValueTag.{{ value }}, self._values[ValueTag.{{ value }}])
     {% endfor %}
 
     {% set outer_loop = loop %}

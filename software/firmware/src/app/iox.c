@@ -76,7 +76,7 @@ static struct {
     [IOX_GPIO_33_PG]       = { .output_state = false,
                                .input_state  = false,
                                .direction    = TCA9539_DIRECTION_INPUT },
-    [IOX_GPIO_50_EN]       = { .output_state = false,
+    [IOX_GPIO_50_EN]       = { .output_state = true,
                                .input_state  = false,
                                .direction    = TCA9539_DIRECTION_OUTPUT },
 
@@ -115,7 +115,7 @@ static struct {
                                  .direction    = TCA9539_DIRECTION_OUTPUT },
 
     // PWR Port 1
-    [IOX_GPIO_MTR_FL_DIR]    = { .output_state = true,
+    [IOX_GPIO_MTR_FL_DIR]    = { .output_state = false,
                                  .input_state  = false,
                                  .direction    = TCA9539_DIRECTION_OUTPUT },
     [IOX_GPIO_MTR_FL_DRVOFF] = { .output_state = false,
@@ -149,7 +149,7 @@ static struct {
                                  .direction    = TCA9539_DIRECTION_INPUT },
 
     // MTR Port 1
-    [IOX_GPIO_MTR_FR_DIR]    = { .output_state = false,
+    [IOX_GPIO_MTR_FR_DIR]    = { .output_state = true,
                                  .input_state  = false,
                                  .direction    = TCA9539_DIRECTION_OUTPUT },
     [IOX_GPIO_MTR_FR_DRVOFF] = { .output_state = false,

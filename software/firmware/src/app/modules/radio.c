@@ -102,24 +102,48 @@ void init(void) {
     spi_xfer(SX1262_SET_BUFFER_BASE_ADDR_XFER_SIZE);
 
     sx1262_pack_set_lora_modulation_params(
-        tx_buf, SX1262_SF_SF5, SX1262_LORA_BW_500_KHZ, SX1262_CR_45, false
+        tx_buf, SX1262_SF_SF7, SX1262_LORA_BW_500_KHZ, SX1262_CR_47, false
     );
     spi_xfer(SX1262_SET_LORA_MODULATION_PARAMS_XFER_SIZE);
 
     sx1262_pack_set_lora_packet_params(
-        tx_buf, 4U, SX1262_LORA_HEADER_TYPE_IMPLICIT, 9U, false, false
+        tx_buf, 4U, SX1262_LORA_HEADER_TYPE_EXPLICIT, 9U, true, false
     );
     spi_xfer(SX1262_SET_LORA_PACKET_PARAMS_XFER_SIZE);
 
     sx1262_pack_set_dio2_as_rf_switch_ctrl(tx_buf, true);
     spi_xfer(SX1262_SET_DIO2_AS_RF_SWITCH_CTRL_XFER_SIZE);
 
+    tx_buf[0] = SX1262_SET_DIO_IRQ_PARAMS_OPCODE;
+    tx_buf[1] = 0xff;
+    tx_buf[2] = 0xff;
+    tx_buf[3] = 0x00;
+    tx_buf[4] = 0x00;
+    tx_buf[5] = 0x00;
+    tx_buf[6] = 0x00;
+    spi_xfer(7U);
+
     set_receive();
 }
 
 static downlink_packet_t downlink_packet = DOWNLINK_PACKET_FIRST;
+uint32_t rx_time = 0U;
+uint8_t wakeup_count = 0U;
+
 void run_1ms(uint32_t cycle) {
     if (rx_done()) {
+
+        tx_buf[0] = SX1262_GET_IRQ_STATUS_OPCODE;
+        spi_xfer(4U);
+        uint16_t irq_status = (rx_buf[2] << 8) | rx_buf[3];
+        if ((irq_status & 0x0060) != 0x00) {
+            tx_buf[0] = SX1262_CLEAR_IRQ_STATUS_OPCODE;
+            tx_buf[1] = 0x00;
+            tx_buf[2] = 0x60;
+            spi_xfer(3U);
+            return;
+        }
+
         sx1262_pack_read_buffer(tx_buf, 128U);
         spi_xfer(3 + 9);
 

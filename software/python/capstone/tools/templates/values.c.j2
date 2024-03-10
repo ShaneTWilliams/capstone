@@ -142,7 +142,7 @@ values_t values = {
         {% for byte in get_bytes_for_value(value, outer_loop.index0, 'uplink') %}
             {% set shift = (offset % 8) - ((byte - (offset // 8)) * 8) %}
             {% set operator = '<<' if shift < 0 else '>>' %}
-            {% set size_in_byte = (size - (offset - (byte * 8))|abs, 8)|min %}
+            {% set size_in_byte = (offset + size, (byte + 1) * 8)|min - (offset, byte * 8)|max %}
     temp |= (buffer[{{ byte }}] {{ operator }} {{ shift|abs }}) & ((1 << {{ size_in_byte }}) - 1);
         {% endfor %}
     values.{{ value.lower() }} = temp;
