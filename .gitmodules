@@ -14,3 +14,6 @@
 [submodule "software/firmware/lib/picoprobe"]
 	path = software/firmware/lib/picoprobe
 	url = https://github.com/raspberrypi/picoprobe.git
+[submodule "software/firmware/lib/pico-uart-bridge"]
+	path = software/firmware/lib/pico-uart-bridge
+	url = https://github.com/Noltari/pico-uart-bridge.git

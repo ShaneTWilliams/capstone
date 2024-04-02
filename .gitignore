@@ -5,6 +5,7 @@ firmware/output
 build
 *.egg-info
 __pycache__
+software/python/capstone/drivers
 software/python/capstone/proto
 software/python/capstone/values.py
 software/.csvenv

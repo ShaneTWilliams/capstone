@@ -1,15 +1,15 @@
 typedef enum {
     PIN_NUM_CHG_IOX_RST  = 0,
     PIN_NUM_CHG_IOX_INT  = 1,
-    PIN_NUM_MTR_RL_SPEED = 2,
-    PIN_NUM_MTR_RR_SPEED = 3,
-    PIN_NUM_MTR_FR_SPEED = 4,
+    PIN_NUM_MTR_FL_SPEED = 2,
+    PIN_NUM_MTR_FR_SPEED = 3,
+    PIN_NUM_MTR_RR_SPEED = 4,
     PIN_NUM_MISC_IOX_RST = 5,
     PIN_NUM_HP_SDA       = 6,
     PIN_NUM_HP_SCL       = 7,
     PIN_NUM_LP_SDA       = 8,
     PIN_NUM_LP_SCL       = 9,
-    PIN_NUM_MTR_FL_SPEED = 10,
+    PIN_NUM_MTR_RL_SPEED = 10,
     PIN_NUM_MISC_IOX_INT = 11,
     PIN_NUM_SX_MISO      = 12,
     PIN_NUM_SX_CS        = 13,
@@ -37,29 +37,29 @@ typedef enum {
     I2C_ADDRESS_CHG_IOX    = 0x75,
 
     // HP
-    I2C_ADDRESS_HP_TEMP = 0x48,
-    I2C_ADDRESS_MTR_IOX = 0x74,
-    I2C_ADDRESS_PWR_IOX = 0x75,
-    I2C_ADDRESS_BMS_MODELGAUGE = 0x36,
+    I2C_ADDRESS_HP_TEMP         = 0x48,
+    I2C_ADDRESS_MTR_IOX         = 0x74,
+    I2C_ADDRESS_PWR_IOX         = 0x75,
+    I2C_ADDRESS_BMS_MODELGAUGE  = 0x36,
     I2C_ADDRESS_BMS_NONVOLATILE = 0x0B,
-    I2C_ADDRESS_MTR_FL = 0x60,
-    I2C_ADDRESS_MTR_RR = 0x61,
-    I2C_ADDRESS_MTR_RL = 0x62,
-    I2C_ADDRESS_MTR_FR = 0x63,
-    I2C_ADDRESS_CHG_CONT = 0x6B,
+    I2C_ADDRESS_MTR_FL          = 0x60,
+    I2C_ADDRESS_MTR_RR          = 0x61,
+    I2C_ADDRESS_MTR_RL          = 0x62,
+    I2C_ADDRESS_MTR_FR          = 0x63,
+    I2C_ADDRESS_CHG_CONTROLLER  = 0x6B,
 } i2c_addr_t;
 
 #define IMU_SPI      spi0
 #define SX_SPI       spi1
 #define IMU_SPI_FREQ 1000000U
-#define SX_SPI_FREQ  1000000U
+#define SX_SPI_FREQ  10000000U
 
 #define VIDEO_UART           uart0
 #define GPS_UART             uart1
 #define VIDEO_UART_BAUD_RATE 9600U
 #define GPS_UART_BAUD_RATE   9600U
 
-#define LP_I2C i2c0
-#define HP_I2C i2c1
-
-void hw_init(void);
+#define LP_I2C      i2c0
+#define HP_I2C      i2c1
+#define LP_I2C_FREQ 400000U
+#define HP_I2C_FREQ 400000U

@@ -10,6 +10,7 @@ class CommandDriverGenerator:
         self._env.lstrip_blocks = True
         self._env.filters["read"] = self._read_filter
         self._env.filters["write"] = self._write_filter
+        self._env.filters["pascal"] = self._pascal_filter
 
     @staticmethod
     def _read_filter(fields):
@@ -26,6 +27,13 @@ class CommandDriverGenerator:
             for field, config in fields.items()
             if "w" in config["access"]
         ]
+
+    @staticmethod
+    def _pascal_filter(str):
+        return ''.join([
+            c for c in str.title()
+            if c not in [" ", "_"]
+        ])
 
     def _type_from_field(self, field_config):
         if "type" in field_config:
@@ -76,4 +84,8 @@ class CommandDriverGenerator:
 
     def generate_source(self):
         template = self._env.get_template("cmd_dev.c.j2")
+        return template.render(cfg=self._yaml, get_type=self._type_from_field)
+
+    def generate_py(self):
+        template = self._env.get_template("cmd_dev.py.j2")
         return template.render(cfg=self._yaml, get_type=self._type_from_field)

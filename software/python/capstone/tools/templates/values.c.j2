@@ -2,6 +2,7 @@
 {% import 'values_macros.j2' as value_macro %}
 
 #include "values.h"
+#include "fatal.h"
 
 #include "values.pb.h"
 
@@ -54,17 +55,19 @@ void unpack_proto_value(capstone_Value* value_struct, capstone_ValueTag tag) {
 {{ macro.block_comment("PACKETS") }}
 
 #define PACK_BOOL(value) GET_##value & 0x00000001U
-#define PACK_DECIMAL(value) ((GET_##value + value##_MIN) / value##_LSB)
+#define PACK_DECIMAL(value) ((GET_##value - value##_MIN) / value##_LSB)
 #define PACK_UINT(value) (GET_##value & ((1 << value##_SIZE) - 1))
 #define PACK_ENUM(value) PACK_UINT(value)
 #define PACK_INT(value) (GET_##value - value##_MIN)
 
-{% for packet, packet_values in telem.items() %}
-#define {{ packet.upper() }}_SIZE_BYTES {{ ceil(get_packet_size(packet) / 8) }}U
+uint8_t downlink_packet_lengths[DOWNLINK_PACKET_COUNT] = {
+{% for packet in downlink_packets %}
+    [DOWNLINK_PACKET_{{ loop.index0 }}] = {{ ceil(get_packet_size(loop.index0, 'downlink') / 8) }},
 {% endfor %}
+};
 
-{% for packet, packet_values in telem.items() %}
-    {% for value in packet_values %}
+{% for packet in downlink_packets + uplink_packets %}
+    {% for value in packet %}
 #define {{value}}_SIZE ({{get_value_size(value)}}U)
 #define {{value}}_MASK ((1 << {{value}}_SIZE) - 1)
         {% if values[value].type.base in ['int', 'decimal'] %}
@@ -105,20 +108,17 @@ values_t values = {
 {% endfor %}
 };
 
-{% for packet, packet_values in telem.items() %}
-uint8_t {{ packet.lower() }}_buf[{{ packet.upper() }}_SIZE_BYTES];
-{% endfor %}
-
-{% for packet, packet_values in telem.items() %}
-{{ value_macro.pack_packet_sig(packet) }} {
-    {% for value in packet_values %}
+{% for packet in downlink_packets %}
+{{ value_macro.pack_packet_sig(loop.index0) }} {
+    {% for value in packet %}
 {{ get_value_int_type(value) }} packed_{{ value.lower() }} =
         PACK_{{values[value].type.base.upper()}}({{ value }});
     {% endfor %}
 
-    {% for byte in range((get_packet_size(packet) // 8) + 1) %}
-    {{ packet.lower() }}_buf[{{ byte }}] =
-        {% for value, offset in get_values_in_byte(byte, packet) %}
+    {% set outer_loop = loop %}
+    {% for byte in range(ceil(get_packet_size(loop.index0, 'downlink') / 8)) %}
+    buffer[{{ byte }}] =
+        {% for value, offset in get_values_in_byte(byte, outer_loop.index0, 'downlink') %}
             {% if not loop.first %}
     |
             {% endif %}
@@ -129,5 +129,36 @@ uint8_t {{ packet.lower() }}_buf[{{ packet.upper() }}_SIZE_BYTES];
         ;
     {% endfor %}
 }
-
 {% endfor %}
+
+{% for packet in uplink_packets %}
+{{ value_macro.unpack_packet_sig(loop.index0) }} {
+    uint32_t temp = 0;
+    {% set outer_loop = loop %}
+    {% for value in packet %}
+    temp = 0;
+        {% set size = get_value_size(value) %}
+        {% set offset = get_value_offset_in_packet(value, outer_loop.index0, 'uplink') %}
+        {% for byte in get_bytes_for_value(value, outer_loop.index0, 'uplink') %}
+            {% set shift = (offset % 8) - ((byte - (offset // 8)) * 8) %}
+            {% set operator = '<<' if shift < 0 else '>>' %}
+            {% set size_in_byte = (offset + size, (byte + 1) * 8)|min - (offset, byte * 8)|max %}
+    temp |= (buffer[{{ byte }}] {{ operator }} {{ shift|abs }}) & ((1 << {{ size_in_byte }}) - 1);
+        {% endfor %}
+    values.{{ value.lower() }} = temp;
+
+    {% endfor %}
+}
+{% endfor %}
+
+void pack_downlink_packet(downlink_packet_t packet, uint8_t* buffer) {
+    switch (packet) {
+{% for packet in downlink_packets %}
+        case DOWNLINK_PACKET_{{ loop.index0 }}:
+            pack_downlink_packet_{{ loop.index0 }}(buffer);
+            break;
+{% endfor %}
+        default:
+            fatal(FATAL_UNREACHABLE);
+    }
+}

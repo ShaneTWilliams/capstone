@@ -1,0 +1,58 @@
+{% import 'py_macros.j2' as macro %}
+
+{% macro tx_size(dev, cmd) -%}
+{{ dev.upper() }}_{{ cmd.upper() }}_TX_SIZE
+{%- endmacro %}
+
+{% macro rx_size(dev, cmd) -%}
+{{ dev.upper() }}_{{ cmd.upper() }}_RX_SIZE
+{%- endmacro %}
+
+{% macro pack_func_sig(dev, cmd_name, cmd_config, get_type) -%}
+def {{ dev.lower() }}_pack_{{ cmd_name.lower() }}(
+    {%- for field_name, field in cmd_config.tx.fields.items() %}
+        {%- if not field.value %}
+            {{- field_name.lower() -}}
+            {% if loop.index != cmd_config.tx.fields|length %}, {% endif %}
+        {%- endif -%}
+    {% endfor -%}
+)
+{%- endmacro %}
+
+{% macro unpack_func_sig(dev, cmd_name, cmd_config, get_type) -%}
+def {{ dev.lower() }}_unpack_{{ cmd_name.lower() }}(rx_buf)
+{%- endmacro %}
+
+{% macro cmd_dev_field(dev, cmd, field) -%}
+{{ dev.upper() }}_{{ cmd.upper() }}_{{ field.upper() }}
+{%- endmacro %}
+
+{% macro cmd_dev_tx_assign(dev, cmd, field_name, field) %}
+    {% if field.value %}
+        {% set name = dev + "_" + cmd + "_" + field_name %}
+    {% else %}
+        {% set name = field_name.lower() %}
+    {% endif %}
+    {% for bit in range(field.offset, field.offset + field.size, 8) %}
+        {% set byte = bit // 8 %}
+        {% set rel_byte = (field.offset // 8) + (field.size / 8)|round(0, 'ceil')|int - byte - 1 %}
+        {% if field.offset % 8 == 0 %}
+    tx_buf[{{byte}}] |= ({{name}} >> {{rel_byte * 8}}) & {{ macro.mask(dev, cmd, field_name) }}
+        {% else %}
+    tx_buf[{{byte}}] |= (({{name}} >> {{rel_byte * 8}}) & {{ macro.mask(dev, cmd, field_name) }}) << {{ macro.offset(dev, cmd, field_name) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro cmd_dev_rx_assign(dev, cmd, field_name, field) %}
+    {% set name = field_name.lower() %}
+    {% for bit in range(field.offset, field.offset + field.size, 8) %}
+        {% set byte = bit // 8 %}
+        {% set rel_byte = byte - (field.offset // 8) %}
+        {% if field.offset % 8 == 0 %}
+    fields["{{name}}"] = (rx_buf[{{byte}}] & {{ macro.mask(dev, cmd, field_name) }}) >> {{ rel_byte * 8}}
+        {% else %}
+    fields["{{name}}"] = ((rx_buf[{{byte}}] >> {{ macro.offset(dev, cmd, field_name) }}) & {{ macro.mask(dev, cmd, field_name) }}) >> {{ rel_byte * 8}}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

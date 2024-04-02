@@ -1,0 +1,78 @@
+{% import 'py_macros.j2' as macro %}
+{% import 'py_cmd_macros.j2' as cmd_macro %}
+
+from enum import IntEnum
+
+{{ macro.block_comment('FIXED FIELDS') }}
+
+{% for cmd_name, command in cfg.commands.items() %}
+    {% for field_name, field in command.tx.fields.items() %}
+        {% if field.value %}
+{{ cmd_macro.cmd_dev_field(cfg.name, cmd_name, field_name) }} = 0x{{ '%02X' %  field.value }}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+{{ macro.block_comment('FIELD ENUMS') }}
+
+{% for enum_name, enum in cfg.enums.items() %}
+class {{cfg.name|pascal}}{{ enum_name|pascal }}(IntEnum):
+    {% for value_name, value in enum.items() %}
+    {{cfg.name.upper()}}_{{ value_name }} = 0x{{ '%02x' %  value }}
+    {% endfor %}
+
+{% endfor %}
+
+
+{% for cmd_name, command in cfg.commands.items() %}
+{{ macro.block_comment('COMMAND: ' + cmd_name) }}
+
+{{ macro.tx_size(cfg.name, cmd_name) }} = {{ command.tx.size }}
+{{ macro.rx_size(cfg.name, cmd_name) }} = {{ command.rx.size }}
+{{ macro.xfer_size(cfg.name, cmd_name) }} = {{ [command.rx.size, command.tx.size]|max }}
+{# TODO: Find out how to merge these two dictionaries #}
+{% for field_name, field in command.tx.fields.items() %}
+    {% set offset = macro.offset(cfg.name, cmd_name, field_name) %}
+    {% set size = macro.field_size(cfg.name, cmd_name, field_name) %}
+    {% set lsb = macro.lsb(cfg.name, cmd_name, field_name) %}
+    {% set mask = macro.mask(cfg.name, cmd_name, field_name) %}
+
+{{ offset }} = {{ field.offset % 8 }}
+{{ size }} = {{ field.size }}
+{{ mask }} = ((1 << min({{ size }}, 8)) - 1)
+{% endfor %}
+{% if command.rx.fields %}
+    {% for field_name, field in command.rx.fields.items() %}
+        {% set offset = macro.offset(cfg.name, cmd_name, field_name) %}
+        {% set size = macro.field_size(cfg.name, cmd_name, field_name) %}
+        {% set lsb = macro.lsb(cfg.name, cmd_name, field_name) %}
+        {% set mask = macro.mask(cfg.name, cmd_name, field_name) %}
+
+{{ offset }} = {{ field.offset % 8 }}
+{{ size }} = {{ field.size }}
+{{ mask }} = ((1 << min({{ size }}, 8)) - 1)
+    {% endfor %}
+{% endif %}
+
+{{ cmd_macro.pack_func_sig(cfg.name, cmd_name, command, get_type)}}:
+    tx_buf = [0x00] * {{ macro.xfer_size(cfg.name, cmd_name) }}
+{% for field_name, field in command.tx.fields.items() -%}
+{{ cmd_macro.cmd_dev_tx_assign(cfg.name.upper(), cmd_name, field_name, field) }}
+{%- endfor %}
+    return tx_buf
+
+{% if command.rx.size > 0 %}
+{{ cmd_macro.unpack_func_sig(cfg.name, cmd_name, command, get_type)}}:
+    fields = {
+{% for field_name, field in command.rx.fields.items() %}
+        "{{field_name.lower()}}": None,
+{% endfor %}
+    }
+{% for field_name, field in command.rx.fields.items() %}
+{{ cmd_macro.cmd_dev_rx_assign(cfg.name.upper(), cmd_name, field_name, field) }}
+{%- endfor %}
+    return fields
+
+{% endif %}
+
+{% endfor %}

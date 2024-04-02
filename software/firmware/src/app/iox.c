@@ -6,114 +6,161 @@ static struct {
     tca9539_direction_t direction;
 } iox_gpio_states[IOX_GPIO_COUNT] = {
     // MISC Port 0
-    [IOX_GPIO_LED_SHDN] =
-        {.output_state = true, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_PWR_IOX_INT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_PWR_IOX_RST] =
-        {.output_state = true, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_MTR_IOX_INT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_IOX_RST] =
-        {.output_state = true, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_GPS_RESET] =
-        {.output_state = true, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_MUX_A0] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
+    [IOX_GPIO_LED_SHDN]    = { .output_state = true,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_PWR_IOX_INT] = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_PWR_IOX_RST] = { .output_state = true,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_IOX_INT] = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_MTR_IOX_RST] = { .output_state = true,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_GPS_RESET]   = { .output_state = true,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MUX_A0]      = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
 
     // MISC Port 1
-    [IOX_GPIO_MUX_A1] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_MUX_EN] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_SX_RESET] =
-        {.output_state = true, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_SX_DIO1] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_SX_DIO3] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MCU_BOOT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_IMU_INT2] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_IMU_INT1] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_MUX_A1]   = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MUX_EN]   = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_SX_RESET] = { .output_state = true,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_SX_DIO1]  = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_SX_DIO3]  = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_MCU_BOOT] = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_IMU_INT2] = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_IMU_INT1] = { .output_state = false,
+                            .input_state  = false,
+                            .direction    = TCA9539_DIRECTION_INPUT },
 
     // CHG Port 0
-    [IOX_GPIO_USBPD_FAULT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_USBPD_INT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_QI_TEMP_OS] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_QI_EN_2] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_QI_EN_1] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_QI_CHG] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_33_PG] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_50_EN] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_USBPD_FAULT] = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_USBPD_INT]   = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_QI_TEMP_OS]  = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_QI_EN_2]     = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_QI_EN_1]     = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_QI_CHG]      = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_33_PG]       = { .output_state = false,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_50_EN]       = { .output_state = true,
+                               .input_state  = false,
+                               .direction    = TCA9539_DIRECTION_OUTPUT },
 
     // CHG Port 1
-    [IOX_GPIO_50_PG] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_TP_1101] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_TP_1102] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_TP_1104] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_50_PG]   = { .output_state = false,
+                           .input_state  = false,
+                           .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_TP_1101] = { .output_state = false,
+                           .input_state  = false,
+                           .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_TP_1102] = { .output_state = false,
+                           .input_state  = false,
+                           .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_TP_1104] = { .output_state = false,
+                           .input_state  = false,
+                           .direction    = TCA9539_DIRECTION_INPUT },
 
     // PWR Port 0
-    [IOX_GPIO_CC_PROCHOT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_CC_CHRG_OK] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_TMP_OS] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_BMS_ALRT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_RL_nFAULT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_RL_BRAKE] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_CC_PROCHOT]    = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_CC_CHRG_OK]    = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_MTR_TMP_OS]    = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_BMS_ALRT]      = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_MTR_FL_nFAULT] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_MTR_FL_BRAKE]  = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
 
     // PWR Port 1
-    [IOX_GPIO_MTR_RL_DIR] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_RL_DRVOFF] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_MTR_FL_DIR]    = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_FL_DRVOFF] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
 
     // MTR Port 0
-    [IOX_GPIO_MTR_FL_DIR] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_MTR_FL_DRVOFF] =
-        {.output_state = true, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_MTR_FL_BRAKE] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_OUTPUT},
-    [IOX_GPIO_MTR_FL_nFAULT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_FR_DIR] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_FR_DRVOFF] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_FR_BRAKE] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_FR_nFAULT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_MTR_RL_DIR]    = { .output_state = true,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_RL_DRVOFF] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_RL_BRAKE]  = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_RL_nFAULT] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
+    [IOX_GPIO_MTR_RR_DIR]    = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_RR_DRVOFF] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_RR_BRAKE]  = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_RR_nFAULT] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
 
     // MTR Port 1
-    [IOX_GPIO_MTR_RR_DIR] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_RR_DRVOFF] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_RR_BRAKE] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
-    [IOX_GPIO_MTR_RR_nFAULT] =
-        {.output_state = false, .input_state = false, .direction = TCA9539_DIRECTION_INPUT},
+    [IOX_GPIO_MTR_FR_DIR]    = { .output_state = true,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_FR_DRVOFF] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_FR_BRAKE]  = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_OUTPUT },
+    [IOX_GPIO_MTR_FR_nFAULT] = { .output_state = false,
+                                 .input_state  = false,
+                                 .direction    = TCA9539_DIRECTION_INPUT },
 };
 
 iox_gpio_t iox_config[IOX_COUNT][IOX_PORT_COUNT][IOX_PIN_COUNT] = {

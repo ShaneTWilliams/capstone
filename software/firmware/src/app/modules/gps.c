@@ -2,7 +2,6 @@
 
 #include "fatal.h"
 #include "generated/values.h"
-#include "globals.h"
 #include "hardware/uart.h"
 #include "hw_config.h"
 #include "indication.h"
@@ -10,7 +9,6 @@
 #include "pico/stdlib.h"
 
 /*
-
 (gdb) p rx_buffers
 $1 = {"$GNRMC,235119.00,A,4729.98860,N,05247.71168,W,0.036,,060124,,,A,", "$GNGGA,235119.00,4729.98860,N,05247.71168,W,1,07,1.72,117.7,M,10",
   "$GNGSA,A,3,14,17,21,03,22,08,02,,,,,,3.66,1.72,3.23,1*0D\r6\r\000\000\000\000", "$GNGSA,A,3", ',' <repeats 13 times>, "3.66,1.72,3.23,4*01\r", '\000' <repeats 20 times>,
@@ -20,7 +18,6 @@ $1 = {"$GNRMC,235119.00,A,4729.98860,N,05247.71168,W,0.036,,060124,,,A,", "$GNGG
   "$GNGSA,A,3,14,17,21,03,22,08,02,,,,,,,,2.16,1.34,1.69,1*06\r\000\000\000\000", "$GNGSA,A,3", ',' <repeats 13 times>, "2.16,1.34,1.69,4*09\r", '\000' <repeats 20 times>,
   "$GPGSV,3,1,11,01,70,055,21,02,49,057,27,03,44,130,32,06,03,234,,", "$GPGSV,3,2,11,08,15,101,22,14,69,232,31,17,56,295,23,21,34,058,3",
   "$GPGSV,3,3,11,22,61,287,32,30,10,222,12,32,03,037,22,0*5B\r\000\000\000\000\000", "$BDGSV,1,1,00,0*74\r", '\000' <repeats 44 times>}
-
 */
 
 #define MAX_SENTENCE_LENGTH (100U)
@@ -93,13 +90,13 @@ void parse_gga(void) {
     field_buf[2]      = '\0';
     field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][0];
     field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][1];
-    values.utc_time_h = atoi(field_buf);
+    values.drone_utc_time_h = atoi(field_buf);
     field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][2];
     field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][3];
-    values.utc_time_m = atoi(field_buf);
+    values.drone_utc_time_m = atoi(field_buf);
     field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][4];
     field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][5];
-    values.utc_time_s = atoi(field_buf);
+    values.drone_utc_time_s = atoi(field_buf);
 
     // Latitude.
     field_buf[9] = '\0';
@@ -107,7 +104,7 @@ void parse_gga(void) {
     field_buf[2] = '.';
     memcpy(field_buf + 3, sentence_fields[FIELD_INDEX_GGA_LATITUDE] + 2, 2);
     memcpy(field_buf + 5, sentence_fields[FIELD_INDEX_GGA_LATITUDE] + 5, 5);
-    values.latitude = atof(field_buf);
+    values.drone_latitude = atof(field_buf);
 
     // Longitude.
     field_buf[10] = '\0';
@@ -115,7 +112,7 @@ void parse_gga(void) {
     field_buf[3] = '.';
     memcpy(field_buf + 4, sentence_fields[FIELD_INDEX_GGA_LONGITUDE] + 3, 2);
     memcpy(field_buf + 6, sentence_fields[FIELD_INDEX_GGA_LONGITUDE] + 6, 5);
-    values.longitude = atof(field_buf);
+    values.drone_longitude = atof(field_buf);
 }
 
 void parse_sentence(void) {
@@ -165,7 +162,7 @@ void parse_sentence(void) {
     }
 }
 
-static void run_1ms(void) {
+static void run_1ms(uint32_t cycle) {
     static uint8_t index = 0;
 
     while (uart_is_readable(GPS_UART) > 0) {

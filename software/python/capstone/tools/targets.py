@@ -55,7 +55,8 @@ OPENOCD_TCL_DIR = os.path.join(OPENOCD_DIR, "tcl")
 DRIVERS_YAML_DIR = os.path.join(APP_SRC_DIR, "drivers")
 CMD_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "command")
 REG_DEV_YAML_DIR = os.path.join(DRIVERS_YAML_DIR, "register")
-GENERATED_DIR = os.path.join(APP_SRC_DIR, "generated")
+C_GENERATED_DIR = os.path.join(APP_SRC_DIR, "generated")
+PY_GENERATED_DIR = os.path.join(PYTHON_PACKAGE_DIR, "drivers")
 VALUES_YAML_DIR = os.path.join(SOFTWARE_DIR, "values")
 FRONTEND_DIR = os.path.join(SOFTWARE_DIR, "frontend")
 FRONTEND_PROTO_DIR = os.path.join(FRONTEND_DIR, "proto")
@@ -67,15 +68,13 @@ GRPC_WEB_PROTOC = os.path.join(
 OPENOCD_CFG = os.path.join(FIRMWARE_DIR, "capstone-ocd.cfg")
 PYLINTRC = os.path.join(PYTHON_DIR, "pylintrc")
 VALUES_YAML = os.path.join(VALUES_YAML_DIR, "values.yaml")
-CONTROL_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "control_pack.yaml")
-TELEM_PACKET_YAML = os.path.join(VALUES_YAML_DIR, "telem_pack.yaml")
 GROUND_PROTO_FILE = os.path.join(PROTO_DIR, "ground.proto")
 VALUES_PROTO_FILE = os.path.join(PROTO_DIR, "values.proto")
 ENVOY_YAML = os.path.join(FRONTEND_DIR, "envoy.yaml")
 
 # Tool binaries
 OPENOCD = os.path.join(OPENOCD_DIR, "src", "openocd")
-ENVOY = "envoy"
+ENVOY = "envoy" # "./envoy-1.29.1-linux-aarch_64"
 
 # Binaries
 APP_ELF = os.path.join(BUILD_DIR, "app.elf")
@@ -88,12 +87,13 @@ RADIO_BIN = os.path.join(BUILD_DIR, "radio.bin")
 # Values file
 with open(VALUES_YAML, "r") as f:
     VALUES = yaml.safe_load(f)
-VALUE_NAMES = {}
-for value_name in VALUES["values"].keys():
-    VALUE_NAMES[value_name.upper()] = value_name
-    VALUE_NAMES[value_name.lower()] = value_name
-    VALUE_NAMES["-".join(value_name.upper().split("_"))] = value_name
-    VALUE_NAMES["-".join(value_name.lower().split("_"))] = value_name
+VALUE_NAMES = {"all": "all"}
+for key_list in ("values", "categories"):
+    for value_name in VALUES[key_list].keys():
+        VALUE_NAMES[value_name.upper()] = value_name
+        VALUE_NAMES[value_name.lower()] = value_name
+        VALUE_NAMES["-".join(value_name.upper().split("_"))] = value_name
+        VALUE_NAMES["-".join(value_name.lower().split("_"))] = value_name
 
 #####################################
 ############## HELPERS ##############
@@ -207,20 +207,20 @@ def proto_unpack_value(proto_msg, tag):
         if type_config["base"] == "int":
             return proto_msg.u32
     if type_config["base"] == "enum":
-        return VALUES["enums"][type_config["enum"]][proto_msg.u32]
+        return VALUES["enums"][type_config["name"]][proto_msg.u32]
     raise ValueError(f"Invalid type: {type_config}")
 
 
 def values_helper():
-    if not os.path.exists(GENERATED_DIR):
-        os.makedirs(GENERATED_DIR)
+    if not os.path.exists(C_GENERATED_DIR):
+        os.makedirs(C_GENERATED_DIR)
 
-    c = os.path.join(GENERATED_DIR, "values.c")
-    h = os.path.join(GENERATED_DIR, "values.h")
+    c = os.path.join(C_GENERATED_DIR, "values.c")
+    h = os.path.join(C_GENERATED_DIR, "values.h")
     proto = os.path.join(PROTO_DIR, "values.proto")
     python = os.path.join(PYTHON_PACKAGE_DIR, "values.py")
     output_files = [c, h]
-    gen = ValuesGenerator(VALUES_YAML, CONTROL_PACKET_YAML, TELEM_PACKET_YAML)
+    gen = ValuesGenerator(VALUES_YAML)
     with open(c, "w") as f:
         f.write(gen.generate_c())
     with open(h, "w") as f:
@@ -275,7 +275,7 @@ def clean(hard):
     remove_dir(os.path.join(PYTHON_PACKAGE_DIR, "__pycache__"))
     remove_dir(os.path.join(SOFTWARE_DIR, "build"))
     remove_dir(PYTHON_PROTO_DIR)
-    remove_dir(GENERATED_DIR)
+    remove_dir(C_GENERATED_DIR)
     for path in Path(PYTHON_PACKAGE_DIR).rglob("__pycache__"):
         remove_dir(path.absolute())
     if hard:
@@ -501,8 +501,10 @@ def lint(code):
 
 @click.command()
 def drivers():
-    if not os.path.exists(GENERATED_DIR):
-        os.makedirs(GENERATED_DIR)
+    if not os.path.exists(C_GENERATED_DIR):
+        os.makedirs(C_GENERATED_DIR)
+    if not os.path.exists(PY_GENERATED_DIR):
+        os.makedirs(PY_GENERATED_DIR)
 
     reg_dev_yaml_filenames = [
         os.path.join(REG_DEV_YAML_DIR, f)
@@ -515,37 +517,60 @@ def drivers():
         if os.path.isfile(os.path.join(CMD_DEV_YAML_DIR, f)) and f.endswith(".yaml")
     ]
 
-    def generate(filename, GeneratorClass):
+    c_files = []
+    py_files = []
+
+    def generate(filename, GeneratorClass, py=False):
         click.secho(f"Generating driver code for {filename}")
+        generated_files = []
         with open(filename, "r", encoding="ascii") as file:
             driver_yaml = yaml.safe_load(file)
             driver_gen = GeneratorClass(driver_yaml)
+
             output_filename = Path(filename).stem
-            c_file = os.path.join(GENERATED_DIR, f"{output_filename}.c")
-            h_file = os.path.join(GENERATED_DIR, f"{output_filename}.h")
+            c_file = os.path.join(C_GENERATED_DIR, f"{output_filename}.c")
+            h_file = os.path.join(C_GENERATED_DIR, f"{output_filename}.h")
             with open(c_file, "w") as f:
                 f.write(driver_gen.generate_source())
             with open(h_file, "w") as f:
                 f.write(driver_gen.generate_header())
-        output_files.extend([c_file, h_file])
+            c_files.extend([c_file, h_file])
+            if py:
+                py_file = os.path.join(PY_GENERATED_DIR, f"{output_filename}.py")
+                with open(py_file, "w") as f:
+                    f.write(driver_gen.generate_py())
+                py_files.append(py_file)
 
-    output_files = []
+    c_files = []
+    py_files = []
     for filename in cmd_dev_yaml_filenames:
-        generate(filename, CommandDriverGenerator)
+        generate(filename, CommandDriverGenerator, py=True)
+
     for filename in reg_dev_yaml_filenames:
         generate(filename, RegisterDriverGenerator)
 
     click.secho("Successfully generated driver code", bold=True, fg="green")
     run_cmd(
-        ["clang-format", "-i", "-style=file", "-verbose"] + output_files,
+        ["clang-format", "-i", "-style=file", "-verbose"] + c_files,
         "Failed to format generated drivers",
     )
-    click.secho("Successfully formatted driver code", bold=True, fg="green")
+    click.secho("Successfully formatted C driver code", bold=True, fg="green")
+    run_cmd(
+        ["isort", "--profile=black", PY_GENERATED_DIR],
+        "Failed to isort Python code",
+    )
+    run_cmd(["black"] + py_files, "Failed to format Python code")
+    click.secho("Successfully formatted Python driver code", bold=True, fg="green")
 
 
 @click.command()
 def generate_values():
     values_helper()
+
+
+@click.command()
+def usb():
+    usb_main()
 
 
 @click.command()
@@ -561,7 +586,7 @@ def ground():
         stderr=subprocess.PIPE,
         stdin=subprocess.PIPE,
     ) as envoy:
-        ground_station_main(VALUES)
+        ground_station_main()
         envoy.kill()
 
 
@@ -602,13 +627,16 @@ def grpc_get(tag_str):
     print(value)
 
 
-@click.command()
-@click.argument("tag_strings", type=click.Choice(VALUE_NAMES.keys()), nargs=-1)
-def watch(tag_strings):
+def _watch(tag_strings):
     # pylint: disable=import-outside-toplevel,no-name-in-module
     from capstone.proto import ground_pb2, ground_pb2_grpc
 
     from capstone import values
+
+    if len(tag_strings) == 1 and tag_strings[0].upper() in VALUES["categories"]:
+        tag_strings = VALUES["categories"][VALUE_NAMES[tag_strings[0]]]
+    elif len(tag_strings) == 1 and tag_strings[0].lower() == "all":
+        tag_strings = VALUES["values"].keys()
 
     stdscr = curses.initscr()
     curses.noecho()
@@ -641,11 +669,25 @@ def watch(tag_strings):
             stdscr.refresh()
             time.sleep(0.05)
         except:
-            curses.nocbreak()
             stdscr.keypad(False)
-            curses.echo()
-            curses.endwin()
             raise
+
+
+@click.command()
+@click.argument("tag_strings", type=click.Choice(VALUE_NAMES.keys()), nargs=-1)
+def watch(tag_strings):
+    try:
+        _watch(tag_strings)
+    except KeyboardInterrupt:
+        curses.nocbreak()
+        curses.echo()
+        curses.endwin()
+        return
+    except:
+        curses.nocbreak()
+        curses.echo()
+        curses.endwin()
+        raise
 
 
 @click.command()
@@ -664,7 +706,9 @@ def convert():
 @click.command()
 def controller():
     from capstone.control.controller import main
+
     main()
+
 
 def main():
     cli.add_command(build)
@@ -677,6 +721,7 @@ def main():
     cli.add_command(drivers)
     cli.add_command(generate_values, "values")
     cli.add_command(ground)
+    cli.add_command(usb)
     cli.add_command(grpc_get, "get")
     cli.add_command(grpc_set, "set")
     cli.add_command(watch)

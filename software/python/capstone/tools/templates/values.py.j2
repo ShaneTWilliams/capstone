@@ -2,6 +2,53 @@ from enum import IntEnum
 from capstone.proto import values_pb2
 
 
+
+class ValueTag(IntEnum):
+{% for name, _ in values.items() %}
+    {{ name }} = {{ loop.index0 }}
+{% endfor %}
+
+
+VALUE_CONFIGS = {
+{% for value in values %}
+    ValueTag.{{ value }}: {
+        "size": {{ get_value_size(value) }},
+        "mask": (1 << {{ get_value_size(value) }} - 1),
+        {% if values[value].type.base in ['int', 'decimal'] %}
+        "min": {{values[value].type.min}},
+        {% endif %}
+        {% if values[value].type.base == 'decimal' %}
+        "lsb": {{values[value].type.lsb}},
+        {% endif %}
+        "origin": "{{ values[value].origin }}",
+    },
+{% endfor %}
+}
+
+def pack_bool(value_tag, value):
+    return 1 if value else 0
+
+def pack_decimal(value_tag, value):
+    if value is None:
+        return 0
+    cfg = VALUE_CONFIGS[value_tag]
+    return int((value + cfg["min"]) / cfg["lsb"])
+
+def pack_uint(value_tag, value):
+    if value is None:
+        return 0
+    return int(value & ((1 << VALUE_CONFIGS[value_tag]["size"]) - 1))
+
+def pack_enum(value_tag, value):
+    if value is None:
+        return 0
+    return pack_uint(value)
+
+def pack_int(value_tag, value):
+    if value is None:
+        return 0
+    return (value - VALUE_CONFIGS[value_tag]["min"])
+
 {% for name, config in values.items() %}
     {% if config.type.base == "enum" %}
 class {{ camel(name) }}(IntEnum):
@@ -9,12 +56,6 @@ class {{ camel(name) }}(IntEnum):
     {{ enum }} = {{ loop.index0 }}
         {% endfor %}
     {% endif %}
-{% endfor %}
-
-
-class ValueTag(IntEnum):
-{% for name, _ in values.items() %}
-    {{ name }} = {{ loop.index0 }}
 {% endfor %}
 
 
@@ -44,3 +85,64 @@ class CurrentValues:
         if tag == ValueTag.{{ name }}:
             self._values[tag] = value.{{get_proto_type_field(config) }}
 {% endfor %}
+
+
+{% for packet in downlink_packets %}
+    def unpack_downlink_packet_{{ loop.index0 }}(self, packet):
+    {% set outer_loop = loop %}
+    {% for value in packet %}
+        temp = 0
+        {% set size = get_value_size(value) %}
+        {% set offset = get_value_offset_in_packet(value, outer_loop.index0, 'downlink') %}
+        {% for byte in get_bytes_for_value(value, outer_loop.index0, 'downlink') %}
+            {% set shift = (offset % 8) - ((byte - (offset // 8)) * 8) %}
+            {% set operator = '<<' if shift < 0 else '>>' %}
+            {% set size_in_byte = (offset + size - (byte * 8), 8)|min %}
+        temp |= ((packet[{{ byte }}] & ((1 << {{ size_in_byte }}) - 1)) {{ operator }} {{ shift|abs }})
+        {% endfor %}
+        {% if values[value].type.base == 'decimal' %}
+        temp = temp * VALUE_CONFIGS[ValueTag.{{ value }}]["lsb"] + VALUE_CONFIGS[ValueTag.{{ value.lower() }}]["min"]
+        {% endif %}
+        {% if values[value].type.base == 'enum' %}
+        temp = {{ camel(value) }}(temp)
+        {% endif %}
+        self._values[ValueTag.{{ value }}] = temp
+
+    {% endfor %}
+
+{% endfor %}
+
+{% for packet in uplink_packets %}
+    def pack_uplink_packet_{{ loop.index0 }}(self):
+        ret = [0] * {{ ceil(get_packet_size(loop.index0, 'uplink') / 8) }}
+
+    {% for value in packet %}
+        packed_{{ value.lower() }} = pack_{{values[value].type.base}}(ValueTag.{{ value }}, self._values[ValueTag.{{ value }}])
+    {% endfor %}
+
+    {% set outer_loop = loop %}
+    {% for byte in range(ceil(get_packet_size(loop.index0, 'uplink') / 8)) %}
+        ret[{{ byte }}] = (
+        {% for value, offset in get_values_in_byte(byte, outer_loop.index0, 'uplink') %}
+            {% set operator = '>>' if offset < 0 else '<<' %}
+            {% if not loop.first %}|{% endif %} (packed_{{ value.lower() }} {{ operator }} {{ offset|abs }})
+        {% endfor %}
+        )
+    {% endfor %}
+
+        return ret
+{% endfor %}
+
+    def unpack_downlink_packet(self, packet, packet_num):
+        return {
+{% for packet in downlink_packets %}
+            {{ loop.index0 }}: self.unpack_downlink_packet_{{ loop.index0 }},
+{% endfor %}
+        }[packet_num](packet)
+
+    def pack_uplink_packet(self, packet_num):
+        return {
+{% for packet in uplink_packets %}
+            {{ loop.index0 }}: self.pack_uplink_packet_{{ loop.index0 }},
+{% endfor %}
+        }[packet_num]()

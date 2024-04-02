@@ -7,7 +7,7 @@ import StatusDialog from "./dialogs/status-dialog"
 import SettingsDialog from "./dialogs/settings-dialog"
 import MotorPage from "./pages/motor-page"
 import AllValuesPage from "./pages/all-values-page"
-import yaml from "../../../values/values.yaml";
+import yaml from "../../../values/values.json";
 
 const {GetValueRequest} = require('../../proto/ground_pb.js');
 const {GroundStationClient} = require('../../proto/ground_grpc_web_pb.js');
