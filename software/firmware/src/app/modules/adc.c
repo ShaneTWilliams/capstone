@@ -11,6 +11,7 @@
 #define ADC_RESOLUTION (1U << 12U)
 
 #define VOLTS_FROM_RAW(raw) ((float)(raw)*ADC_VREF / (float)ADC_RESOLUTION)
+#define TEMP_FROM_VOLTS(v)  (27 - (((float)(v)-0.706) / 0.001721))
 
 typedef enum {
     MCU_SELECT_MOTOR_CS = 0,
@@ -19,12 +20,12 @@ typedef enum {
 } mcu_select_t;
 
 typedef enum {
-    EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS = 0,
-    EXTERNAL_SELECT_MOTOR_FL_CS            = 1,
-    EXTERNAL_SELECT_5V_CS_AND_MOTOR_RL_CS  = 2,
-    EXTERNAL_SELECT_MOTOR_RR_CS            = 3,
+    EXTERNAL_SELECT_3V3_CS_AND_MOTOR_RR_CS = 0,
+    EXTERNAL_SELECT_MOTOR_RL_CS            = 1,
+    EXTERNAL_SELECT_5V_CS_AND_MOTOR_FL_CS  = 2,
+    EXTERNAL_SELECT_MOTOR_FR_CS            = 3,
 } external_select_t;
-static external_select_t current_sel = EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS;
+static external_select_t current_sel = EXTERNAL_SELECT_3V3_CS_AND_MOTOR_RR_CS;
 
 static void write_sels(external_select_t sel_val) {
     set_iox_gpio_output_state(IOX_GPIO_MUX_A0, sel_val & 0x01);
@@ -38,50 +39,49 @@ static void init(void) {
     adc_gpio_init(MCU_SELECT_MOTOR_CS);
     adc_set_temp_sensor_enabled(true);
 
-    write_sels(EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS);
+    write_sels(EXTERNAL_SELECT_3V3_CS_AND_MOTOR_RR_CS);
 }
 
-static void run_100ms(void) {
+static void run_100ms(uint32_t cycle) {
     switch (current_sel) {
-        case EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS:
+        case EXTERNAL_SELECT_3V3_CS_AND_MOTOR_RR_CS:
             adc_select_input(MCU_SELECT_LV_CS);
             values.lv_3v3_current = VOLTS_FROM_RAW(adc_read());
             adc_select_input(MCU_SELECT_MOTOR_CS);
-            values.motor_fr_current = VOLTS_FROM_RAW(adc_read());
+            values.motor_rr_current = VOLTS_FROM_RAW(adc_read());
 
-            write_sels(EXTERNAL_SELECT_MOTOR_FL_CS);
+            write_sels(EXTERNAL_SELECT_MOTOR_RL_CS);
             break;
 
-        case EXTERNAL_SELECT_MOTOR_FL_CS:
-            adc_select_input(MCU_SELECT_MOTOR_CS);
-            values.motor_fl_current = VOLTS_FROM_RAW(adc_read());
-
-            write_sels(EXTERNAL_SELECT_5V_CS_AND_MOTOR_RL_CS);
-            break;
-
-        case EXTERNAL_SELECT_5V_CS_AND_MOTOR_RL_CS:
-            adc_select_input(MCU_SELECT_LV_CS);
-            values.lv_5v0_current = VOLTS_FROM_RAW(adc_read());
+        case EXTERNAL_SELECT_MOTOR_RL_CS:
             adc_select_input(MCU_SELECT_MOTOR_CS);
             values.motor_rl_current = VOLTS_FROM_RAW(adc_read());
 
-            write_sels(EXTERNAL_SELECT_MOTOR_RR_CS);
+            write_sels(EXTERNAL_SELECT_5V_CS_AND_MOTOR_FL_CS);
             break;
 
-        case EXTERNAL_SELECT_MOTOR_RR_CS:
+        case EXTERNAL_SELECT_5V_CS_AND_MOTOR_FL_CS:
+            adc_select_input(MCU_SELECT_LV_CS);
+            values.lv_5v0_current = VOLTS_FROM_RAW(adc_read());
             adc_select_input(MCU_SELECT_MOTOR_CS);
-            values.motor_rr_current = VOLTS_FROM_RAW(adc_read());
+            values.motor_fl_current = VOLTS_FROM_RAW(adc_read());
 
-            write_sels(EXTERNAL_SELECT_3V3_CS_AND_MOTOR_FR_CS);
+            write_sels(EXTERNAL_SELECT_MOTOR_FR_CS);
+            break;
+
+        case EXTERNAL_SELECT_MOTOR_FR_CS:
+            adc_select_input(MCU_SELECT_MOTOR_CS);
+            values.motor_fr_current = VOLTS_FROM_RAW(adc_read());
+
+            write_sels(EXTERNAL_SELECT_3V3_CS_AND_MOTOR_RR_CS);
             break;
 
         default:
-            fatal(UNREACHABLE);
+            fatal(FATAL_UNREACHABLE);
     }
 
     adc_select_input(MCU_SELECT_TEMP);
-    float conv_voltage = VOLTS_FROM_RAW(adc_read());
-    values.mcu_temp    = 27 - (((float)conv_voltage - 0.706) / 0.001721);
+    values.mcu_temp = TEMP_FROM_VOLTS(VOLTS_FROM_RAW(adc_read()));
 }
 
 module_t adc_module = {

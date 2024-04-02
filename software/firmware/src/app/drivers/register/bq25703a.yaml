@@ -1,5 +1,5 @@
 name: bq25703a
-endianness: big
+endianness: little
 registers:
   CHARGE_OPTION_0:
     address: 0x00
@@ -124,7 +124,7 @@ registers:
     address: 0x20
     size: 2
     fields:
-      FAULT_OTG_OCP:
+      FAULT_OTG_UCP:
         access: r
         offset: 0
         size: 1
@@ -269,12 +269,12 @@ registers:
     fields:
       VSYS:
         access: r
-        offset: 0
+        offset: 8
         size: 8
         type: VSYS_VBAT_MV
       VBAT:
         access: r
-        offset: 8
+        offset: 0
         size: 8
         type: VSYS_VBAT_MV
   MANUFACTURE_ID:
@@ -347,7 +347,7 @@ registers:
         access: rw
         offset: 13
         size: 2
-        type: PROTCHOT_LWPWR_MODE
+        type: PROCHOT_LWPWR_MODE
       EN_IBAT:
         access: rw
         offset: 15
@@ -603,17 +603,17 @@ enums:
     5_S: 0x03
   CMP_POL:
     LOW_ABOVE_THRESH: 0x00
-    HIGH_ABOVE_THRESH: 0x01
+    LOW_BELOW_THRESH: 0x01
   CMP_REF_V:
     2_3_V: 0x00
     1_2_V: 0x01
   PSYS_RATIO:
     0_25_UA_PER_W: 0x00
-    0_5_UA_PER_W: 0x01
+    1_UA_PER_W: 0x01
   SENSE_RESISTANCE_MOHM:
     "10": 0x00
     "20": 0x01
-  PROTCHOT_LWPWR_MODE:
+  PROCHOT_LWPWR_MODE:
     DISABLE: 0x00
     EN_EDCHG: 0x01
     EN_VSYS: 0x02
@@ -712,6 +712,7 @@ formats:
   CHARGE_CURRENT_MA:
     lsb: 64
     signed: false
+    offset: 64
   CHARGE_VOLTAGE_MV:
     lsb: 256
     signed: false

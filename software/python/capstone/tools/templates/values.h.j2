@@ -16,7 +16,7 @@ typedef enum {
     {% if loop.first %} = {{ enum }}_FIRST{% endif %},
 {% endfor %}
     {{ enum }}_COUNT
-} value_{{ enum.lower() }}_t;
+} {{ enum.lower() }}_t;
 {% endfor %}
 
 typedef struct {
@@ -25,12 +25,39 @@ typedef struct {
 {% endfor %}
 } values_t;
 
+typedef enum {
+{% for packet in downlink_packets %}
+    {% if loop.index0 == 0 %}
+    DOWNLINK_PACKET_FIRST = 0,
+    DOWNLINK_PACKET_{{ loop.index0 }} = DOWNLINK_PACKET_FIRST,
+    {% else %}
+    DOWNLINK_PACKET_{{ loop.index0 }},
+    {% endif %}
+{% endfor %}
+    DOWNLINK_PACKET_COUNT,
+} downlink_packet_t;
+
+typedef enum {
+{% for packet in uplink_packets %}
+    {% if loop.index0 == 0 %}
+    UPLINK_PACKET_FIRST = 0,
+    UPLINK_PACKET_{{ loop.index0 }} = UPLINK_PACKET_FIRST,
+    {% else %}
+    UPLINK_PACKET_{{ loop.index0 }},
+    {% endif %}
+{% endfor %}
+    UPLINK_PACKET_COUNT,
+} uplink_packet_t;
+
+{% for packet in downlink_packets %}
+{{ value_macro.pack_packet_sig(loop.index0) }};
+{% endfor %}
+
+{% for packet in uplink_packets %}
+{{ value_macro.unpack_packet_sig(loop.index0) }};
+{% endfor %}
+
+void pack_downlink_packet(downlink_packet_t packet, uint8_t* buffer);
+
 extern values_t values;
-{% for packet in telem.keys() %}
-extern uint8_t* {{packet.lower()}};
-{% endfor %}
-
-
-{% for packet, packet_values in telem.items() %}
-{{ value_macro.pack_packet_sig(packet) }};
-{% endfor %}
+extern uint8_t downlink_packet_lengths[DOWNLINK_PACKET_COUNT];

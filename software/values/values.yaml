@@ -1,4 +1,136 @@
 values:
+  DRONE_STATE:
+    origin: drone
+    display: Drone State
+    type:
+      base: enum
+      name: DRONE_STATE
+  TASK_1MS_TIME:
+    origin: drone
+    display: 1 ms Task Time
+    unit: ms
+    type:
+      base: decimal
+      min: 0
+      max: 10
+      lsb: 0.001
+    unit: ms
+  TASK_10MS_TIME:
+    origin: drone
+    display: 10 ms Task Time
+    unit: ms
+    type:
+      base: decimal
+      min: 0
+      max: 100
+      lsb: 0.01
+    unit: ms
+  TASK_100MS_TIME:
+    origin: drone
+    display: 100 ms Task Time
+    unit: ms
+    type:
+      base: decimal
+      min: 0
+      max: 1000
+      lsb: 0.1
+    unit: ms
+  TASK_1000MS_TIME:
+    origin: drone
+    display: 1000 ms Task Time
+    unit: ms
+    type:
+      base: int
+      min: 0
+      max: 10000
+      lsb: 1
+      hex: false
+    unit: ms
+
+  DEBUG_32_FL:
+    origin: drone
+    display: Debug 32 FL
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+  DEBUG_32_FR:
+    origin: drone
+    display: Debug 32 FR
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+  DEBUG_32_RL:
+    origin: drone
+    display: Debug 32 RL
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+  DEBUG_32_RR:
+    origin: drone
+    display: Debug 32 RR
+    type:
+      base: int
+      min: 0
+      max: 4294967295
+      lsb: 1
+      hex: true
+
+##########################
+##### CONTROL INPUTS #####
+##########################
+
+  THROTTLE:
+    origin: ground
+    display: Vertical Throttle
+    type:
+      base: decimal
+      min: 0
+      max: 1
+      lsb: 0.01
+  PITCH:
+    origin: ground
+    display: Pitch
+    type:
+      base: decimal
+      min: -1
+      max: 1
+      lsb: 0.01
+  ROLL:
+    origin: ground
+    display: Roll
+    type:
+      base: decimal
+      min: -1
+      max: 1
+      lsb: 0.01
+  YAW:
+    origin: ground
+    display: Yaw
+    type:
+      base: decimal
+      min: -1
+      max: 1
+      lsb: 0.01
+  IGNITION:
+    origin: ground
+    display: Ignition
+    type:
+      base: bool
+  SLEEP_REQUEST:
+    origin: ground
+    display: Sleep Request
+    type:
+      base: bool
+
 
 ###############################
 ##### TEMPERATURE SENSORS #####
@@ -191,41 +323,41 @@ values:
 ##### GPS READINGS #####
 ########################
 
-  LATITUDE:
+  DRONE_LATITUDE:
     origin: drone
-    display: Latitude
+    display: Drone Latitude
     type:
       base: decimal
       min: -90
       max: 90
       lsb: 0.00001
-  LONGITUDE:
+  DRONE_LONGITUDE:
     origin: drone
-    display: Longitude
+    display: Drone Longitude
     type:
       base: decimal
       min: 0
       max: 180
       lsb: 0.00001
-  UTC_TIME_H:
+  DRONE_UTC_TIME_H:
     origin: drone
-    display: UTC Time
+    display: Drone UTC Hours
     type:
       base: int
       hex: false
       min: 0
       max: 23
-  UTC_TIME_M:
+  DRONE_UTC_TIME_M:
     origin: drone
-    display: UTC Time
+    display: Drone UTC Minutes
     type:
       base: int
       hex: false
       min: 0
       max: 59
-  UTC_TIME_S:
+  DRONE_UTC_TIME_S:
     origin: drone
-    display: UTC Time
+    display: Drone UTC Seconds
     type:
       base: int
       hex: false
@@ -335,9 +467,9 @@ values:
     display: BMS Current
     type:
       base: decimal
-      min: -20
-      max: 20
-      lsb: 0.01
+      min: -30
+      max: 10
+      lsb: 0.0001
     unit: A
     conditions:
       warning:
@@ -353,11 +485,11 @@ values:
 
   CHARGE_INPUT_CURRENT:
     origin: drone
-    display: Charge Current
+    display: Charge Input Current
     type:
       base: decimal
       min: 0
-      max: 2
+      max: 1
       lsb: 0.01
     unit: A
     conditions:
@@ -367,25 +499,20 @@ values:
         - over: 1.2
   CHARGE_INPUT_VOLTAGE:
     origin: drone
-    display: Charge Voltage
+    display: Charge Input Voltage
     type:
       base: decimal
       min: 0
-      max: 20
+      max: 8
       lsb: 0.01
     unit: V
     conditions:
       warning:
         - over: 5.2
-        - under: 4.7
+        - under: 0
       critical:
         - over: 5.3
-        - under: 4.4
-  CHARGE_STATE:
-    origin: drone
-    display: Charge State
-    type:
-      base: boolean
+        - under: 0
   CHARGE_OUTPUT_VOLTAGE:
     origin: drone
     display: Charge Output Voltage
@@ -416,6 +543,41 @@ values:
         - over: 0.3
       critical:
         - over: 0.5
+  CHARGE_INPUT_PRESENT:
+    origin: drone
+    display: Charge State
+    type:
+      base: bool
+  CHARGE_FAULT:
+    origin: drone
+    display: Charger Fault
+    type:
+      base: bool
+
+###############################
+##### BASE STATION VALUES #####
+###############################
+
+  BASE_LATITUDE:
+    origin: drone
+    display: Drone Latitude
+    type:
+      base: decimal
+      min: -90
+      max: 90
+      lsb: 0.00001
+  BASE_LONGITUDE:
+    origin: drone
+    display: Drone Longitude
+    type:
+      base: decimal
+      min: 0
+      max: 180
+      lsb: 0.00001
+
+############################
+##### ENUM DEFINITIONS #####
+############################
 
 enums:
   DRONE_STATE:
@@ -424,3 +586,57 @@ enums:
     - IDLE
     - STARTUP
     - FLIGHT
+
+
+############################
+##### WATCH CATEGORIES #####
+############################
+
+categories:
+  TEMPERATURE:
+    - QI_TEMP
+    - HP_TEMP
+    - BMS_TEMP
+    - MCU_TEMP
+  POWER:
+    - DRONE_STATE
+    - LV_3V3_CURRENT
+    - LV_5V0_CURRENT
+    - MOTOR_FL_CURRENT
+    - MOTOR_FR_CURRENT
+    - MOTOR_RL_CURRENT
+    - MOTOR_RR_CURRENT
+    - BMS_CURRENT
+
+    - CELL1_VOLTAGE
+    - CELL2_VOLTAGE
+    - CELL3_VOLTAGE
+    - CELL4_VOLTAGE
+    - BATTERY_VOLTAGE
+
+    - CHARGE_INPUT_CURRENT
+    - CHARGE_INPUT_VOLTAGE
+    - CHARGE_OUTPUT_CURRENT
+    - CHARGE_OUTPUT_VOLTAGE
+    - CHARGE_INPUT_PRESENT
+    - CHARGE_FAULT
+  GPS:
+    - DRONE_LATITUDE
+    - DRONE_LONGITUDE
+    - DRONE_UTC_TIME_H
+    - DRONE_UTC_TIME_M
+    - DRONE_UTC_TIME_S
+  IMU:
+    - XL_X
+    - XL_Y
+    - XL_Z
+  STATE:
+    - DRONE_STATE
+    - THROTTLE
+    - IGNITION
+    - SLEEP_REQUEST
+  TASKS:
+    - TASK_1MS_TIME
+    - TASK_10MS_TIME
+    - TASK_100MS_TIME
+    - TASK_1000MS_TIME

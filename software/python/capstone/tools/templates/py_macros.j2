@@ -1,0 +1,65 @@
+{% macro block_comment(text) -%}
+# {{ '▄' * 60 }}
+# {{ ':' * (28 - text|length // 2) }}  {{ text }}  {{ ':' * ((28 if text|length % 2 == 0 else 27) - text|length // 2) }}
+# {{ '▀' * 60 }}
+{%- endmacro %}
+
+{% macro address(dev, reg) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_ADDRESS
+{%- endmacro %}
+
+{% macro reg_size(dev, reg) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_SIZE
+{%- endmacro %}
+
+{% macro offset(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_OFFSET
+{%- endmacro %}
+
+{% macro field_size(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_SIZE
+{%- endmacro %}
+
+{% macro mask(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_MASK
+{%- endmacro %}
+
+{% macro lsb(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_LSB
+{%- endmacro %}
+
+{% macro fmt_offset(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_FMT_OFFSET
+{%- endmacro %}
+
+{% macro get(dev, reg, field) -%}
+{{ dev.upper() }}_GET_{{ reg.upper() }}_{{ field.upper() }}
+{%- endmacro %}
+
+{% macro get_fmt(dev, reg, field) -%}
+{{ dev.upper() }}_GET_{{ reg.upper() }}_{{ field.upper() }}_FMT
+{%- endmacro %}
+
+{% macro set(dev, reg, field) -%}
+{{ dev.upper() }}_SET_{{ reg.upper() }}_{{ field.upper() }}
+{%- endmacro %}
+
+{% macro set_fmt(dev, reg, field) -%}
+{{ dev.upper() }}_SET_{{ reg.upper() }}_{{ field.upper() }}_FMT
+{%- endmacro %}
+
+{% macro type(dev, reg, field) -%}
+{{ dev.upper() }}_{{ reg.upper() }}_{{ field.upper() }}_TYPE
+{%- endmacro %}
+
+{% macro tx_size(driver, cmd) -%}
+{{ driver.upper() }}_{{ cmd.upper() }}_TX_SIZE
+{%- endmacro %}
+
+{% macro rx_size(driver, cmd) -%}
+{{ driver.upper() }}_{{ cmd.upper() }}_RX_SIZE
+{%- endmacro %}
+
+{% macro xfer_size(driver, cmd) -%}
+{{ driver.upper() }}_{{ cmd.upper() }}_XFER_SIZE
+{%- endmacro %}
