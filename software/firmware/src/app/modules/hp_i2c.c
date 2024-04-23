@@ -281,10 +281,6 @@ static void run_100ms(uint32_t cycle) {
             mct8329a_write_32(addr, MCT8329A_ALGO_CTRL1_ADDRESS, reg32);
         }
     }
-    values.debug_32_fl = mct8329a_read_32(I2C_ADDRESS_MTR_FL, 0xe0);
-    values.debug_32_fr = mct8329a_read_32(I2C_ADDRESS_MTR_FR, 0xe0);
-    values.debug_32_rl = mct8329a_read_32(I2C_ADDRESS_MTR_RL, 0xe0);
-    values.debug_32_rr = mct8329a_read_32(I2C_ADDRESS_MTR_RR, 0xe0);
 
     set_tca9539_output_port_0(
         &reg8, get_iox_gpio_output_state(IOX_PWR, IOX_PORT_0, IOX_PIN_0),

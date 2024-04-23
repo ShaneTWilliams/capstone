@@ -23,7 +23,7 @@ static uint32_t cycles_1000ms = 0UL;
 static module_t* modules[] = {
     &usb_module, &adc_module, &indication_module, &lp_i2c_module, &imu_module, &gps_module,
     &radio_module,
-    &hp_i2c_module, &motor_module, &state_module
+    &hp_i2c_module, &state_module //&motor_module, 
     // &dma_module
 };
 

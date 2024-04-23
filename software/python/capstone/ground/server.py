@@ -14,7 +14,7 @@ from capstone.values import CurrentValues, ValueTag, VALUE_CONFIGS
 from google.protobuf.empty_pb2 import Empty
 from capstone.ground.radio import SX1262Radio
 from capstone.tools.usb import send_request
-from capstone.ground.io import CapstoneGPIO, CapstoneSPI, CapstonePin, GPS_UART_DEV, GPS_UART_BAUD
+# from capstone.ground.io import CapstoneGPIO, CapstoneSPI, CapstonePin, GPS_UART_DEV, GPS_UART_BAUD
 
 current_values = CurrentValues()
 
@@ -22,8 +22,8 @@ current_values = CurrentValues()
 class BaseStation:
     def __init__(self):
         self.thread_funcs = [
-            self.radio_thread_func,
-            self.gps_thread_func,
+            # self.radio_thread_func,
+            # self.gps_thread_func,
             self.usb_thread_func
         ]
         self.running = True

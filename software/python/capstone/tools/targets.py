@@ -290,6 +290,8 @@ def proto():
     for proto_file in os.listdir(PROTO_DIR):
         proto_helper(os.path.join(PROTO_DIR, proto_file))
     python_server_cmd = [
+        "python",
+        "-m"
         "grpc_tools.protoc",
         f"-I{PROTO_DIR}",
         f"-I{NANOPB_PROTO_DIR}",
@@ -301,12 +303,8 @@ def proto():
         GROUND_PROTO_FILE,
     ]
 
-    click.secho("Running " + " ".join(python_server_cmd), bold=True)
-    if grpc_main(python_server_cmd) == 0:
-        click.secho("Successfully generated GRPC proto code", bold=True, fg="green")
-    else:
-        click.secho("Failed to generate GRPC proto code", bold=True, fg="red")
-        return
+    run_cmd(python_server_cmd, "Failed to generate Python server code")
+
     for proto_file in [GROUND_PROTO_FILE, VALUES_PROTO_FILE]:
         js_client_cmd = [
             GRPC_WEB_PROTOC,

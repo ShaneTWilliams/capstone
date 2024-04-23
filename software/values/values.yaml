@@ -47,43 +47,6 @@ values:
       hex: false
     unit: ms
 
-  DEBUG_32_FL:
-    origin: drone
-    display: Debug 32 FL
-    type:
-      base: int
-      min: 0
-      max: 4294967295
-      lsb: 1
-      hex: true
-  DEBUG_32_FR:
-    origin: drone
-    display: Debug 32 FR
-    type:
-      base: int
-      min: 0
-      max: 4294967295
-      lsb: 1
-      hex: true
-  DEBUG_32_RL:
-    origin: drone
-    display: Debug 32 RL
-    type:
-      base: int
-      min: 0
-      max: 4294967295
-      lsb: 1
-      hex: true
-  DEBUG_32_RR:
-    origin: drone
-    display: Debug 32 RR
-    type:
-      base: int
-      min: 0
-      max: 4294967295
-      lsb: 1
-      hex: true
-
 ##########################
 ##### CONTROL INPUTS #####
 ##########################
@@ -339,30 +302,6 @@ values:
       min: 0
       max: 180
       lsb: 0.00001
-  DRONE_UTC_TIME_H:
-    origin: drone
-    display: Drone UTC Hours
-    type:
-      base: int
-      hex: false
-      min: 0
-      max: 23
-  DRONE_UTC_TIME_M:
-    origin: drone
-    display: Drone UTC Minutes
-    type:
-      base: int
-      hex: false
-      min: 0
-      max: 59
-  DRONE_UTC_TIME_S:
-    origin: drone
-    display: Drone UTC Seconds
-    type:
-      base: int
-      hex: false
-      min: 0
-      max: 59
 
 ########################
 ##### BMS READINGS #####
@@ -623,9 +562,6 @@ categories:
   GPS:
     - DRONE_LATITUDE
     - DRONE_LONGITUDE
-    - DRONE_UTC_TIME_H
-    - DRONE_UTC_TIME_M
-    - DRONE_UTC_TIME_S
   IMU:
     - XL_X
     - XL_Y

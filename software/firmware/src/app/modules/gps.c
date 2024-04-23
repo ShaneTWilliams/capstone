@@ -86,18 +86,6 @@ static void init(void) {
 void parse_gga(void) {
     static char field_buf[MAX_FIELD_SIZE + 1];
 
-    // UTC time.
-    field_buf[2]      = '\0';
-    field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][0];
-    field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][1];
-    values.drone_utc_time_h = atoi(field_buf);
-    field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][2];
-    field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][3];
-    values.drone_utc_time_m = atoi(field_buf);
-    field_buf[0]      = sentence_fields[FIELD_INDEX_GGA_TIME][4];
-    field_buf[1]      = sentence_fields[FIELD_INDEX_GGA_TIME][5];
-    values.drone_utc_time_s = atoi(field_buf);
-
     // Latitude.
     field_buf[9] = '\0';
     memcpy(field_buf, sentence_fields[FIELD_INDEX_GGA_LATITUDE], 2);
